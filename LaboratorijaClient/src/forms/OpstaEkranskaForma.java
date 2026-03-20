@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author totic
  */
 public abstract class OpstaEkranskaForma extends JFrame{
-    protected abstract OpstiDomenskiObjekat vratiPodatkeForme();
+
     protected abstract void popuniFormu(OpstiDomenskiObjekat odo);
     protected abstract void ocistiFormu();
     

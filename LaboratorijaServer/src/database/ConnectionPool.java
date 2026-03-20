@@ -11,7 +11,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import server.ConfigReader;
+import util.ConfigReader;
 
 public class ConnectionPool {
     private static final Logger LOGGER =  Logger.getLogger(ConnectionPool.class.getName());

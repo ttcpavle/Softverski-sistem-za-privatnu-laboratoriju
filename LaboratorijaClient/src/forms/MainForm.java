@@ -34,6 +34,7 @@ public class MainForm extends OpstaEkranskaForma{
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +46,9 @@ public class MainForm extends OpstaEkranskaForma{
 
         jMenu3.setText("Proizvod");
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("Radnik");
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -67,13 +71,10 @@ public class MainForm extends OpstaEkranskaForma{
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 
-    @Override
-    protected OpstiDomenskiObjekat vratiPodatkeForme() {
-        return null;
-    }
 
     @Override
     protected void popuniFormu(OpstiDomenskiObjekat odo) {

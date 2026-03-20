@@ -10,6 +10,7 @@ import communication.Response;
 import communication.Sender;
 import java.io.IOException;
 import java.net.Socket;
+import util.ConfigReader;
 
 /**
  *
@@ -23,7 +24,9 @@ public class Connection {
 
     public Connection() {
         try {
-            this.socket = new Socket("localhost", 9090);
+            String ip = ConfigReader.getInstance().getProperty("ip_address");
+            int port = Integer.parseInt(ConfigReader.getInstance().getProperty("port"));
+            this.socket = new Socket(ip,port);
             this.sender = new Sender(socket);
             this.receiver = new Receiver(socket);
         } catch (IOException ex) {

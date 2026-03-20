@@ -5,7 +5,10 @@
 package main;
 
 import connection.Connection;
+import controller.PrijavaRadnikKontroler;
 import forms.MainForm;
+import forms.PrijavaRadnikForm;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,15 +17,17 @@ import forms.MainForm;
 public class Main {
 
     public static void main(String[] args) {
-        // kreiranje svih kontrolera
-        // kreiranje svih formi sa prosledjenim kontrolerom
-        MainForm form = new MainForm();
-        form.setLocationRelativeTo(null);
-        form.setVisible(true);
-        // pokusaj kreiranja konekcije odmah na pocetku. Korisnik ce odmah dobiti informaciju o konekciji preko forme
-        if(Connection.getInstance().getSocket() == null){
-            form.prikaziErrorPane("Neuspesna konekcija sa serverom. Kontaktirajte administratora.", null);
+        if (Connection.getInstance().getSocket() == null) {
+            JOptionPane.showMessageDialog(null, "Neuspesna konekcija sa serverom. Kontaktirajte administratora", "Greska", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
+
+        PrijavaRadnikForm forma = new PrijavaRadnikForm();
+        
+        PrijavaRadnikKontroler kontroler = new PrijavaRadnikKontroler(forma);
+        
+        forma.setLocationRelativeTo(null);
+        forma.setVisible(true);
     }
 
 }
