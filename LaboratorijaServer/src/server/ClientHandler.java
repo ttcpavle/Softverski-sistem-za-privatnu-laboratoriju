@@ -17,6 +17,7 @@ import java.net.SocketException;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import operacije.PrijaviRadnika;
 
 /**
  *
@@ -117,7 +118,8 @@ public class ClientHandler extends Thread {
                         break;
 
                     case PRIJAVI_RADNIKA:
-                        // TODO: implementirati
+                        PrijaviRadnika pr = new PrijaviRadnika();
+                        serverResponse = pr.opsteIzvrsenjeSO(argumentObj);
                         break;
 
                     case VRATI_LISTU_RADNIK:

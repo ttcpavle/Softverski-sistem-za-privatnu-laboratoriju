@@ -84,7 +84,7 @@ public class DBBroker implements Repository{
     public boolean pamtiSlog(OpstiDomenskiObjekat odo) {
         try {
             String upit = "INSERT INTO " + odo.vratiImeTabele() + "(" + odo.vratiNaziveKolona() + ") " + " VALUES(" + odo.vratiVrednostiAtributa() + ");";
-            LOGGER.log(Level.FINE, "izvrsavanje upita: " + upit);
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
             Statement st = con.createStatement();
             st.executeUpdate(upit);
             st.close();
@@ -100,7 +100,7 @@ public class DBBroker implements Repository{
     public boolean nadjiSlog(OpstiDomenskiObjekat odo) {
         try {
             String upit = "SELECT * FROM " + odo.vratiImeTabele() + " WHERE " + odo.vratiUslovZaNadjiSlog();
-            LOGGER.log(Level.FINE, "izvrsavanje upita: " + upit);
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
             PreparedStatement ps = con.prepareStatement(upit);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -110,7 +110,7 @@ public class DBBroker implements Repository{
                 return true;
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju nadjiSlog" + ex.getMessage(),ex);
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju nadjiSlog: " + ex.getMessage(),ex);
             rezultat = null;
         }
         return false;
@@ -120,7 +120,7 @@ public class DBBroker implements Repository{
     public boolean vratiSve(OpstiDomenskiObjekat odo) {
         try {
             String upit = "SELECT * FROM " + odo.vratiImeTabele() + " WHERE " + odo.vratiUslovZaNadjiSlog() + ";";
-            LOGGER.log(Level.FINE, "izvrsavanje upita: " + upit);
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
             Statement s = con.createStatement();
             ResultSet rs = s.executeQuery(upit);
             List<OpstiDomenskiObjekat> lista = new ArrayList<>();
@@ -175,7 +175,7 @@ public class DBBroker implements Repository{
             if (whereClause != null && !whereClause.trim().isEmpty()) {
                 upit.append(" WHERE ").append(whereClause);
             }
-            LOGGER.log(Level.FINE, "izvrsavanje upita: " + upit);
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
             PreparedStatement ps = con.prepareStatement(upit.toString());
             ResultSet rs = ps.executeQuery();
             List<OpstiDomenskiObjekat> lista = new ArrayList<>();

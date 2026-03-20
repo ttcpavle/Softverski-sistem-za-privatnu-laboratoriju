@@ -76,10 +76,6 @@ public class MainForm extends OpstaEkranskaForma{
     // End of variables declaration//GEN-END:variables
 
 
-    @Override
-    protected void popuniFormu(OpstiDomenskiObjekat odo) {
-        
-    }
 
     @Override
     protected void ocistiFormu() {

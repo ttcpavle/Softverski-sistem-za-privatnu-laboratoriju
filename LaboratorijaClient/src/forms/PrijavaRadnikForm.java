@@ -5,6 +5,7 @@
 package forms;
 
 import domen.OpstiDomenskiObjekat;
+import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -37,6 +38,7 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        login = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +47,8 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
         jLabel2.setText("Lozinka");
 
         jLabel3.setText("Prijava na sistem");
+
+        login.setText("uloguj se");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,22 +60,25 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
                         .addGap(139, 139, 139)
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(31, 31, 31)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(korisnickoIme)
-                            .addComponent(lozinka, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(login)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(korisnickoIme)
+                                    .addComponent(lozinka, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(korisnickoIme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
@@ -79,7 +86,9 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lozinka, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(31, 31, 31))
+                .addGap(26, 26, 26)
+                .addComponent(login)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -91,37 +100,36 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField korisnickoIme;
+    private javax.swing.JButton login;
     private javax.swing.JPasswordField lozinka;
     // End of variables declaration//GEN-END:variables
 
 
-
-    @Override
-    protected void popuniFormu(OpstiDomenskiObjekat odo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
     @Override
     protected void ocistiFormu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
     }
 
-    // GETTERI/SETTERI
-    
-    public JTextField getKorisnickoIme() {
-        return korisnickoIme;
+// U klasi PrijavaRadnikForm
+    public String getKorisnickoImeText() {
+        return korisnickoIme.getText();
     }
 
-    public void setKorisnickoIme(JTextField korisnickoIme) {
-        this.korisnickoIme = korisnickoIme;
+    public void setKorisnickoImeText(String tekst) {
+        korisnickoIme.setText(tekst);
     }
 
-    public JPasswordField getLozinka() {
-        return lozinka;
+    public String getLozinkaText() {
+        
+        return new String(lozinka.getPassword());
     }
 
-    public void setLozinka(JPasswordField lozinka) {
-        this.lozinka = lozinka;
+    public void setLozinkaText(String tekst) {
+        lozinka.setText(tekst);
+    }
+
+    public JButton getLogin() {
+        return login;
     }
     
     

@@ -39,7 +39,7 @@ public abstract class OpstaSO {
 
     }
 
-    protected abstract Response preduslovi(OpstiDomenskiObjekat odo, DBBroker dbb);
+    protected abstract Exception preduslovi(OpstiDomenskiObjekat odo, DBBroker dbb);
     protected abstract Response izvrsenjeSO(OpstiDomenskiObjekat odo, DBBroker dbb);
 
 }

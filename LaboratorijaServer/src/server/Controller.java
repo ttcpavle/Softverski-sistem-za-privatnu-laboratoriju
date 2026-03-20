@@ -12,6 +12,7 @@ import domen.Radnik;
 import domen.TipUsluge;
 import domen.ZahtevZaAnalizu;
 import java.util.List;
+import operacije.PrijaviRadnika;
 
 /**
  *
@@ -99,7 +100,8 @@ public class Controller {
     }
 
     public Response PrijaviRadnik(String korisnickoIme, String sifra) {
-        return null;
+        PrijaviRadnika pr = new PrijaviRadnika();
+        return pr.opsteIzvrsenjeSO(null);
     }
 
     public Response vratiListuRadnikPoKriterijumuRadnik(Radnik kriterijum) {
