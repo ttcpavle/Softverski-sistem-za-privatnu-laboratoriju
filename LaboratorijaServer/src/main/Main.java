@@ -16,7 +16,6 @@ import server.Server;
 public class Main {
     public static void main(String[] args){
         LogSystem.setup();
-        Server server = new Server();
         ServerForm forma = new ServerForm();
         forma.setLocationRelativeTo(null);
         forma.setVisible(true);

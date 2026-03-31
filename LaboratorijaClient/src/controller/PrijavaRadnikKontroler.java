@@ -6,7 +6,7 @@ import communication.Response;
 import domen.OpstiDomenskiObjekat;
 import domen.Radnik;
 import forms.MainForm;
-import forms.OpstaEkranskaForma;
+import domen.OpstaEkranskaForma;
 import forms.PrijavaRadnikForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

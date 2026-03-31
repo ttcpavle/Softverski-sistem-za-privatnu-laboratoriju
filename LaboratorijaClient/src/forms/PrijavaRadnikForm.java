@@ -4,6 +4,7 @@
  */
 package forms;
 
+import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 import javax.swing.JButton;
 import javax.swing.JPasswordField;

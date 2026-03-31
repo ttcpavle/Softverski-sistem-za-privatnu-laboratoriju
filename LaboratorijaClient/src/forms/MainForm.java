@@ -4,6 +4,7 @@
  */
 package forms;
 
+import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 
 /**
@@ -32,6 +33,7 @@ public class MainForm extends OpstaEkranskaForma{
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -39,6 +41,21 @@ public class MainForm extends OpstaEkranskaForma{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("Zahtev za analizu");
+        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu1ActionPerformed(evt);
+            }
+        });
+
+        jRadioButtonMenuItem1.setSelected(true);
+        jRadioButtonMenuItem1.setText("Zahtev za analizu");
+        jRadioButtonMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jRadioButtonMenuItem1);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Kupac");
@@ -66,6 +83,20 @@ public class MainForm extends OpstaEkranskaForma{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+
+        System.out.println("KLIKNUTO");
+    }//GEN-LAST:event_jMenu1ActionPerformed
+
+    private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        ZahtevZaAnalizuForm f = new ZahtevZaAnalizuForm();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+        
+  
+    }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -73,6 +104,7 @@ public class MainForm extends OpstaEkranskaForma{
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
     // End of variables declaration//GEN-END:variables
 
 

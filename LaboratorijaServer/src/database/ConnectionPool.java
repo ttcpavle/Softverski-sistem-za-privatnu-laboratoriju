@@ -16,6 +16,7 @@ import util.ConfigReader;
 public class ConnectionPool {
     private static final Logger LOGGER =  Logger.getLogger(ConnectionPool.class.getName());
     
+    private static boolean inicijalizovan = false;
     private static ConnectionPool instance;
     private BlockingQueue<Connection> slobodneKonekcije;
     private final int MAX_KONEKCIJA;
@@ -31,8 +32,13 @@ public class ConnectionPool {
         PASS = cr.getProperty("db_pass");
         
         slobodneKonekcije = new LinkedBlockingQueue<>(MAX_KONEKCIJA);
-        inicijalizujPool();
-        LOGGER.log(Level.INFO, "Kreiran connection pool");
+        try{
+            inicijalizujPool();
+            LOGGER.log(Level.INFO, "Kreiran connection pool");
+        }catch(Exception e){
+            LOGGER.log(Level.SEVERE, "Greska pri povezivanju sa bazom: " + e.getMessage(), e);
+        }
+        
     }
     
     // singleton connection pool
@@ -43,7 +49,7 @@ public class ConnectionPool {
         return instance;
     }
     
-    private void inicijalizujPool() {
+    private void inicijalizujPool() throws SQLException {
         // pocetnih 5 konekcija
         for (int i = 0; i < 5; i++) {
             try {
@@ -51,10 +57,12 @@ public class ConnectionPool {
                 con.setAutoCommit(false);
                 slobodneKonekcije.offer(con);
             } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, e.getMessage(), e);
+                inicijalizovan = false;
+                throw e;
                 
             }
         }
+        inicijalizovan = true;
     }
     
     // Daj konekciju klijentu
@@ -79,4 +87,10 @@ public class ConnectionPool {
             }
         }
     }
+
+    public static boolean isInicijalizovan() {
+        return inicijalizovan;
+    }
+    
+    
 }

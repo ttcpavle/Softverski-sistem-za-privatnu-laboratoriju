@@ -9,7 +9,7 @@ import communication.Request;
 import communication.Response;
 import connection.Connection;
 import domen.OpstiDomenskiObjekat;
-import forms.OpstaEkranskaForma;
+import domen.OpstaEkranskaForma;
 
 /**
  *

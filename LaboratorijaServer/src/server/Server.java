@@ -6,6 +6,8 @@ package server;
 
 import util.ConfigReader;
 import communication.Response;
+import database.ConnectionPool;
+import forms.ServerForm;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,6 +26,7 @@ public class Server extends Thread{
     private ServerSocket serverSocket;
     private List<ClientHandler> clients = new ArrayList<>(); // ne static lista jer vise threadova bi brisalo elemente liste, NIJE SAFE
     private final int PORT;
+    private ServerForm serverForm;
     
     public Server(){
         ConfigReader cr = new ConfigReader();
@@ -33,8 +36,7 @@ public class Server extends Thread{
             LOGGER.log(Level.INFO, "Neuspesno procitana konfiguracija. Podesen port 9000 za slusanje.");
         }else{
             PORT = Integer.parseInt(port);
-        }       
-        
+        }    
     }
     
     @Override
@@ -54,6 +56,16 @@ public class Server extends Thread{
         }
     }
     
+    public boolean proveriKonekcijuSaBazom(){
+        ConnectionPool.getInstance();
+        if(ConnectionPool.isInicijalizovan()){
+            return true;
+        }else{
+            if(serverForm != null)
+                serverForm.prikaziErrorPane("Neuspesna veza sa bazom", null);
+            return false;
+        }        
+    }
 
     public void zaustavi() {
         interrupt(); // interruptuje se accept funkcija
@@ -80,6 +92,16 @@ public class Server extends Thread{
             clients.remove(client);
         }        
     }
+
+    public ServerForm getServerForm() {
+        return serverForm;
+    }
+
+    public void setServerForm(ServerForm serverForm) {
+        this.serverForm = serverForm;
+    }
+    
+    
     
 }
 

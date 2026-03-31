@@ -4,6 +4,7 @@
  */
 package forms;
 
+import domen.OpstaEkranskaForma;
 import java.awt.Color;
 import server.Server;
 
@@ -11,7 +12,7 @@ import server.Server;
  *
  * @author totic
  */
-public class ServerForm extends javax.swing.JFrame {
+public class ServerForm extends OpstaEkranskaForma {
     
     //private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(ServerForm.class.getName());
     private Server server;
@@ -85,8 +86,11 @@ public class ServerForm extends javax.swing.JFrame {
     private void pokreniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pokreniActionPerformed
         // TODO add your handling code here:
         server = new Server();
-        server.start();
-        osveziStatusLabel(true);
+        server.setServerForm(this);
+        server.start(); 
+        boolean success = server.proveriKonekcijuSaBazom();
+        if(success)
+            osveziStatusLabel(true);
 
     }//GEN-LAST:event_pokreniActionPerformed
 
@@ -111,5 +115,10 @@ public class ServerForm extends javax.swing.JFrame {
             statusLabel.setText("STATUS: ZAUSTAVLJEN");
             statusLabel.setForeground(Color.red);            
         }
+    }
+
+    @Override
+    protected void ocistiFormu() {
+        return;
     }
 }
