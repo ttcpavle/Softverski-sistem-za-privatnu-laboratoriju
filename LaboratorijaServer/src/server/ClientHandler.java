@@ -9,7 +9,13 @@ import communication.Receiver;
 import communication.Request;
 import communication.Response;
 import communication.Sender;
+import domen.Kupac;
+import domen.Mesto;
 import domen.OpstiDomenskiObjekat;
+import domen.Proizvod;
+import domen.Radnik;
+import domen.TipUsluge;
+import domen.ZahtevZaAnalizu;
 import java.io.IOException;
 
 import java.net.Socket;
@@ -18,6 +24,8 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import operacije.PrijaviRadnika;
+import operacije.VratiListuSviKupac;
+import operacije.VratiListuSviRadnik;
 
 /**
  *
@@ -40,6 +48,7 @@ public class ClientHandler extends Thread {
 
     @Override
     public void run() {
+        Controller c = new Controller();
         while (!isInterrupted()) {
             try {
                 Request requestObj = null;
@@ -56,155 +65,171 @@ public class ClientHandler extends Thread {
                 switch (op) {
                     // ===== ZAHTEV ZA ANALIZU =====
                     case KREIRAJ_ZAHTEV_ZA_ANALIZU:
-                        // TODO: implementirati
+                        serverResponse = c.KreirajZahtevZaAnalizu((ZahtevZaAnalizu) argumentObj);
                         break;
-
+ 
                     case PROMENI_ZAHTEV_ZA_ANALIZU:
-                        // TODO: implementirati
+                        serverResponse = c.PromeniZahtevZaAnalizu((ZahtevZaAnalizu) argumentObj);
                         break;
-
+ 
                     case OBRISI_ZAHTEV_ZA_ANALIZU:
-                        // TODO: implementirati
+                        //serverResponse = c.ObrisiZahtevZaAnalizu((ZahtevZaAnalizu) argumentObj);
                         break;
-
+ 
                     case PRETRAZI_ZAHTEV_ZA_ANALIZU:
-                        // TODO: implementirati
+                        serverResponse = c.PretraziZahtevZaAnalizu((ZahtevZaAnalizu) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_ZAHTEV_ZA_ANALIZU:
-                        // TODO: implementirati
-                        break;
 
+                        if (argumentObj instanceof Radnik) {
+                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuRadnik((Radnik) argumentObj);
+                        } else if (argumentObj instanceof Kupac) {
+                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuKupac((Kupac) argumentObj);
+                        } else if (argumentObj instanceof Proizvod) {
+                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuProizvod((Proizvod) argumentObj);
+                        } else {
+                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuZahtev((ZahtevZaAnalizu) argumentObj);
+                        }
+                        break;
+ 
                     // ===== KUPAC =====
                     case KREIRAJ_KUPCA:
-                        // TODO: implementirati
+                        serverResponse = c.KreirajKupac((Kupac) argumentObj);
                         break;
-
+ 
                     case PROMENI_KUPCA:
-                        // TODO: implementirati
+                        serverResponse = c.PromeniKupac((Kupac) argumentObj);
                         break;
-
+ 
                     case OBRISI_KUPCA:
-                        // TODO: implementirati
+                        serverResponse = c.ObrisiKupac((Kupac) argumentObj);
                         break;
-
+ 
                     case PRETRAZI_KUPCA:
-                        // TODO: implementirati
+                        serverResponse = c.PretraziKupac((Kupac) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_KUPAC:
-                        // TODO: implementirati
+                        if (argumentObj instanceof Mesto) {
+                            serverResponse = c.vratiListuKupacPoKriterijumuMesto((Mesto) argumentObj);
+                        } else {
+                            serverResponse = c.vratiListuKupacPoKriterijumuKupac((Kupac) argumentObj);
+                        }
                         break;
-
+ 
                     case VRATI_LISTU_SVI_KUPAC:
-                        // TODO: implementirati
+                        serverResponse = c.vratiListuSviKupac();
                         break;
-
+ 
                     // ===== RADNIK =====
                     case KREIRAJ_RADNIKA:
-                        // TODO: implementirati
+                        //serverResponse = c.KreirajRadnik((Radnik) argumentObj);
                         break;
-
+ 
                     case PROMENI_RADNIKA:
-                        // TODO: implementirati
+                        //serverResponse = c.PromeniRadnik((Radnik) argumentObj);
                         break;
-
+ 
                     case OBRISI_RADNIKA:
-                        // TODO: implementirati
+                        //serverResponse = c.ObrisiRadnik((Radnik) argumentObj);
                         break;
-
+ 
                     case PRETRAZI_RADNIKA:
-                        // TODO: implementirati
+                        //serverResponse = c.PretraziRadnik((Radnik) argumentObj);
                         break;
-
+ 
                     case PRIJAVI_RADNIKA:
-                        PrijaviRadnika pr = new PrijaviRadnika();
-                        serverResponse = pr.opsteIzvrsenjeSO(argumentObj);
+                        serverResponse = c.PrijaviRadnik((Radnik) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_RADNIK:
-                        // TODO: implementirati
+//                        if (argumentObj instanceof TipUsluge) {
+//                            serverResponse = c.vratiListuRadnikPoKriterijumuTipUsluge((TipUsluge) argumentObj);
+//                        } else {
+//                            serverResponse = c.vratiListuRadnikPoKriterijumuRadnik((Radnik) argumentObj);
+//                        }
                         break;
-
+ 
                     case VRATI_LISTU_SVI_RADNIK:
-                        // TODO: implementirati
+                        serverResponse = c.vratiListuSviRadnik();
                         break;
-
+ 
                     // ===== PROIZVOD =====
                     case UBACI_PROIZVOD:
-                        // TODO: implementirati
+                        serverResponse = c.UbaciProizvod((Proizvod) argumentObj);
                         break;
-
+ 
                     case PROMENI_PROIZVOD:
-                        // TODO: implementirati
+                        //serverResponse = c.PromeniProizvod((Proizvod) argumentObj);
                         break;
-
+ 
                     case OBRISI_PROIZVOD:
-                        // TODO: implementirati
+                        //serverResponse = c.ObrisiProizvod((Proizvod) argumentObj);
                         break;
-
+ 
                     case PRETRAZI_PROIZVOD:
-                        // TODO: implementirati
+                        serverResponse = c.PretraziProizvod((Proizvod) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_PROIZVOD:
-                        // TODO: implementirati
+                        serverResponse = c.vratiListuProizvodPoKriterijumuProizvod((Proizvod) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_SVI_PROIZVOD:
-                        // TODO: implementirati
+                        serverResponse = c.vratiListuSviProizvod();
                         break;
-
+ 
                     // ===== MESTO =====
                     case UBACI_MESTO:
-                        // TODO: implementirati
+                        //serverResponse = c.UbaciMesto((Mesto) argumentObj);
                         break;
-
+ 
                     case PROMENI_MESTO:
-                        // TODO: implementirati
+                        //serverResponse = c.PromeniMesto((Mesto) argumentObj);
                         break;
-
+ 
                     case OBRISI_MESTO:
-                        // TODO: implementirati
+                        //serverResponse = c.ObrisiMesto((Mesto) argumentObj);
                         break;
-
+ 
                     case PRETRAZI_MESTO:
-                        // TODO: implementirati
+                        //serverResponse = c.PretraziMesto((Mesto) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_MESTO:
-                        // TODO: implementirati
+                        //serverResponse = c.vratiListuMestoPoKriterijumuMesto((Mesto) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_SVI_MESTO:
-                        // TODO: implementirati
+                        //serverResponse = c.vratiListuSviMesto();
                         break;
-
+ 
                     // ===== TIP USLUGE =====
                     case UBACI_TIP_USLUGE:
-                        // TODO: implementirati
+                        //serverResponse = c.UbaciTipUsluge((TipUsluge) argumentObj);
                         break;
-
+ 
                     case PROMENI_TIP_USLUGE:
-                        // TODO: implementirati
+                        //serverResponse = c.PromeniTipUsluge((TipUsluge) argumentObj);
                         break;
-
+ 
                     case OBRISI_TIP_USLUGE:
-                        // TODO: implementirati
+                        //serverResponse = c.ObrisiTipUsluge((TipUsluge) argumentObj);
                         break;
-
+ 
                     case PRETRAZI_TIP_USLUGE:
-                        // TODO: implementirati
+                        //serverResponse = c.PretraziTipUsluge((TipUsluge) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_TIP_USLUGE:
-                        // TODO: implementirati
+                        //serverResponse = c.vratiListuTipUslugePoKriterijumuTipUsluge((TipUsluge) argumentObj);
                         break;
-
+ 
                     case VRATI_LISTU_SVI_TIP_USLUGE:
-                        // TODO: implementirati
+                        //serverResponse = c.vratiListuSviTipUsluge();
                         break;
-
+ 
                     default:
                         LOGGER.log(Level.INFO, "Nepoznata operacija: " + op);
                         serverResponse = new Response(null, new Exception("Nepoznata operacija: " + op), false);

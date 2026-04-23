@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package server;
 
 import communication.Response;
@@ -11,75 +7,101 @@ import domen.Proizvod;
 import domen.Radnik;
 import domen.TipUsluge;
 import domen.ZahtevZaAnalizu;
-import java.util.List;
+import operacije.KreirajKupac;
+import operacije.KreirajZahtevZaAnalizu;
+import operacije.PromeniKupac;
+import operacije.PromeniProizvod;
+import operacije.PromeniZahtevZaAnalizu;
+import operacije.PretraziKupac;
+import operacije.PretraziProizvod;
+import operacije.PretraziZahtevZaAnalizu;
 import operacije.PrijaviRadnika;
+import operacije.UbaciProizvod;
+import operacije.VratiListuKupacPoKriterijumuMesto;
+import operacije.VratiListuProizvodPoKriterijumuProizvod;
+import operacije.VratiListuSviKupac;
+import operacije.VratiListuSviMesto;
+import operacije.VratiListuSviProizvod;
+import operacije.VratiListuSviRadnik;
+import operacije.VratiListuZahtevZaAnalizu;
 
-/**
- *
- * @author totic
- */
 public class Controller {
 
 // ========== ZAHTEV ZA ANALIZU ==========
     public Response KreirajZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {
-        return null;
+        KreirajZahtevZaAnalizu so = new KreirajZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(zahtev);
     }
 
     public Response PromeniZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {
-        return null;
+        PromeniZahtevZaAnalizu so = new PromeniZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(zahtev);
     }
 
     public Response ObrisiZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {
+        // TODO: implementirati ObrisiZahtevZaAnalizu SO
         return null;
     }
 
     public Response PretraziZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {
-        return null;
+        PretraziZahtevZaAnalizu so = new PretraziZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(zahtev);
     }
 
     public Response vratiListuZahtevZaAnalizuPoKriterijumuZahtev(ZahtevZaAnalizu kriterijum) {
-        return null;
+        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
     public Response vratiListuZahtevZaAnalizuPoKriterijumuRadnik(Radnik kriterijum) {
-        return null;
+        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
     public Response vratiListuZahtevZaAnalizuPoKriterijumuKupac(Kupac kriterijum) {
-        return null;
+        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
     public Response vratiListuZahtevZaAnalizuPoKriterijumuProizvod(Proizvod kriterijum) {
-        return null;
+        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
 // ========== KUPAC ==========
     public Response KreirajKupac(Kupac kupac) {
-        return null;
+        KreirajKupac so = new KreirajKupac();
+        return so.opsteIzvrsenjeSO(kupac);
     }
 
     public Response PromeniKupac(Kupac kupac) {
-        return null;
+        PromeniKupac so = new PromeniKupac();
+        return so.opsteIzvrsenjeSO(kupac);
     }
 
     public Response ObrisiKupac(Kupac kupac) {
+        // TODO: implementirati ObrisiKupac SO
         return null;
     }
 
     public Response PretraziKupac(Kupac kupac) {
-        return null;
+        PretraziKupac so = new PretraziKupac();
+        return so.opsteIzvrsenjeSO(kupac);
     }
 
     public Response vratiListuKupacPoKriterijumuKupac(Kupac kriterijum) {
-        return null;
+        VratiListuSviKupac so = new VratiListuSviKupac();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
     public Response vratiListuKupacPoKriterijumuMesto(Mesto kriterijum) {
-        return null;
+        VratiListuKupacPoKriterijumuMesto so = new VratiListuKupacPoKriterijumuMesto();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
     public Response vratiListuSviKupac() {
-        return null;
+        VratiListuSviKupac so = new VratiListuSviKupac();
+        return so.opsteIzvrsenjeSO(null);
     }
 
 // ========== RADNIK ==========
@@ -99,9 +121,9 @@ public class Controller {
         return null;
     }
 
-    public Response PrijaviRadnik(String korisnickoIme, String sifra) {
+    public Response PrijaviRadnik(Radnik radnik) {
         PrijaviRadnika pr = new PrijaviRadnika();
-        return pr.opsteIzvrsenjeSO(null);
+        return pr.opsteIzvrsenjeSO(radnik);
     }
 
     public Response vratiListuRadnikPoKriterijumuRadnik(Radnik kriterijum) {
@@ -113,32 +135,39 @@ public class Controller {
     }
 
     public Response vratiListuSviRadnik() {
-        return null;
+        VratiListuSviRadnik so = new VratiListuSviRadnik();
+        return so.opsteIzvrsenjeSO(null);
     }
 
 // ========== PROIZVOD ==========
     public Response UbaciProizvod(Proizvod proizvod) {
-        return null;
+        UbaciProizvod so = new UbaciProizvod();
+        return so.opsteIzvrsenjeSO(proizvod);
     }
 
     public Response PromeniProizvod(Proizvod proizvod) {
-        return null;
+        PromeniProizvod so = new PromeniProizvod();
+        return so.opsteIzvrsenjeSO(proizvod);
     }
 
     public Response ObrisiProizvod(Proizvod proizvod) {
+        // TODO: implementirati ObrisiProizvod SO
         return null;
     }
 
     public Response PretraziProizvod(Proizvod proizvod) {
-        return null;
+        PretraziProizvod so = new PretraziProizvod();
+        return so.opsteIzvrsenjeSO(proizvod);
     }
 
     public Response vratiListuProizvodPoKriterijumuProizvod(Proizvod kriterijum) {
-        return null;
+        VratiListuProizvodPoKriterijumuProizvod so = new VratiListuProizvodPoKriterijumuProizvod();
+        return so.opsteIzvrsenjeSO(kriterijum);
     }
 
     public Response vratiListuSviProizvod() {
-        return null;
+        VratiListuSviProizvod so = new VratiListuSviProizvod();
+        return so.opsteIzvrsenjeSO(null);
     }
 
 // ========== MESTO ==========
@@ -163,7 +192,8 @@ public class Controller {
     }
 
     public Response vratiListuSviMesto() {
-        return null;
+        VratiListuSviMesto so = new VratiListuSviMesto();
+        return so.opsteIzvrsenjeSO(null);
     }
 
 // ========== TIP USLUGE ==========

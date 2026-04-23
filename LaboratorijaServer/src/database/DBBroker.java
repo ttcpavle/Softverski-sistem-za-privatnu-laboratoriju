@@ -83,17 +83,23 @@ public class DBBroker implements Repository{
     @Override
     public boolean pamtiSlog(OpstiDomenskiObjekat odo) {
         try {
-            String upit = "INSERT INTO " + odo.vratiImeTabele() + "(" + odo.vratiNaziveKolona() + ") " + " VALUES(" + odo.vratiVrednostiAtributa() + ");";
+            String upit = "INSERT INTO " + odo.vratiImeTabele() + "(" + odo.vratiNaziveKolona() + ") "
+                    + " VALUES(" + odo.vratiVrednostiAtributa() + ");";
             LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
             Statement st = con.createStatement();
-            st.executeUpdate(upit);
+            st.executeUpdate(upit, Statement.RETURN_GENERATED_KEYS);
+            ResultSet generatedKeys = st.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                rezultat = generatedKeys.getInt(1);
+            } else {
+                rezultat = null;
+            }
             st.close();
         } catch (SQLException ex) {
-            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju pamtiSlog" + ex.getMessage(),ex);
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju pamtiSlog" + ex.getMessage(), ex);
             return false;
         }
         return true;
-
     }
 
 
@@ -196,7 +202,89 @@ public class DBBroker implements Repository{
 
     @Override
     public boolean promeniSlog(OpstiDomenskiObjekat odo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        try {
+
+            String upit = "UPDATE " + odo.vratiImeTabele()
+                    + " SET " + odo.vratiVrednostiZaUpdate()
+                    + " WHERE " + odo.vratiNazivKolonePK() + " = " + odo.vratiVrednostPK();
+
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
+            Statement st = con.createStatement();
+            int izmenjenihRedova = st.executeUpdate(upit);
+            st.close();
+
+            if (izmenjenihRedova == 0) {
+                LOGGER.log(Level.WARNING, "Nijedan slog nije izmenjen. Proverite da li slog postoji u bazi.");
+                return false;
+            }
+
+            return true;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju promeniSlog: " + ex.getMessage(), ex);
+            return false;
+        }
+    }
+    
+    
+    /**
+     * Brise jedan slog na osnovu kompozitnog ili prostog PK.
+     * Primer generisanog upita za StavkaZahteva:
+     *   DELETE FROM stavkazahteva WHERE idZahtev=5 AND rbStavka=2
+     * Primer za Kupac:
+     *   DELETE FROM kupac WHERE idKupac=3
+     *
+     * Metoda razlaže vratiNazivKolonePK() i vratiVrednostPK() po zarezima
+     * i gradi WHERE klauzulu sa AND između parova kolona=vrednost.
+     */    
+    @Override
+    public boolean obrisiSlog(OpstiDomenskiObjekat odo) {
+        try {
+            String[] kolone = odo.vratiNazivKolonePK().split(",");
+            String[] vrednosti = odo.vratiVrednostPK().split(",");
+
+            StringBuilder where = new StringBuilder();
+            for (int i = 0; i < kolone.length; i++) {
+                if (i > 0) {
+                    where.append(" AND ");
+                }
+                where.append(kolone[i].trim()).append("=").append(vrednosti[i].trim());
+            }
+
+            String upit = "DELETE FROM " + odo.vratiImeTabele() + " WHERE " + where;
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
+            Statement st = con.createStatement();
+            st.executeUpdate(upit);
+            st.close();
+            return true;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju obrisiSlog: " + ex.getMessage(), ex);
+            return false;
+        }
+    }
+    
+    /**
+     * Brise sve slogove koji zadovoljavaju uslov vratiUslovZaNadjiSlog().
+     * Primer generisanog upita za brisanje svih stavki zahteva sa idZahtev=5:
+     *   DELETE FROM stavkazahteva WHERE idZahtev=5
+     */
+    @Override
+    public boolean obrisiSvePremaUslovu(OpstiDomenskiObjekat odo) {
+        try {
+            String uslov = odo.vratiUslovZaNadjiSlog();
+            if (uslov == null || uslov.equals("1=1")) {
+                LOGGER.log(Level.WARNING, "obrisiSvePremaUslovu odbijen - uslov je 1=1, odbijamo brisanje cele tabele");
+                return false;
+            }
+            String upit = "DELETE FROM " + odo.vratiImeTabele() + " WHERE " + uslov;
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
+            Statement st = con.createStatement();
+            st.executeUpdate(upit);
+            st.close();
+            return true;
+        } catch (SQLException ex) {
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju obrisiSvePremaUslovu: " + ex.getMessage(), ex);
+            return false;
+        }
     }
 
 }

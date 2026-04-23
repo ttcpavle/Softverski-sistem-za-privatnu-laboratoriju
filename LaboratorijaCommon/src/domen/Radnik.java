@@ -186,4 +186,10 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
     public void setOvlascenja(List<Ovlascenje> ovlascenja) {
         this.ovlascenja = ovlascenja;
     }
+    
+    @Override
+    public String toString() {
+        return ime + " " + prezime;
+    }
+
 }

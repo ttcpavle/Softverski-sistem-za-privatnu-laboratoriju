@@ -161,4 +161,9 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
     
     public List<ZahtevZaAnalizu> getZahtevi() { return zahtevi; }
     public void setZahtevi(List<ZahtevZaAnalizu> zahtevi) { this.zahtevi = zahtevi; }
+    
+    @Override
+    public String toString() {
+        return ime + " " + prezime;
+    }
 }

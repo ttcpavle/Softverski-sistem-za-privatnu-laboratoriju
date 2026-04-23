@@ -62,5 +62,10 @@ public class PrijavaRadnikKontroler extends OpstiKontrolerKI {
         });
 
     }
+
+    @Override
+    protected void inicijalizujFormu() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 }

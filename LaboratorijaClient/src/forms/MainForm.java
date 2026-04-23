@@ -4,6 +4,7 @@
  */
 package forms;
 
+import controller.KreirajZahtevKontroler;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 
@@ -33,10 +34,17 @@ public class MainForm extends OpstaEkranskaForma{
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jRadioButtonMenuItem1 = new javax.swing.JRadioButtonMenuItem();
+        kreirajzahtev = new javax.swing.JRadioButtonMenuItem();
+        promenizahtev = new javax.swing.JRadioButtonMenuItem();
+        pretrazizahtev = new javax.swing.JRadioButtonMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        kreirajkupac = new javax.swing.JRadioButtonMenuItem();
+        pretrazikupac = new javax.swing.JRadioButtonMenuItem();
+        promenikupac = new javax.swing.JRadioButtonMenuItem();
+        obrisikupac = new javax.swing.JRadioButtonMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
+        ubaciproizvod = new javax.swing.JRadioButtonMenuItem();
+        pretraziproizvod = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,25 +55,71 @@ public class MainForm extends OpstaEkranskaForma{
             }
         });
 
-        jRadioButtonMenuItem1.setSelected(true);
-        jRadioButtonMenuItem1.setText("Zahtev za analizu");
-        jRadioButtonMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        kreirajzahtev.setSelected(true);
+        kreirajzahtev.setText("Kreiraj");
+        kreirajzahtev.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jRadioButtonMenuItem1ActionPerformed(evt);
+                kreirajzahtevActionPerformed(evt);
             }
         });
-        jMenu1.add(jRadioButtonMenuItem1);
+        jMenu1.add(kreirajzahtev);
+
+        promenizahtev.setSelected(true);
+        promenizahtev.setText("Promeni");
+        promenizahtev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                promenizahtevActionPerformed(evt);
+            }
+        });
+        jMenu1.add(promenizahtev);
+
+        pretrazizahtev.setSelected(true);
+        pretrazizahtev.setText("Pretraži");
+        pretrazizahtev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pretrazizahtevActionPerformed(evt);
+            }
+        });
+        jMenu1.add(pretrazizahtev);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Kupac");
+
+        kreirajkupac.setSelected(true);
+        kreirajkupac.setText("Kreiraj");
+        jMenu2.add(kreirajkupac);
+
+        pretrazikupac.setSelected(true);
+        pretrazikupac.setText("Pretraži");
+        jMenu2.add(pretrazikupac);
+
+        promenikupac.setSelected(true);
+        promenikupac.setText("Promeni");
+        jMenu2.add(promenikupac);
+
+        obrisikupac.setSelected(true);
+        obrisikupac.setText("Obriši");
+        obrisikupac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                obrisikupacActionPerformed(evt);
+            }
+        });
+        jMenu2.add(obrisikupac);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Proizvod");
-        jMenuBar1.add(jMenu3);
 
-        jMenu4.setText("Radnik");
-        jMenuBar1.add(jMenu4);
+        ubaciproizvod.setSelected(true);
+        ubaciproizvod.setText("Ubaci");
+        jMenu3.add(ubaciproizvod);
+
+        pretraziproizvod.setSelected(true);
+        pretraziproizvod.setText("Pretraži");
+        jMenu3.add(pretraziproizvod);
+
+        jMenuBar1.add(jMenu3);
 
         setJMenuBar(jMenuBar1);
 
@@ -88,23 +142,49 @@ public class MainForm extends OpstaEkranskaForma{
         System.out.println("KLIKNUTO");
     }//GEN-LAST:event_jMenu1ActionPerformed
 
-    private void jRadioButtonMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMenuItem1ActionPerformed
+    private void kreirajzahtevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kreirajzahtevActionPerformed
         // TODO add your handling code here:
-        ZahtevZaAnalizuForm f = new ZahtevZaAnalizuForm();
+        KreirajZahtevForm f = new KreirajZahtevForm();
+        KreirajZahtevKontroler k = new KreirajZahtevKontroler(f);
         f.setLocationRelativeTo(null);
         f.setVisible(true);
         
   
-    }//GEN-LAST:event_jRadioButtonMenuItem1ActionPerformed
+    }//GEN-LAST:event_kreirajzahtevActionPerformed
+
+    private void pretrazizahtevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretrazizahtevActionPerformed
+        // TODO add your handling code here:
+        PretraziZahtevForm f = new PretraziZahtevForm();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_pretrazizahtevActionPerformed
+
+    private void obrisikupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obrisikupacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_obrisikupacActionPerformed
+
+    private void promenizahtevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promenizahtevActionPerformed
+        // TODO add your handling code here:
+        PromeniZahtevForm f = new PromeniZahtevForm();
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_promenizahtevActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JRadioButtonMenuItem jRadioButtonMenuItem1;
+    private javax.swing.JRadioButtonMenuItem kreirajkupac;
+    private javax.swing.JRadioButtonMenuItem kreirajzahtev;
+    private javax.swing.JRadioButtonMenuItem obrisikupac;
+    private javax.swing.JRadioButtonMenuItem pretrazikupac;
+    private javax.swing.JRadioButtonMenuItem pretraziproizvod;
+    private javax.swing.JRadioButtonMenuItem pretrazizahtev;
+    private javax.swing.JRadioButtonMenuItem promenikupac;
+    private javax.swing.JRadioButtonMenuItem promenizahtev;
+    private javax.swing.JRadioButtonMenuItem ubaciproizvod;
     // End of variables declaration//GEN-END:variables
 
 

@@ -35,6 +35,7 @@ public abstract class OpstiKontrolerKI {
     public abstract OpstiDomenskiObjekat formToOdo();
     public abstract void odoToForm(OpstiDomenskiObjekat odo);
     protected abstract void postaviListenere();
+    protected abstract void inicijalizujFormu();
 
     protected Response sendReceive(Operacija operacija, OpstiDomenskiObjekat odo) {
         try {

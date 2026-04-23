@@ -79,12 +79,13 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     public void popuniIzResultSet(ResultSet rs) throws SQLException {
         this.idProizvod = rs.getInt("idProizvod");
         this.naziv = rs.getString("naziv");
-        
-        Time time = rs.getTime("vremeIzdavanjaRez");
-        if (time != null) {
-            this.vremeIzdavanjaRez = time.toLocalTime();
+ 
+        // Kolona je INT u bazi (sekunde od ponoci), konvertujemo u LocalTime
+        int sekunde = rs.getInt("vremeIzdavanjaRez");
+        if (!rs.wasNull()) {
+            this.vremeIzdavanjaRez = LocalTime.ofSecondOfDay(sekunde);
         }
-        
+ 
         this.cena = rs.getDouble("cena");
     }
     
@@ -103,4 +104,10 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     
     public List<StavkaZahteva> getStavke() { return stavke; }
     public void setStavke(List<StavkaZahteva> stavke) { this.stavke = stavke; }
+    
+    @Override
+    public String toString() {
+        return naziv;
+    }
+
 }
