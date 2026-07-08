@@ -107,16 +107,16 @@ public class DBBroker implements Repository{
         try {
             String upit = "SELECT * FROM " + odo.vratiImeTabele() + " WHERE " + odo.vratiUslovZaNadjiSlog();
             LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
-            PreparedStatement ps = con.prepareStatement(upit);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                OpstiDomenskiObjekat obj = odo.getClass().getDeclaredConstructor().newInstance();
-                obj.popuniIzResultSet(rs);
-                rezultat = obj;
-                return true;
+            try (PreparedStatement ps = con.prepareStatement(upit); ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    OpstiDomenskiObjekat obj = odo.getClass().getDeclaredConstructor().newInstance();
+                    obj.popuniIzResultSet(rs);
+                    rezultat = obj;
+                    return true;
+                }
             }
         } catch (Exception ex) {
-            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju nadjiSlog: " + ex.getMessage(),ex);
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju nadjiSlog: " + ex.getMessage(), ex);
             rezultat = null;
         }
         return false;
@@ -287,4 +287,29 @@ public class DBBroker implements Repository{
         }
     }
 
+    /*
+     * Generička funkcija za slozenije upite (npr. vise JOIN-ova, GROUP BY...)
+     * koji se ne uklapaju u vratiSve/vratiSvePremaUslovu.
+     * Poziva se sa vec gotovim SELECT upitom, a "odo" sluzi samo kao prototip
+     * (koristi se getClass() da bi se napravile instance rezultata).
+     */
+    public boolean vratiPremaUpitu(OpstiDomenskiObjekat odo, String upit) {
+        try {
+            LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(upit);
+            List<OpstiDomenskiObjekat> lista = new ArrayList<>();
+            while (rs.next()) {
+                OpstiDomenskiObjekat obj = odo.getClass().getDeclaredConstructor().newInstance();
+                obj.popuniIzResultSet(rs);
+                lista.add(obj);
+            }
+            rezultat = lista;
+            s.close();
+            return true;
+        } catch (Exception ex) {
+            LOGGER.log(Level.SEVERE, "Greska pri izvrsenju vratiPremaUpitu" + ex.getMessage(), ex);
+        }
+        return false;
+    }
 }

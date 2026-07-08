@@ -14,6 +14,7 @@ import operacije.PromeniProizvod;
 import operacije.PromeniZahtevZaAnalizu;
 import operacije.PretraziKupac;
 import operacije.PretraziProizvod;
+import operacije.PretraziRadnik;
 import operacije.PretraziZahtevZaAnalizu;
 import operacije.PrijaviRadnika;
 import operacije.UbaciProizvod;
@@ -47,26 +48,32 @@ public class Controller {
         PretraziZahtevZaAnalizu so = new PretraziZahtevZaAnalizu();
         return so.opsteIzvrsenjeSO(zahtev);
     }
-
-    public Response vratiListuZahtevZaAnalizuPoKriterijumuZahtev(ZahtevZaAnalizu kriterijum) {
+    
+    public Response vratiListuZahtevZaAnalizu(ZahtevZaAnalizu kriterijum) {
         VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
         return so.opsteIzvrsenjeSO(kriterijum);
     }
+    
 
-    public Response vratiListuZahtevZaAnalizuPoKriterijumuRadnik(Radnik kriterijum) {
-        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-        return so.opsteIzvrsenjeSO(kriterijum);
-    }
+//    public Response vratiListuZahtevZaAnalizuPoKriterijumuZahtev(ZahtevZaAnalizu kriterijum) {
+//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+//        return so.opsteIzvrsenjeSO(kriterijum);
+//    }
 
-    public Response vratiListuZahtevZaAnalizuPoKriterijumuKupac(Kupac kriterijum) {
-        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-        return so.opsteIzvrsenjeSO(kriterijum);
-    }
-
-    public Response vratiListuZahtevZaAnalizuPoKriterijumuProizvod(Proizvod kriterijum) {
-        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-        return so.opsteIzvrsenjeSO(kriterijum);
-    }
+//    public Response vratiListuZahtevZaAnalizuPoKriterijumuRadnik(Radnik kriterijum) {
+//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+//        return so.opsteIzvrsenjeSO(kriterijum);
+//    }
+//
+//    public Response vratiListuZahtevZaAnalizuPoKriterijumuKupac(Kupac kriterijum) {
+//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+//        return so.opsteIzvrsenjeSO(kriterijum);
+//    }
+//
+//    public Response vratiListuZahtevZaAnalizuPoKriterijumuProizvod(Proizvod kriterijum) {
+//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
+//        return so.opsteIzvrsenjeSO(kriterijum);
+//    }
 
 // ========== KUPAC ==========
     public Response KreirajKupac(Kupac kupac) {
@@ -118,7 +125,8 @@ public class Controller {
     }
 
     public Response PretraziRadnik(Radnik radnik) {
-        return null;
+        PretraziRadnik so = new PretraziRadnik();
+        return so.opsteIzvrsenjeSO(radnik);
     }
 
     public Response PrijaviRadnik(Radnik radnik) {

@@ -19,6 +19,7 @@ public class PrijavaRadnikKontroler extends OpstiKontrolerKI {
 
     public PrijavaRadnikKontroler(OpstaEkranskaForma forma) {
         super(forma);
+        inicijalizujFormu();
         postaviListenere();
     }
 
@@ -65,7 +66,9 @@ public class PrijavaRadnikKontroler extends OpstiKontrolerKI {
 
     @Override
     protected void inicijalizujFormu() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        PrijavaRadnikForm f = (PrijavaRadnikForm) forma;
+        f.setKorisnickoImeText("marko");
+        f.setLozinkaText("123");
     }
     
 }

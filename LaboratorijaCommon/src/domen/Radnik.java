@@ -31,6 +31,14 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
         this.ovlascenja = new ArrayList<>();
     }
 
+    public Radnik(int idRadnik) {
+        this.idRadnik = idRadnik;
+        this.zahtevi = new ArrayList<>();
+        this.ovlascenja = new ArrayList<>();
+    }
+
+    
+    
     @Override
     public String vratiImeTabele() {
         return "radnik";

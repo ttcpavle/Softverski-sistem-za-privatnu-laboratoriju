@@ -30,6 +30,13 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
     public Kupac() {
         this.zahtevi = new ArrayList<>();
     }
+
+    public Kupac(int idKupac) {
+        this.idKupac = idKupac;
+        this.zahtevi = new ArrayList<>();
+    }
+    
+    
     
     @Override
     public String vratiImeTabele() {
@@ -164,6 +171,6 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
     
     @Override
     public String toString() {
-        return ime + " " + prezime;
+        return ime + " " + prezime + " - " + mail;
     }
 }

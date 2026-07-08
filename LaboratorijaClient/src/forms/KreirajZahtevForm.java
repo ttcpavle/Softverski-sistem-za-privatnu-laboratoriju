@@ -9,6 +9,7 @@ import domen.OpstaEkranskaForma;
 import domen.Proizvod;
 import domen.Radnik;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -25,7 +26,9 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
      * Creates new form ZahtevZaAnalizuForm
      */
     public KreirajZahtevForm() {
+        super();
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -42,11 +45,9 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
         jLabel3 = new javax.swing.JLabel();
         datumField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        statusField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        prioritetField = new javax.swing.JTextField();
-        jLabel11 = new javax.swing.JLabel();
-        ukupnaCenaField = new javax.swing.JTextField();
+        statusCombo = new javax.swing.JComboBox<>();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -68,6 +69,8 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         glavnaFormaButton = new javax.swing.JButton();
+        ukupnaCenaZahteva = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,23 +85,16 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
 
         jLabel4.setText("status");
 
-        statusField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusFieldActionPerformed(evt);
-            }
-        });
-
         jLabel5.setText("prioritet");
 
-        prioritetField.addActionListener(new java.awt.event.ActionListener() {
+        statusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOV", "U_OBRADI", "ZAVRSEN" }));
+        statusCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prioritetFieldActionPerformed(evt);
+                statusComboActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("Ukupna cena");
-
-        ukupnaCenaField.setEditable(false);
+        jCheckBox1.setText("Prioritet");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -106,22 +102,19 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(statusField, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                            .addComponent(prioritetField)
-                            .addComponent(datumField))
+                            .addComponent(datumField)
+                            .addComponent(statusCombo, 0, 160, Short.MAX_VALUE))
                         .addGap(19, 19, 19))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(ukupnaCenaField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jCheckBox1)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -134,16 +127,12 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(statusField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(statusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(prioritetField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(ukupnaCenaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jCheckBox1))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -292,6 +281,10 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
 
         glavnaFormaButton.setText("Glavna forma");
 
+        ukupnaCenaZahteva.setEditable(false);
+
+        jLabel2.setText("Cena zahteva:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -307,15 +300,22 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
                         .addComponent(glavnaFormaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(radnikComboBox, 0, 188, Short.MAX_VALUE)
-                                .addComponent(kupacComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jLabel13))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(41, 41, 41)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel12)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(radnikComboBox, 0, 188, Short.MAX_VALUE)
+                                        .addComponent(kupacComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel13)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ukupnaCenaZahteva, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(45, 45, 45)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -337,15 +337,17 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(kupacComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addContainerGap(18, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(51, 51, 51)
+                                .addGap(33, 33, 33)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(65, 65, 65))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(ukupnaCenaZahteva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -357,14 +359,6 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void statusFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusFieldActionPerformed
-
-    private void prioritetFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prioritetFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_prioritetFieldActionPerformed
 
     private void dodajStavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajStavkuButtonActionPerformed
         // TODO add your handling code here:
@@ -378,6 +372,10 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
         // TODO add your handling code here:
     }//GEN-LAST:event_kreirajZahtevButtonActionPerformed
 
+    private void statusComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusComboActionPerformed
+
 
     @Override
     protected void ocistiFormu() {
@@ -388,11 +386,12 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
     private javax.swing.JTextField datumField;
     private javax.swing.JButton dodajStavkuButton;
     private javax.swing.JButton glavnaFormaButton;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -408,14 +407,13 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
     private javax.swing.JButton kreirajZahtevButton;
     private javax.swing.JComboBox<Kupac> kupacComboBox;
     private javax.swing.JButton ocistiFormuButton;
-    private javax.swing.JTextField prioritetField;
     private javax.swing.JComboBox<Proizvod> proizvodComboBox;
     private javax.swing.JComboBox<Radnik> radnikComboBox;
-    private javax.swing.JTextField statusField;
+    private javax.swing.JComboBox<String> statusCombo;
     private javax.swing.JTable tabelaStavke;
     private javax.swing.JButton ukloniStavkuButton;
-    private javax.swing.JTextField ukupnaCenaField;
     private javax.swing.JTextField ukupnaCenaStavkeField;
+    private javax.swing.JTextField ukupnaCenaZahteva;
     // End of variables declaration//GEN-END:variables
 
     public JTextField getDatumField() {
@@ -434,23 +432,24 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
         this.kolicinaField = kolicinaField;
     }
 
-
-    public JTextField getPrioritetField() {
-        return prioritetField;
+    public JCheckBox getPrioritetCheckBox() {
+        return jCheckBox1;
     }
 
-    public void setPrioritetField(JTextField prioritetField) {
-        this.prioritetField = prioritetField;
+    public void setPrioritetCheckBox(JCheckBox prioritetCheckBox) {
+        this.jCheckBox1 = prioritetCheckBox;
+    }
+
+    public JComboBox<String> getStatusCombo() {
+        return statusCombo;
+    }
+
+    public void setStatusCombo(JComboBox<String> statusCombo) {
+        this.statusCombo = statusCombo;
     }
 
 
-    public JTextField getStatusField() {
-        return statusField;
-    }
-
-    public void setStatusField(JTextField statusField) {
-        this.statusField = statusField;
-    }
+    
 
     public JTable getTabelaStavke() {
         return tabelaStavke;
@@ -458,14 +457,6 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
 
     public void setTabelaStavke(JTable tabelaStavke) {
         this.tabelaStavke = tabelaStavke;
-    }
-
-    public JTextField getUkupnaCenaField() {
-        return ukupnaCenaField;
-    }
-
-    public void setUkupnaCenaField(JTextField ukupnaCenaField) {
-        this.ukupnaCenaField = ukupnaCenaField;
     }
 
     public JTextField getUkupnaCenaStavkeField() {
@@ -538,6 +529,14 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
 
     public void setRadnikComboBox(JComboBox<Radnik> radnikComboBox) {
         this.radnikComboBox = radnikComboBox;
+    }
+
+    public JTextField getUkupnaCenaZahteva() {
+        return ukupnaCenaZahteva;
+    }
+
+    public void setUkupnaCenaZahteva(JTextField ukupnaCenaZahteva) {
+        this.ukupnaCenaZahteva = ukupnaCenaZahteva;
     }
 
     

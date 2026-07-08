@@ -93,47 +93,82 @@ public class ZahtevZaAnalizu implements OpstiDomenskiObjekat, Serializable {
         return conditions.isEmpty() ? "1=1" : String.join(" AND ", conditions);
     }
     
-    @Override
-    public void popuniIzResultSet(ResultSet rs) throws SQLException {
-        this.idZahtev = rs.getInt("idZahtev");
-        
-        java.sql.Date sqlDate = rs.getDate("datum");
-        if (sqlDate != null) {
-            this.datum = sqlDate.toLocalDate();
+@Override
+public void popuniIzResultSet(ResultSet rs) throws SQLException {
+    this.idZahtev = rs.getInt("idZahtev");
+
+    java.sql.Date sqlDate = rs.getDate("datum");
+    if (sqlDate != null) {
+        this.datum = sqlDate.toLocalDate();
+    }
+
+    this.status = rs.getString("status");
+    this.prioritet = rs.getBoolean("prioritet");
+    this.ukupnaCenaZahteva = rs.getDouble("ukupnaCenaZahteva");
+
+    // Radnik
+    int idRadnik = rs.getInt("idRadnik");
+    if (!rs.wasNull()) {
+        this.radnik = new Radnik();
+        this.radnik.setIdRadnik(idRadnik);
+
+        if (hasColumn(rs, "radnik_ime")) {
+            this.radnik.setIme(rs.getString("radnik_ime"));
         }
-        
-        this.status = rs.getString("status");
-        this.prioritet = rs.getBoolean("prioritet");
-        this.ukupnaCenaZahteva = rs.getDouble("ukupnaCenaZahteva");
-        
-        // Radnik
-        int idRadnik = rs.getInt("idRadnik");
-        if (!rs.wasNull()) {
-            this.radnik = new Radnik();
-            this.radnik.setIdRadnik(idRadnik);
-            
-            if (hasColumn(rs, "radnik_ime")) {
-                this.radnik.setIme(rs.getString("radnik_ime"));
-            }
-            if (hasColumn(rs, "radnik_prezime")) {
-                this.radnik.setPrezime(rs.getString("radnik_prezime"));
+        if (hasColumn(rs, "radnik_prezime")) {
+            this.radnik.setPrezime(rs.getString("radnik_prezime"));
+        }
+        if (hasColumn(rs, "radnik_JMBG")) {
+            this.radnik.setJMBG(rs.getString("radnik_JMBG"));
+        }
+        if (hasColumn(rs, "radnik_korisnickoIme")) {
+            this.radnik.setKorisnickoIme(rs.getString("radnik_korisnickoIme"));
+        }
+        // lozinka nam ne treba
+    }
+
+
+    // Kupac
+    int idKupac = rs.getInt("idKupac");
+    if (!rs.wasNull()) {
+        this.kupac = new Kupac();
+        this.kupac.setIdKupac(idKupac);
+
+        if (hasColumn(rs, "kupac_ime")) {
+            this.kupac.setIme(rs.getString("kupac_ime"));
+        }
+        if (hasColumn(rs, "kupac_prezime")) {
+            this.kupac.setPrezime(rs.getString("kupac_prezime"));
+        }
+        if (hasColumn(rs, "kupac_mail")) {
+            this.kupac.setMail(rs.getString("kupac_mail"));
+        }
+        if (hasColumn(rs, "kupac_telefon")) {
+            this.kupac.setTelefon(rs.getString("kupac_telefon"));
+        }
+        if (hasColumn(rs, "kupac_datumRodjenja")) {
+            java.sql.Date sqlDatumRodjenja = rs.getDate("kupac_datumRodjenja");
+            if (sqlDatumRodjenja != null) {
+                this.kupac.setDatumRodjenja(sqlDatumRodjenja.toLocalDate());
             }
         }
-        
-        // Kupac
-        int idKupac = rs.getInt("idKupac");
-        if (!rs.wasNull()) {
-            this.kupac = new Kupac();
-            this.kupac.setIdKupac(idKupac);
-            
-            if (hasColumn(rs, "kupac_ime")) {
-                this.kupac.setIme(rs.getString("kupac_ime"));
-            }
-            if (hasColumn(rs, "kupac_prezime")) {
-                this.kupac.setPrezime(rs.getString("kupac_prezime"));
+        if (hasColumn(rs, "kupac_idMesto")) {
+            int idMesto = rs.getInt("kupac_idMesto");
+            if (!rs.wasNull()) {
+                domen.Mesto mesto = new domen.Mesto();
+                mesto.setIdMesto(idMesto);
+
+                if (hasColumn(rs, "kupac_mesto_naziv")) {
+                    mesto.setNaziv(rs.getString("kupac_mesto_naziv"));
+                }
+                if (hasColumn(rs, "kupac_mesto_zipKod")) {
+                    mesto.setZipKod(rs.getInt("kupac_mesto_zipKod"));
+                }
+                this.kupac.setMesto(mesto);
             }
         }
     }
+}
     
     private boolean hasColumn(ResultSet rs, String columnName) {
         try {

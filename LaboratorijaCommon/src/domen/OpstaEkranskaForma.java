@@ -14,6 +14,12 @@ import javax.swing.JOptionPane;
  */
 public abstract class OpstaEkranskaForma extends JFrame{
 
+    public OpstaEkranskaForma() {
+    }
+
+    
+    
+
     protected abstract void ocistiFormu();
     
     public void prikaziErrorPane(String poruka, Exception ex){

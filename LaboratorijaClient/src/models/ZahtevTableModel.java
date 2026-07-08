@@ -2,6 +2,7 @@ package models;
 
 import domen.ZahtevZaAnalizu;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -14,10 +15,16 @@ public class ZahtevTableModel extends AbstractTableModel {
 
     private List<ZahtevZaAnalizu> zahtevi;
     
-    private final String[] columns = {"ID", "Datum", "Status", "Prioritet", "Ukupna cena", "Radnik Ime", "Radnik prezime", "Kupac ime", "Kupac prezime"};
+    private final String[] columns = {"ID", "Datum", "Status", "Prioritet", "Ukupna cena", "Ime kupac", "Prezime kupac"};
 
-    private final Class[] columnClasses = {Integer.class, LocalDate.class, String.class, Boolean.class, Double.class, String.class, String.class, String.class, String.class};
+    private final Class[] columnClasses = {Integer.class, LocalDate.class, String.class, Boolean.class, Double.class, String.class, String.class};
 
+    public ZahtevTableModel() {
+        this.zahtevi = new ArrayList<>();
+    }
+
+    
+    
     public ZahtevTableModel(List<ZahtevZaAnalizu> zahtevi) {
         this.zahtevi = zahtevi;
     }
@@ -57,16 +64,16 @@ public class ZahtevTableModel extends AbstractTableModel {
                 return z.isPrioritet(); // JTable će ovde automatski iscrtati Checkbox
             case 4: 
                 return z.getUkupnaCenaZahteva();
-            case 5: 
-                return z.getRadnik() != null ? z.getRadnik().getIme() : "N/A";
-            case 6: 
-                return z.getRadnik() != null ? z.getRadnik().getPrezime() : "N/A";
-            case 7:
-                return z.getKupac() != null ? z.getKupac().getIme() : "N/A";
-            case 8:
-                return z.getKupac() != null ? z.getKupac().getPrezime() : "N/A";
+            case 5:
+                return z.getKupac().getIme();
+            case 6:
+                return z.getKupac().getPrezime();
             default:
                 return null;
         }
     }
+
+    public ZahtevZaAnalizu getZahtevAt(int rowIndex) {
+        return zahtevi.get(rowIndex); // listaZahteva je List<ZahtevZaAnalizu> koju čuvaš u modelu
+    }    
 }

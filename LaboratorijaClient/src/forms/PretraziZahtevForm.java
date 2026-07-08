@@ -4,7 +4,12 @@
  */
 package forms;
 
+import domen.Kupac;
 import domen.OpstaEkranskaForma;
+import domen.Radnik;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
 
 /**
  *
@@ -13,12 +18,19 @@ import domen.OpstaEkranskaForma;
 public class PretraziZahtevForm extends OpstaEkranskaForma {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PretraziZahtevForm.class.getName());
-
+    private final boolean PROMENA_DETALJA;
+    
     /**
      * Creates new form PretraziZahtevForm
      */
-    public PretraziZahtevForm() {
+    public PretraziZahtevForm(boolean promenaDetalja) {
+        super();
+        this.PROMENA_DETALJA = promenaDetalja;
         initComponents();
+        if(!PROMENA_DETALJA){
+            this.izmeniZahtevButton.setVisible(false);
+        }
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -30,35 +42,25 @@ public class PretraziZahtevForm extends OpstaEkranskaForma {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton3 = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        glavnaFormaButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tabelaZahtevi = new javax.swing.JTable();
+        pretraziButton = new javax.swing.JButton();
+        detaljiButton = new javax.swing.JButton();
+        kupacComboBox = new javax.swing.JComboBox<>();
+        jLabel13 = new javax.swing.JLabel();
+        radnikComboBox = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        statusCombo = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        izmeniZahtevButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        glavnaFormaButton.setText("Glavna forma");
 
-        jButton3.setText("Glavna forma");
-
-        jLabel13.setText("Kupac");
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jLabel21.setText("Radnik");
-
-        jLabel22.setText("Proizvod");
-
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaZahtevi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -69,11 +71,38 @@ public class PretraziZahtevForm extends OpstaEkranskaForma {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaZahtevi);
 
-        jButton1.setText("Pretraži");
+        pretraziButton.setText("Pretraži");
+        pretraziButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pretraziButtonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Detalji");
+        detaljiButton.setText("Detalji");
+
+        kupacComboBox.setModel(new javax.swing.DefaultComboBoxModel<Kupac>());
+
+        jLabel13.setText("Kupac");
+
+        radnikComboBox.setModel(new javax.swing.DefaultComboBoxModel<Radnik>());
+
+        jLabel12.setText("Radnik");
+
+        statusCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "NOV", "U_OBRADI", "ZAVRSEN" }));
+
+        jLabel4.setText("status");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Kriterijumi pretrage");
+
+        izmeniZahtevButton.setText("Izmeni zahtev");
+        izmeniZahtevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                izmeniZahtevButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,71 +110,163 @@ public class PretraziZahtevForm extends OpstaEkranskaForma {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(glavnaFormaButton)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(izmeniZahtevButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(pretraziButton)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(detaljiButton))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(radnikComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(kupacComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel13)
-                        .addComponent(jLabel21)
-                        .addComponent(jLabel22)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, 212, Short.MAX_VALUE)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(108, 108, 108)
-                            .addComponent(jButton1))))
-                .addContainerGap(39, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(statusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(182, 182, 182))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(radnikComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(10, 10, 10)
-                .addComponent(jLabel21)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(jLabel22)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(kupacComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(detaljiButton)
+                    .addComponent(glavnaFormaButton)
+                    .addComponent(pretraziButton)
+                    .addComponent(izmeniZahtevButton))
+                .addGap(35, 35, 35))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void pretraziButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretraziButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pretraziButtonActionPerformed
+
+    private void izmeniZahtevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_izmeniZahtevButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_izmeniZahtevButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
+    private javax.swing.JButton detaljiButton;
+    private javax.swing.JButton glavnaFormaButton;
+    private javax.swing.JButton izmeniZahtevButton;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JComboBox<Kupac> kupacComboBox;
+    private javax.swing.JButton pretraziButton;
+    private javax.swing.JComboBox<Radnik> radnikComboBox;
+    private javax.swing.JComboBox<String> statusCombo;
+    private javax.swing.JTable tabelaZahtevi;
     // End of variables declaration//GEN-END:variables
 
     @Override
     protected void ocistiFormu() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+    public JButton getGlavnaFormaButton() {
+        return glavnaFormaButton;
+    }
+
+    public void setGlavnaFormaButton(JButton glavnaFormaButton) {
+        this.glavnaFormaButton = glavnaFormaButton;
+    }
+
+    public JComboBox<Kupac> getKupacComboBox() {
+        return kupacComboBox;
+    }
+
+    public void setKupacComboBox(JComboBox<Kupac> kupacComboBox) {
+        this.kupacComboBox = kupacComboBox;
+    }
+
+    public JButton getPretraziButton() {
+        return pretraziButton;
+    }
+
+    public void setPretraziButton(JButton pretraziButton) {
+        this.pretraziButton = pretraziButton;
+    }
+
+    public JComboBox<Radnik> getRadnikComboBox() {
+        return radnikComboBox;
+    }
+
+    public void setRadnikComboBox(JComboBox<Radnik> radnikComboBox) {
+        this.radnikComboBox = radnikComboBox;
+    }
+
+    public JComboBox<String> getStatusCombo() {
+        return statusCombo;
+    }
+
+    public void setStatusCombo(JComboBox<String> statusCombo) {
+        this.statusCombo = statusCombo;
+    }
+
+    public JTable getTabelaZahtevi() {
+        return tabelaZahtevi;
+    }
+
+    public void setTabelaZahtevi(JTable tabelaZahtevi) {
+        this.tabelaZahtevi = tabelaZahtevi;
+    }
+
+    public JButton getDetaljiButton() {
+        return detaljiButton;
+    }
+
+    public void setDetaljiButton(JButton detaljiButton) {
+        this.detaljiButton = detaljiButton;
+    }
+
+    public JButton getIzmeniZahtevButton() {
+        return izmeniZahtevButton;
+    }
+
+    public void setIzmeniZahtevButton(JButton izmeniZahtevButton) {
+        this.izmeniZahtevButton = izmeniZahtevButton;
+    }
+    
+    
+    
 }

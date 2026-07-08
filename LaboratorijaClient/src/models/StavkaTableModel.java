@@ -21,6 +21,12 @@ public class StavkaTableModel extends AbstractTableModel{
     public StavkaTableModel() {
         this.stavke = new ArrayList<>();
     }
+
+    public StavkaTableModel(List<StavkaZahteva> stavke) {
+        this.stavke = stavke;
+    }
+    
+    
     
     public void setStavke(List<StavkaZahteva> stavke) {
         this.stavke = stavke;

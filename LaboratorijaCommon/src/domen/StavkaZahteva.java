@@ -20,6 +20,19 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
     // Veze
     private ZahtevZaAnalizu zahtev;
     private Proizvod proizvod;
+
+    public StavkaZahteva(ZahtevZaAnalizu zahtev) {
+        this.zahtev = zahtev;
+        if (zahtev != null) {
+            this.idZahtev = zahtev.getIdZahtev();
+        }
+    }
+
+    public StavkaZahteva() {
+    }
+    
+    
+    
     
     @Override
     public String vratiImeTabele() {
@@ -101,8 +114,8 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
             this.proizvod = new Proizvod();
             this.proizvod.setIdProizvod(idProizvod);
             
-            if (hasColumn(rs, "proizvod_naziv")) {
-                this.proizvod.setNaziv(rs.getString("proizvod_naziv"));
+            if (hasColumn(rs, "naziv")) {
+                this.proizvod.setNaziv(rs.getString("naziv"));
             }
         }
     }

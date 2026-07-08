@@ -14,8 +14,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import models.DomenskiComboBoxModel;
 import models.StavkaTableModel;
+import javax.swing.event.TableModelListener;
+import javax.swing.event.TableModelEvent;
 
 public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
@@ -43,15 +47,10 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
         // Ocitaj prioritet
         boolean prioritet = false;
-        String prioritetTekst = f.getPrioritetField().getText().trim();
-        if (!prioritetTekst.isEmpty()) {
-            prioritet = prioritetTekst.equalsIgnoreCase("true")
-                    || prioritetTekst.equals("1")
-                    || prioritetTekst.equalsIgnoreCase("da");
-        }
+        prioritet = f.getPrioritetCheckBox().isSelected();
 
         // Ocitaj status
-        String status = f.getStatusField().getText().trim();
+        String status = (String) f.getStatusCombo().getSelectedItem();
 
         // Kreiraj zahtev
         ZahtevZaAnalizu zahtev = new ZahtevZaAnalizu();
@@ -119,11 +118,6 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
                 stavkaTableModel.dodajStavku(stavka);
 
-                // Azuriraj ukupnu cenu zahteva u polju
-                double ukupnaZahtev = stavkaTableModel.getStavke()
-                        .stream().mapToDouble(StavkaZahteva::getUkupnaCena).sum();
-                f.getUkupnaCenaField().setText(String.valueOf(ukupnaZahtev));
-
                 // Azuriraj prikaz ukupne cene stavke i ocisti polja
                 f.getUkupnaCenaStavkeField().setText(String.valueOf(ukupnaCena));
                 f.getKolicinaField().setText("");
@@ -148,9 +142,6 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
                     stavke.get(i).setRbStavka(i + 1);
                 }
 
-                // Azuriraj ukupnu cenu zahteva
-                double ukupnaZahtev = stavke.stream().mapToDouble(StavkaZahteva::getUkupnaCena).sum();
-                f.getUkupnaCenaField().setText(String.valueOf(ukupnaZahtev));
             }
         });
 
@@ -201,6 +192,63 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
                 forma.dispose();
             }
         });
+        
+        
+        f.getProizvodComboBox().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                azurirajUkupnuCenuStavke();
+            }
+        });
+
+        // reaguje na svaki ukucan karakter u polju za kolicinu
+        f.getKolicinaField().getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) { azurirajUkupnuCenuStavke(); }
+            @Override
+            public void removeUpdate(DocumentEvent e) { azurirajUkupnuCenuStavke(); }
+            @Override
+            public void changedUpdate(DocumentEvent e) { azurirajUkupnuCenuStavke(); }
+
+        });       
+        
+        stavkaTableModel.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                azurirajUkupnuCenuZahteva();
+            }
+        });        
+    }
+    
+    private void azurirajUkupnuCenuZahteva() {
+        KreirajZahtevForm f = (KreirajZahtevForm) forma;
+
+        double ukupno = 0;
+        for (StavkaZahteva s : stavkaTableModel.getStavke()) {
+            ukupno += s.getUkupnaCena();
+        }
+
+        f.getUkupnaCenaZahteva().setText(String.valueOf(ukupno));
+    }
+    
+    private void azurirajUkupnuCenuStavke() {
+        KreirajZahtevForm f = (KreirajZahtevForm) forma;
+
+        Proizvod izabraniProizvod = (Proizvod) f.getProizvodComboBox().getSelectedItem();
+        String kolicinaTekst = f.getKolicinaField().getText();
+
+        if (izabraniProizvod == null || kolicinaTekst == null || kolicinaTekst.isEmpty()) {
+            f.getUkupnaCenaStavkeField().setText("");
+            return;
+        }
+
+        try {
+            int kolicina = Integer.parseInt(kolicinaTekst);
+            double ukupno = kolicina * izabraniProizvod.getCena();
+            f.getUkupnaCenaStavkeField().setText(String.valueOf(ukupno));
+        } catch (NumberFormatException ex) {
+            f.getUkupnaCenaStavkeField().setText("");
+        }
     }
 
     /**
@@ -248,9 +296,6 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
     private void ocistiFormu() {
         KreirajZahtevForm f = (KreirajZahtevForm) forma;
-        f.getStatusField().setText("");
-        f.getPrioritetField().setText("");
-        f.getUkupnaCenaField().setText("");
         f.getKolicinaField().setText("");
         f.getUkupnaCenaStavkeField().setText("");
         f.getDatumField().setText(LocalDate.now().toString());

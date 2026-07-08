@@ -22,6 +22,7 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
      * Creates new form PrijavaRadnikForm
      */
     public PrijavaRadnikForm() {
+        super();
         initComponents();
     }
 

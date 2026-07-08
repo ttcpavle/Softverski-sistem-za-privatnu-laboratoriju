@@ -10,7 +10,12 @@ import domen.Kupac;
 import domen.OpstiDomenskiObjekat;
 import domen.Proizvod;
 import domen.Radnik;
+import domen.StavkaZahteva;
 import domen.ZahtevZaAnalizu;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import server.ClientHandler;
 
 /**
  *
@@ -18,12 +23,14 @@ import domen.ZahtevZaAnalizu;
  */
 public class VratiListuZahtevZaAnalizu extends OpstaSO{
 
+    private static final Logger LOGGER = Logger.getLogger(ClientHandler.class.getName());
+    
     @Override
     protected Exception preduslovi(OpstiDomenskiObjekat odo, DBBroker dbb) {
-        if(odo instanceof ZahtevZaAnalizu || odo instanceof Radnik || odo instanceof Kupac || odo instanceof Proizvod){
-            return null;
+        if (!(odo instanceof ZahtevZaAnalizu)) {
+            return new Exception("Nije prosledjen objekat tipa ZahtevZaAnalizu");
         }
-        return new Exception("Nije prosledjen validan objekat kao kriterijum");
+        return null;
     }
 
     @Override
@@ -33,24 +40,42 @@ public class VratiListuZahtevZaAnalizu extends OpstaSO{
             return new Response(null, e, false);
         }
         
-        if(odo instanceof ZahtevZaAnalizu){
-            dbb.vratiSve(odo);
-            return new Response(dbb.getRezultat(), null, true);
+        boolean result = dbb.vratiSve(odo);
+        if(!result){
+            return new Response(null, new Exception("Greska pri ocitavanju zahteva"), false);
         }
-        if(odo instanceof Radnik){
-            dbb.vratiSvePremaUslovu(new ZahtevZaAnalizu(), "zahtevzaanalizu", "", "radnik", "zahtevzaanalizu.idZahtev=radnik.idRadnik", "", "");
-            return new Response(dbb.getRezultat(), null, true);
+        
+        List<ZahtevZaAnalizu> lista = (List<ZahtevZaAnalizu>) dbb.getRezultat();
+        for(ZahtevZaAnalizu zahtev:lista){
+            result = dbb.nadjiSlog(zahtev.getKupac());
+            if (!result) {
+                return new Response(null, new Exception("Greska pri ocitavanju kupca"), false);
+            }
+            Kupac kupac = (Kupac) dbb.getRezultat();
+            result = dbb.nadjiSlog(zahtev.getRadnik());
+            if (!result) {
+                return new Response(null, new Exception("Greska pri ocitavanju radnika"), false);
+            }
+            Radnik radnik = (Radnik) dbb.getRezultat();
+
+            StavkaZahteva stavkaPretraga = new StavkaZahteva(zahtev);
+            result = dbb.vratiSvePremaUslovu(stavkaPretraga, "stavkazahteva", "", "proizvod", 
+                    "stavkazahteva.idProizvod=proizvod.idProizvod", 
+                    "idZahtev=" + stavkaPretraga.getIdZahtev(), null);
+            if (!result) {
+                return new Response(null, new Exception("Greska pri ocitavanju stavki zahteva"), false);
+            }
+            List<StavkaZahteva> stavke = (List<StavkaZahteva>) dbb.getRezultat();
+
+            zahtev.setStavke(stavke);
+            zahtev.setKupac(kupac);
+            zahtev.setRadnik(radnik);            
         }
-        if(odo instanceof Kupac){
-            dbb.vratiSvePremaUslovu(new ZahtevZaAnalizu(), "zahtevzaanalizu", "", "kupac", "zahtevzaanalizu.idZahtev=kupac.idKupac", "", "");
-            return new Response(dbb.getRezultat(), null, true);
-        }
-        if(odo instanceof Proizvod){
-            // OVDE TREBA LOGIKA
-            System.out.println("NIJE IMPLEMENTIRANO");
-            return new Response(dbb.getRezultat(), null, true);
-        }
-        return new Response(null, null, false);        
+//        for (ZahtevZaAnalizu z : lista) {
+//            System.out.println("SERVER pre slanja: " + z.getKupac().getIme() + " " + z.getKupac().getPrezime());
+//        }
+        return new Response(lista, null, true);
+    
     }
     
 }

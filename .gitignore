@@ -16,3 +16,4 @@ log/
 **/server.log
 **/*.log
 **/*.lck
+/JavaApp0701/target/

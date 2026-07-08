@@ -12,31 +12,28 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenu1ActionPerformed"/>
           </Events>
           <SubComponents>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="kreirajzahtev">
+            <MenuItem class="javax.swing.JMenuItem" name="kreirajZahtev">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Kreiraj"/>
+                <Property name="text" type="java.lang.String" value="Kreiraj zahtev"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kreirajzahtevActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kreirajZahtevActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="promenizahtev">
+            <MenuItem class="javax.swing.JMenuItem" name="pretraziZahtev">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Promeni"/>
+                <Property name="text" type="java.lang.String" value="Pretrazi zahtev"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="promenizahtevActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pretraziZahtevActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="pretrazizahtev">
+            <MenuItem class="javax.swing.JMenuItem" name="promeniZahtev">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Pretra&#x17e;i"/>
+                <Property name="text" type="java.lang.String" value="Promeni zahtev"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pretrazizahtevActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="promeniZahtevActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -46,32 +43,28 @@
             <Property name="text" type="java.lang.String" value="Kupac"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="kreirajkupac">
+            <MenuItem class="javax.swing.JMenuItem" name="kreirajKupac">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Kreiraj"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="pretrazikupac">
+            <MenuItem class="javax.swing.JMenuItem" name="pretraziKupac">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Pretra&#x17e;i"/>
+                <Property name="text" type="java.lang.String" value="Pretrazi"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="promenikupac">
+            <MenuItem class="javax.swing.JMenuItem" name="promeniKupac">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Promeni"/>
               </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="obrisikupac">
-              <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Obri&#x161;i"/>
-              </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="obrisikupacActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="promeniKupacActionPerformed"/>
               </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="obrisiKupac">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Obrisi"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -80,16 +73,14 @@
             <Property name="text" type="java.lang.String" value="Proizvod"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="ubaciproizvod">
+            <MenuItem class="javax.swing.JMenuItem" name="ubaciProizvod">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Ubaci"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="pretraziproizvod">
+            <MenuItem class="javax.swing.JMenuItem" name="pretraziProizvod">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Pretra&#x17e;i"/>
+                <Property name="text" type="java.lang.String" value="Pretrazi"/>
               </Properties>
             </MenuItem>
           </SubComponents>

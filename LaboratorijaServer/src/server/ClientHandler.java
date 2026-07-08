@@ -81,17 +81,8 @@ public class ClientHandler extends Thread {
                         break;
  
                     case VRATI_LISTU_ZAHTEV_ZA_ANALIZU:
-
-                        if (argumentObj instanceof Radnik) {
-                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuRadnik((Radnik) argumentObj);
-                        } else if (argumentObj instanceof Kupac) {
-                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuKupac((Kupac) argumentObj);
-                        } else if (argumentObj instanceof Proizvod) {
-                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuProizvod((Proizvod) argumentObj);
-                        } else {
-                            serverResponse = c.vratiListuZahtevZaAnalizuPoKriterijumuZahtev((ZahtevZaAnalizu) argumentObj);
-                        }
-                        break;
+                         serverResponse = c.vratiListuZahtevZaAnalizu((ZahtevZaAnalizu)argumentObj);
+                         break;
  
                     // ===== KUPAC =====
                     case KREIRAJ_KUPCA:
@@ -136,7 +127,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case PRETRAZI_RADNIKA:
-                        //serverResponse = c.PretraziRadnik((Radnik) argumentObj);
+                        serverResponse = c.PretraziRadnik((Radnik) argumentObj);
                         break;
  
                     case PRIJAVI_RADNIKA:
