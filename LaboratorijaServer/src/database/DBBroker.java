@@ -34,12 +34,11 @@ public class DBBroker implements Repository{
 
     public boolean zatvoriBazu() {
         try {
-            // Vrati konekciju u pool, NE zatvaraj!
-            con.rollback(); // Resetuj transakciju pre vraćanja
+            con.rollback(); 
             ConnectionPool pool = ConnectionPool.getInstance();
             pool.returnConnection(con);
         } catch (SQLException e) {
-            LOGGER.log(Level.WARNING, "Konekcija nije vracena u pool: " + e.getMessage(), e);
+            LOGGER.log(Level.WARNING, "Konekcija nije vracena u pool (neuspesan rollback): " + e.getMessage(), e);
             return false;
         }
         return true;

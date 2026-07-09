@@ -88,15 +88,14 @@ public class ServerForm extends OpstaEkranskaForma {
         server = new Server();
         server.setServerForm(this);
         server.start(); 
-        boolean success = server.proveriKonekcijuSaBazom();
-        if(success)
-            osveziStatusLabel(true);
 
     }//GEN-LAST:event_pokreniActionPerformed
 
     private void zaustaviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaustaviActionPerformed
         // TODO add your handling code here:
-        server.zaustavi();
+        if(server != null){
+            server.zaustavi();
+        }
         osveziStatusLabel(false);
     }//GEN-LAST:event_zaustaviActionPerformed
 
@@ -107,7 +106,7 @@ public class ServerForm extends OpstaEkranskaForma {
     private javax.swing.JButton zaustavi;
     // End of variables declaration//GEN-END:variables
 
-    private void osveziStatusLabel(boolean pokrenut){
+    public void osveziStatusLabel(boolean pokrenut){
         if(pokrenut){
             statusLabel.setText("STATUS: POKRENUT");
             statusLabel.setForeground(Color.green);

@@ -38,21 +38,12 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
     @Override
     public OpstiDomenskiObjekat formToOdo() {
         KreirajZahtevForm f = (KreirajZahtevForm) forma;
-
-        // Ocitaj radnika iz combo boxa
         Radnik radnik = (Radnik) f.getRadnikComboBox().getSelectedItem();
-
-        // Ocitaj kupca iz combo boxa
         Kupac kupac = (Kupac) f.getKupacComboBox().getSelectedItem();
-
-        // Ocitaj prioritet
         boolean prioritet = false;
         prioritet = f.getPrioritetCheckBox().isSelected();
-
-        // Ocitaj status
         String status = (String) f.getStatusCombo().getSelectedItem();
 
-        // Kreiraj zahtev
         ZahtevZaAnalizu zahtev = new ZahtevZaAnalizu();
         zahtev.setDatum(LocalDate.now());
         zahtev.setStatus(status);
@@ -60,11 +51,9 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
         zahtev.setRadnik(radnik);
         zahtev.setKupac(kupac);
 
-        // Preuzmi listu stavki iz table modela i postavi je u zahtev
         List<StavkaZahteva> stavke = stavkaTableModel.getStavke();
         zahtev.setStavke(stavke);
 
-        // Izracunaj ukupnu cenu zahteva kao sumu ukupnih cena svih stavki
         double ukupna = stavke.stream().mapToDouble(StavkaZahteva::getUkupnaCena).sum();
         zahtev.setUkupnaCenaZahteva(ukupna);
 

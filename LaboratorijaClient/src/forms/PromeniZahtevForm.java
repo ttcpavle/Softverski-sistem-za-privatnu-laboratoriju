@@ -5,14 +5,20 @@
 package forms;
 
 import domen.Kupac;
+import domen.OpstaEkranskaForma;
 import domen.Proizvod;
 import domen.Radnik;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
  * @author totic
  */
-public class PromeniZahtevForm extends javax.swing.JFrame {
+public class PromeniZahtevForm extends OpstaEkranskaForma {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PromeniZahtevForm.class.getName());
 
@@ -34,14 +40,14 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton5 = new javax.swing.JButton();
+        ocistiFormaButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaStavke = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        glavnaFormaButton = new javax.swing.JButton();
+        potvrdiIzmeneButton = new javax.swing.JButton();
         radnikComboBox = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         proizvodComboBox = new javax.swing.JComboBox<>();
@@ -64,20 +70,20 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         statusCombo = new javax.swing.JComboBox<>();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jTextField3 = new javax.swing.JTextField();
+        prioritetCheck = new javax.swing.JCheckBox();
+        idField = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton5.setText("Ocisti formu");
+        ocistiFormaButton.setText("Ocisti formu");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Stavke zahteva");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaStavke.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -88,7 +94,7 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaStavke);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -99,8 +105,8 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE))
+                        .addGap(0, 667, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -116,12 +122,12 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Zahtev za analizu");
 
-        jButton1.setText("Glavna forma");
+        glavnaFormaButton.setText("Glavna forma");
 
-        jButton2.setText("Potvrdi izmene");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        potvrdiIzmeneButton.setText("Potvrdi izmene");
+        potvrdiIzmeneButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                potvrdiIzmeneButtonActionPerformed(evt);
             }
         });
 
@@ -156,6 +162,11 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
         jLabel10.setText("Proizvod");
 
         ukloniStavkuButton.setText("Ukloni stavku");
+        ukloniStavkuButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ukloniStavkuButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -227,8 +238,6 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
 
         jLabel3.setText("datum");
 
-        datumField.setEditable(false);
-
         jLabel4.setText("status");
 
         jLabel5.setText("prioritet");
@@ -240,7 +249,9 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox1.setText("Prioritet");
+        prioritetCheck.setText("Prioritet");
+
+        idField.setEditable(false);
 
         jLabel14.setText("ID");
 
@@ -258,11 +269,11 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jCheckBox1)
+                        .addComponent(prioritetCheck)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(datumField, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(statusCombo, javax.swing.GroupLayout.Alignment.LEADING, 0, 160, Short.MAX_VALUE))
                         .addGap(19, 19, 19))))
@@ -272,7 +283,7 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(idField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel14))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -285,7 +296,7 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jCheckBox1))
+                    .addComponent(prioritetCheck))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
 
@@ -299,11 +310,11 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(potvrdiIzmeneButton, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(24, 24, 24)
+                                .addComponent(ocistiFormaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(glavnaFormaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,18 +370,18 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton5)
-                    .addComponent(jButton1))
+                    .addComponent(potvrdiIzmeneButton)
+                    .addComponent(ocistiFormaButton)
+                    .addComponent(glavnaFormaButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void potvrdiIzmeneButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_potvrdiIzmeneButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_potvrdiIzmeneButtonActionPerformed
 
     private void dodajStavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dodajStavkuButtonActionPerformed
         // TODO add your handling code here:
@@ -384,14 +395,152 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_statusComboActionPerformed
 
+    private void ukloniStavkuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ukloniStavkuButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ukloniStavkuButtonActionPerformed
+
+    public JTextField getDatumField() {
+        return datumField;
+    }
+
+    public void setDatumField(JTextField datumField) {
+        this.datumField = datumField;
+    }
+
+    public JButton getDodajStavkuButton() {
+        return dodajStavkuButton;
+    }
+
+    public void setDodajStavkuButton(JButton dodajStavkuButton) {
+        this.dodajStavkuButton = dodajStavkuButton;
+    }
+
+    public JTextField getIdField() {
+        return idField;
+    }
+
+    public void setIdField(JTextField idField) {
+        this.idField = idField;
+    }
+
+    public JTable getjTable1() {
+        return tabelaStavke;
+    }
+
+    public void setjTable1(JTable jTable1) {
+        this.tabelaStavke = jTable1;
+    }
+
+    public JTextField getKolicinaField() {
+        return kolicinaField;
+    }
+
+    public void setKolicinaField(JTextField kolicinaField) {
+        this.kolicinaField = kolicinaField;
+    }
+
+    public JComboBox<Kupac> getKupacComboBox() {
+        return kupacComboBox;
+    }
+
+    public void setKupacComboBox(JComboBox<Kupac> kupacComboBox) {
+        this.kupacComboBox = kupacComboBox;
+    }
+
+    public JCheckBox getPrioritetCheck() {
+        return prioritetCheck;
+    }
+
+    public void setPrioritetCheck(JCheckBox prioritetCheck) {
+        this.prioritetCheck = prioritetCheck;
+    }
+
+    public JComboBox<Proizvod> getProizvodComboBox() {
+        return proizvodComboBox;
+    }
+
+    public void setProizvodComboBox(JComboBox<Proizvod> proizvodComboBox) {
+        this.proizvodComboBox = proizvodComboBox;
+    }
+
+    public JComboBox<Radnik> getRadnikComboBox() {
+        return radnikComboBox;
+    }
+
+    public void setRadnikComboBox(JComboBox<Radnik> radnikComboBox) {
+        this.radnikComboBox = radnikComboBox;
+    }
+
+    public JComboBox<String> getStatusCombo() {
+        return statusCombo;
+    }
+
+    public void setStatusCombo(JComboBox<String> statusCombo) {
+        this.statusCombo = statusCombo;
+    }
+
+    public JButton getUkloniStavkuButton() {
+        return ukloniStavkuButton;
+    }
+
+    public void setUkloniStavkuButton(JButton ukloniStavkuButton) {
+        this.ukloniStavkuButton = ukloniStavkuButton;
+    }
+
+    public JTextField getUkupnaCenaStavkeField() {
+        return ukupnaCenaStavkeField;
+    }
+
+    public void setUkupnaCenaStavkeField(JTextField ukupnaCenaStavkeField) {
+        this.ukupnaCenaStavkeField = ukupnaCenaStavkeField;
+    }
+
+    public JTextField getUkupnaCenaZahteva() {
+        return ukupnaCenaZahteva;
+    }
+
+    public void setUkupnaCenaZahteva(JTextField ukupnaCenaZahteva) {
+        this.ukupnaCenaZahteva = ukupnaCenaZahteva;
+    }
+
+    public JButton getGlavnaFormaButton() {
+        return glavnaFormaButton;
+    }
+
+    public void setGlavnaFormaButton(JButton glavnaFormaButton) {
+        this.glavnaFormaButton = glavnaFormaButton;
+    }
+
+    public JButton getOcistiFormaButton() {
+        return ocistiFormaButton;
+    }
+
+    public void setOcistiFormaButton(JButton ocistiFormaButton) {
+        this.ocistiFormaButton = ocistiFormaButton;
+    }
+
+    public JButton getPotvrdiIzmeneButton() {
+        return potvrdiIzmeneButton;
+    }
+
+    public void setPotvrdiIzmeneButton(JButton potvrdiIzmeneButton) {
+        this.potvrdiIzmeneButton = potvrdiIzmeneButton;
+    }
+
+    public JTable getTabelaStavke() {
+        return tabelaStavke;
+    }
+
+    public void setTabelaStavke(JTable tabelaStavke) {
+        this.tabelaStavke = tabelaStavke;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField datumField;
     private javax.swing.JButton dodajStavkuButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton glavnaFormaButton;
+    private javax.swing.JTextField idField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -409,15 +558,22 @@ public class PromeniZahtevForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField kolicinaField;
     private javax.swing.JComboBox<Kupac> kupacComboBox;
+    private javax.swing.JButton ocistiFormaButton;
+    private javax.swing.JButton potvrdiIzmeneButton;
+    private javax.swing.JCheckBox prioritetCheck;
     private javax.swing.JComboBox<Proizvod> proizvodComboBox;
     private javax.swing.JComboBox<Radnik> radnikComboBox;
     private javax.swing.JComboBox<String> statusCombo;
+    private javax.swing.JTable tabelaStavke;
     private javax.swing.JButton ukloniStavkuButton;
     private javax.swing.JTextField ukupnaCenaStavkeField;
     private javax.swing.JTextField ukupnaCenaZahteva;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    protected void ocistiFormu() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

@@ -11,14 +11,17 @@ import domen.Kupac;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 import domen.Radnik;
+import domen.StavkaZahteva;
 import domen.ZahtevZaAnalizu;
 import forms.KreirajZahtevForm;
 import forms.PretraziZahtevForm;
+import forms.PromeniZahtevForm;
 import forms.ZahtevDetaljiForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.List;
+import javax.swing.JTable;
 import models.DomenskiComboBoxModel;
 import models.StavkaTableModel;
 import models.ZahtevTableModel;
@@ -97,7 +100,7 @@ public class PretraziZahtevKontroler extends OpstiKontrolerKI {
         f.getDetaljiButton().addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                javax.swing.JTable tabela = f.getTabelaZahtevi();
+                JTable tabela = f.getTabelaZahtevi();
                 int izabraniRed = tabela.getSelectedRow();
 
                 if (izabraniRed == -1) {
@@ -112,6 +115,32 @@ public class PretraziZahtevKontroler extends OpstiKontrolerKI {
                 detalji.setLocationRelativeTo(null);
                 detalji.setVisible(true);
             }
+        });
+        
+        f.getIzmeniZahtevButton().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PromeniZahtevForm promeniZahtevForm = new PromeniZahtevForm();
+                
+                JTable tabela = f.getTabelaZahtevi();
+                int izabraniRed = tabela.getSelectedRow();
+
+                if (izabraniRed == -1) {
+                    f.prikaziErrorPane("Nije izabran red u tabeli", null);
+                    return;
+                }
+                int konvertovaniRed = tabela.convertRowIndexToModel(izabraniRed);
+                ZahtevZaAnalizu selektovaniZahtev = zahtevTableModel.getZahtevAt(konvertovaniRed);
+                // moramo popuniti ceo zahtev
+                Response r = sendReceive(Operacija.PRETRAZI_ZAHTEV_ZA_ANALIZU, selektovaniZahtev);
+                ZahtevZaAnalizu kompletanZahtev = (ZahtevZaAnalizu) r.getResult();
+                PromeniZahtevKontroler kontroler = new PromeniZahtevKontroler(promeniZahtevForm, kompletanZahtev);
+                
+                promeniZahtevForm.setLocationRelativeTo(null);
+                promeniZahtevForm.setVisible(true);
+                
+            }
+        
         });
     }
 

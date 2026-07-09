@@ -37,10 +37,23 @@ public class Server extends Thread{
         }else{
             PORT = Integer.parseInt(port);
         }    
+        LOGGER.log(Level.INFO, "Server konfigurisan.");
     }
     
     @Override
     public void run() {
+        boolean success = proveriKonekcijuSaBazom();
+        if (!success){
+            serverForm.osveziStatusLabel(false);
+            LOGGER.log(Level.SEVERE, "Nije moguca konekcija sa bazom podataka.");
+            if(serverForm != null)
+                serverForm.prikaziErrorPane("Neuspesna veza sa bazom", null);             
+            return;
+        }else{
+            LOGGER.log(Level.INFO, "Uspesna konekcija sa bazom podataka.");
+        }
+        
+        serverForm.osveziStatusLabel(true);
         LOGGER.log(Level.INFO, "Server pokrenut. Slusanje na portu: " + PORT);
         try {
             serverSocket = new ServerSocket(PORT);
@@ -57,16 +70,25 @@ public class Server extends Thread{
     }
     
     public boolean proveriKonekcijuSaBazom(){
-        ConnectionPool.getInstance();
-        if(ConnectionPool.isInicijalizovan()){
-            return true;
-        }else{
-            if(serverForm != null)
-                serverForm.prikaziErrorPane("Neuspesna veza sa bazom", null);
-            return false;
-        }        
+        int attempts = 0;
+        while (attempts < 3) {
+            ConnectionPool pool = ConnectionPool.getInstance();
+            if (pool.proveriKonekciju()) {
+                return true;
+            }
+            attempts++;
+            LOGGER.log(Level.WARNING, "Baza nije spremna. Pokušaj " + attempts + " od 3...");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
+        return false;
     }
 
+    
+    
     public void zaustavi() {
         interrupt(); // interruptuje se accept funkcija
         if (serverSocket != null) {
