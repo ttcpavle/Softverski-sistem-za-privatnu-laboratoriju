@@ -50,7 +50,8 @@ public class ConnectionPool {
                 con.setAutoCommit(false);
                 slobodneKonekcije.offer(con);
             } catch (SQLException e) {
-                LOGGER.log(Level.SEVERE, "Greska pri povezivanju sa bazom: " + e.getMessage(), e);
+                LOGGER.log(Level.SEVERE, "Greska pri povezivanju sa bazom: " + e.getMessage());
+                break;
             }
         }
     }

@@ -27,6 +27,8 @@ public class Server extends Thread{
     private List<ClientHandler> clients = new ArrayList<>(); // ne static lista jer vise threadova bi brisalo elemente liste, NIJE SAFE
     private final int PORT;
     private ServerForm serverForm;
+    private Thread proveraKonekcijeThread;
+    private volatile boolean radiProveru = false;
     
     public Server(){
         ConfigReader cr = new ConfigReader();
@@ -55,6 +57,9 @@ public class Server extends Thread{
         
         serverForm.osveziStatusLabel(true);
         LOGGER.log(Level.INFO, "Server pokrenut. Slusanje na portu: " + PORT);
+        
+        pokreniPeriodicnuProveru();
+        
         try {
             serverSocket = new ServerSocket(PORT);
             while (!isInterrupted()) {
@@ -87,9 +92,33 @@ public class Server extends Thread{
         return false;
     }
 
-    
+    private void pokreniPeriodicnuProveru() {
+        radiProveru = true;
+        proveraKonekcijeThread = new Thread(() -> {
+            while (radiProveru) {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+                boolean ziva = ConnectionPool.getInstance().proveriKonekciju();
+                if (serverForm != null) {
+                    serverForm.osveziStatusLabel(ziva);
+                }
+                if (!ziva) {
+                    LOGGER.log(Level.WARNING, "Konekcija sa bazom je izgubljena.");
+                }
+            }
+        });
+        proveraKonekcijeThread.start();
+    }    
     
     public void zaustavi() {
+        radiProveru = false;
+        if (proveraKonekcijeThread != null) {
+            proveraKonekcijeThread.interrupt();
+        }        
         interrupt(); // interruptuje se accept funkcija
         if (serverSocket != null) {
             try {
