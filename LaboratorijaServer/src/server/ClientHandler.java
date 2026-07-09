@@ -193,7 +193,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case VRATI_LISTU_SVI_MESTO:
-                        //serverResponse = c.vratiListuSviMesto();
+                        serverResponse = c.vratiListuSviMesto();
                         break;
  
                     // ===== TIP USLUGE =====

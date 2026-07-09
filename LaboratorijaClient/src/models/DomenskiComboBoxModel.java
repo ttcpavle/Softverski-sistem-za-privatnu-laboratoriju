@@ -15,6 +15,8 @@ public class DomenskiComboBoxModel<T> extends AbstractListModel<T> implements Co
         this.izabrani = this.elementi.isEmpty() ? null : this.elementi.get(0);
     }
 
+    
+
     @Override
     public int getSize() {
         return elementi.size();

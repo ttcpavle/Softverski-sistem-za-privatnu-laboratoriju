@@ -55,4 +55,12 @@ public interface Repository {
      * @return uspesnost operacije
      */
     public boolean obrisiSvePremaUslovu(OpstiDomenskiObjekat odo);
+    
+    /**
+     * Generička funkcija za slozenije upite (npr. vise JOIN-ova, GROUP BY...)
+     * koji se ne uklapaju u vratiSve/vratiSvePremaUslovu.
+     * Poziva se sa vec gotovim SELECT upitom, a "odo" sluzi samo kao prototip
+     * (koristi se getClass() da bi se napravile instance rezultata).
+     */
+    public boolean vratiPremaUpitu(OpstiDomenskiObjekat odo, String upit);
 }

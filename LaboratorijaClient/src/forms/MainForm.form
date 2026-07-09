@@ -47,11 +47,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Kreiraj"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="kreirajKupacActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="pretraziKupac">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Pretrazi"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pretraziKupacActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="promeniKupac">
               <Properties>
@@ -65,6 +71,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Obrisi"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="obrisiKupacActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

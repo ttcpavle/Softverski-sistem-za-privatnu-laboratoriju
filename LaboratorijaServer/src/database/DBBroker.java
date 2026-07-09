@@ -292,6 +292,7 @@ public class DBBroker implements Repository{
      * Poziva se sa vec gotovim SELECT upitom, a "odo" sluzi samo kao prototip
      * (koristi se getClass() da bi se napravile instance rezultata).
      */
+    @Override
     public boolean vratiPremaUpitu(OpstiDomenskiObjekat odo, String upit) {
         try {
             LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);

@@ -4,7 +4,10 @@
  */
 package forms;
 
+import controller.KreirajKupacKontroler;
 import controller.KreirajZahtevKontroler;
+import controller.ModForme;
+import controller.PretraziKupacKontroler;
 import controller.PretraziZahtevKontroler;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
@@ -86,9 +89,19 @@ public class MainForm extends OpstaEkranskaForma{
         jMenu2.setText("Kupac");
 
         kreirajKupac.setText("Kreiraj");
+        kreirajKupac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                kreirajKupacActionPerformed(evt);
+            }
+        });
         jMenu2.add(kreirajKupac);
 
         pretraziKupac.setText("Pretrazi");
+        pretraziKupac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pretraziKupacActionPerformed(evt);
+            }
+        });
         jMenu2.add(pretraziKupac);
 
         promeniKupac.setText("Promeni");
@@ -100,6 +113,11 @@ public class MainForm extends OpstaEkranskaForma{
         jMenu2.add(promeniKupac);
 
         obrisiKupac.setText("Obrisi");
+        obrisiKupac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                obrisiKupacActionPerformed(evt);
+            }
+        });
         jMenu2.add(obrisiKupac);
 
         jMenuBar1.add(jMenu2);
@@ -163,6 +181,27 @@ public class MainForm extends OpstaEkranskaForma{
     private void promeniKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promeniKupacActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_promeniKupacActionPerformed
+
+    private void kreirajKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kreirajKupacActionPerformed
+        // TODO add your handling code here:
+        KreirajKupacForm f = new KreirajKupacForm();
+        KreirajKupacKontroler k = new KreirajKupacKontroler(f);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);    
+        
+    }//GEN-LAST:event_kreirajKupacActionPerformed
+
+    private void pretraziKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretraziKupacActionPerformed
+        // TODO add your handling code here:
+        PretraziKupacForm f = new PretraziKupacForm();
+        PretraziKupacKontroler k = new PretraziKupacKontroler(f, ModForme.OBICAN);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_pretraziKupacActionPerformed
+
+    private void obrisiKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obrisiKupacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_obrisiKupacActionPerformed
                                                                                                                      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

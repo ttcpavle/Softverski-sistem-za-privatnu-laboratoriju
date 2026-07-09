@@ -97,4 +97,11 @@ public class Mesto implements OpstiDomenskiObjekat, Serializable {
     
     public List<Kupac> getKupci() { return kupci; }
     public void setKupci(List<Kupac> kupci) { this.kupci = kupci; }
+
+    @Override
+    public String toString() {
+        return naziv + " " + zipKod;
+    }
+    
+    
 }
