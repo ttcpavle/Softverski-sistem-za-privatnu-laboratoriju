@@ -4,10 +4,13 @@
  */
 package forms;
 
+import domen.Mesto;
 import domen.OpstaEkranskaForma;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import models.DomenskiComboBoxModel;
 
 /**
  *
@@ -22,6 +25,7 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
      */
     public PretraziKupacForm() {
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     public JButton getDetaljiButton() {
@@ -112,6 +116,14 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
         this.telefonField = telefonField;
     }
 
+    public JComboBox<Mesto> getMestoCombo() {
+        return mestoCombo;
+    }
+
+    public void setMestoCombo(JComboBox<Mesto> mestoCombo) {
+        this.mestoCombo = mestoCombo;
+    }
+
     
     
     /**
@@ -140,6 +152,8 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
         promeniButton = new javax.swing.JButton();
         obrisiButton = new javax.swing.JButton();
         glavnFormaButton = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        mestoCombo = new javax.swing.JComboBox<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -187,6 +201,10 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
 
         glavnFormaButton.setText("glavna forma");
 
+        jLabel6.setText("mesto");
+
+        mestoCombo.setModel(new DomenskiComboBoxModel<Mesto>(null));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,12 +227,14 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(18, 18, 18)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(imeField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(emailField)
-                                    .addComponent(telefonField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(telefonField, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(mestoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pretraziButton)
@@ -222,11 +242,11 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
                             .addComponent(promeniButton)
                             .addComponent(obrisiButton)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
+                        .addGap(17, 17, 17)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(glavnFormaButton))))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,11 +271,15 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
                     .addComponent(telefonField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(obrisiButton))
-                .addGap(29, 29, 29)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(mestoCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(glavnFormaButton)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
 
         pack();
@@ -272,10 +296,12 @@ public class PretraziKupacForm extends OpstaEkranskaForma {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable kupacTable;
+    private javax.swing.JComboBox<Mesto> mestoCombo;
     private javax.swing.JButton obrisiButton;
     private javax.swing.JButton pretraziButton;
     private javax.swing.JTextField prezimeField;

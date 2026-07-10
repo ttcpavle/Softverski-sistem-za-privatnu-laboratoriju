@@ -8,6 +8,7 @@ package controller;
 import communication.Operacija;
 import communication.Response;
 import domen.Kupac;
+import domen.Mesto;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 import forms.KupacDetaljiForm;
@@ -18,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import models.DomenskiComboBoxModel;
 import models.KupacTableModel;
 
 /**
@@ -47,6 +49,9 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
         kupac.setPrezime(f.getPrezimeField().getText().trim());
         kupac.setMail(f.getEmailField().getText().trim());
         kupac.setTelefon(f.getTelefonField().getText().trim());
+        
+        Mesto mesto = (Mesto) f.getMestoCombo().getSelectedItem();
+        kupac.setMesto(mesto);
         return kupac;
     }
 
@@ -180,6 +185,15 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
     protected void inicijalizujFormu() {
         PretraziKupacForm f = (PretraziKupacForm) forma;
 
+        Response mestaResponse = sendReceive(Operacija.VRATI_LISTU_SVI_MESTO, null);
+        if (mestaResponse != null && mestaResponse.isSuccess()) {
+            List<Mesto> mesta = (List<Mesto>) mestaResponse.getResult();
+            Mesto m = new Mesto();
+            mesta.add(0, m);
+            f.getMestoCombo().setModel(new DomenskiComboBoxModel<>(mesta));
+        } else {
+            forma.prikaziErrorPane("Greska pri ucitavanju mesta", null);
+        }
         // Postavi table model
         kupacTableModel = new KupacTableModel();
         f.getKupacTable().setModel(kupacTableModel);
@@ -187,5 +201,6 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
         // Prikazi dugmad u zavisnosti od moda
         f.getObrisiButton().setVisible(mod == ModForme.BRISANJE);
         f.getPromeniButton().setVisible(mod == ModForme.PROMENA);
+        
     }
 }

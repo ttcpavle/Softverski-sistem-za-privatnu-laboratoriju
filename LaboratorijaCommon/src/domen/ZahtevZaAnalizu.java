@@ -203,4 +203,27 @@ public void popuniIzResultSet(ResultSet rs) throws SQLException {
     
     public List<StavkaZahteva> getStavke() { return stavke; }
     public void setStavke(List<StavkaZahteva> stavke) { this.stavke = stavke; }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ZahtevZaAnalizu other = (ZahtevZaAnalizu) obj;
+        return this.idZahtev == other.idZahtev;
+    }
+    
+    
 }

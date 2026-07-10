@@ -54,6 +54,7 @@ public class ZahtevDetaljiKontroler extends OpstiKontrolerKI{
         Response zahtevResponse = sendReceive(Operacija.PRETRAZI_ZAHTEV_ZA_ANALIZU, zahtev);
         if(!zahtevResponse.isSuccess()){
             f.prikaziErrorPane("GRESKA", zahtevResponse.getException());
+            f.dispose();
             return;
         }
         this.zahtev = (ZahtevZaAnalizu) zahtevResponse.getResult();

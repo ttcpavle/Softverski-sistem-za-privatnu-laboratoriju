@@ -3,6 +3,7 @@ package operacije;
 import communication.Response;
 import database.DBBroker;
 import domen.Kupac;
+import domen.Mesto;
 import domen.OpstiDomenskiObjekat;
 
 public class PretraziKupac extends OpstaSO {
@@ -25,6 +26,15 @@ public class PretraziKupac extends OpstaSO {
         if (!result) {
             return new Response(null, new Exception("Kupac nije pronadjen"), true); // bilo je false
         }
-        return new Response(dbb.getRezultat(), null, true);
+        Kupac k = (Kupac) dbb.getRezultat();
+        
+        result = dbb.nadjiSlog(k.getMesto());
+        Exception e = null;
+        if (!result) {
+            e = new Exception("Nije nadjeno mesto kupca");
+        }
+        Mesto m = (Mesto) dbb.getRezultat();
+        k.setMesto(m);
+        return new Response(k, e, true);
     }
 }

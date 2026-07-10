@@ -157,4 +157,30 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
     public void setProizvod(Proizvod proizvod) { 
         this.proizvod = proizvod;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final StavkaZahteva other = (StavkaZahteva) obj;
+        if (this.idZahtev != other.idZahtev) {
+            return false;
+        }
+        return this.rbStavka == other.rbStavka;
+    }
+    
+    
 }

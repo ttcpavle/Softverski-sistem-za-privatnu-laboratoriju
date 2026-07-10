@@ -102,11 +102,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case VRATI_LISTU_KUPAC:
-                        if (argumentObj instanceof Mesto) {
-                            serverResponse = c.vratiListuKupacPoKriterijumuMesto((Mesto) argumentObj);
-                        } else {
-                            serverResponse = c.vratiListuKupacPoKriterijumuKupac((Kupac) argumentObj);
-                        }
+                        serverResponse = c.vratiListuKupac((Kupac) argumentObj);
                         break;
  
                     case VRATI_LISTU_SVI_KUPAC:

@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Kupac implements OpstiDomenskiObjekat, Serializable {
     
@@ -100,7 +101,7 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
             conditions.add("telefon='" + telefon + "'");
         }
         if (mesto != null && mesto.getIdMesto() > 0) {
-            conditions.add("idMesto=" + mesto.getIdMesto());
+            conditions.add("kupac.idMesto=" + mesto.getIdMesto());
         }
         
         return conditions.isEmpty() ? "1=1" : String.join(" AND ", conditions);
@@ -173,4 +174,30 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
     public String toString() {
         return ime + " " + prezime + " - " + mail;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Kupac other = (Kupac) obj;
+        if (this.idKupac != other.idKupac) {
+            return false;
+        }
+        return Objects.equals(this.mail, other.mail);
+    }
+    
+    
 }

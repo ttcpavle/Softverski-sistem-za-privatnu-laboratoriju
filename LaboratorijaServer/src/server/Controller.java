@@ -18,7 +18,7 @@ import operacije.PretraziRadnik;
 import operacije.PretraziZahtevZaAnalizu;
 import operacije.PrijaviRadnika;
 import operacije.UbaciProizvod;
-import operacije.VratiListuKupacPoKriterijumuMesto;
+import operacije.VratiListuKupac;
 import operacije.VratiListuProizvodPoKriterijumuProizvod;
 import operacije.VratiListuSviKupac;
 import operacije.VratiListuSviMesto;
@@ -55,26 +55,6 @@ public class Controller {
     }
     
 
-//    public Response vratiListuZahtevZaAnalizuPoKriterijumuZahtev(ZahtevZaAnalizu kriterijum) {
-//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-//        return so.opsteIzvrsenjeSO(kriterijum);
-//    }
-
-//    public Response vratiListuZahtevZaAnalizuPoKriterijumuRadnik(Radnik kriterijum) {
-//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-//        return so.opsteIzvrsenjeSO(kriterijum);
-//    }
-//
-//    public Response vratiListuZahtevZaAnalizuPoKriterijumuKupac(Kupac kriterijum) {
-//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-//        return so.opsteIzvrsenjeSO(kriterijum);
-//    }
-//
-//    public Response vratiListuZahtevZaAnalizuPoKriterijumuProizvod(Proizvod kriterijum) {
-//        VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
-//        return so.opsteIzvrsenjeSO(kriterijum);
-//    }
-
 // ========== KUPAC ==========
     public Response KreirajKupac(Kupac kupac) {
         KreirajKupac so = new KreirajKupac();
@@ -96,13 +76,8 @@ public class Controller {
         return so.opsteIzvrsenjeSO(kupac);
     }
 
-    public Response vratiListuKupacPoKriterijumuKupac(Kupac kriterijum) {
-        VratiListuSviKupac so = new VratiListuSviKupac();
-        return so.opsteIzvrsenjeSO(kriterijum);
-    }
-
-    public Response vratiListuKupacPoKriterijumuMesto(Mesto kriterijum) {
-        VratiListuKupacPoKriterijumuMesto so = new VratiListuKupacPoKriterijumuMesto();
+    public Response vratiListuKupac(Kupac kriterijum) {
+        VratiListuKupac so = new VratiListuKupac();
         return so.opsteIzvrsenjeSO(kriterijum);
     }
 
