@@ -5,7 +5,6 @@
 package server;
 
 import util.ConfigReader;
-import communication.Response;
 import database.ConnectionPool;
 import forms.ServerForm;
 import java.io.IOException;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
-import java.util.logging.FileHandler;
 
 /**
  *
@@ -30,7 +28,8 @@ public class Server extends Thread{
     private Thread proveraKonekcijeThread;
     private volatile boolean radiProveru = false;
     
-    public Server(){
+    public Server(ServerForm forma){
+        this.serverForm = forma;
         ConfigReader cr = new ConfigReader();
         String port = cr.getProperty("server_port");
         if(port == null){
@@ -46,16 +45,17 @@ public class Server extends Thread{
     public void run() {
         boolean success = proveriKonekcijuSaBazom();
         if (!success){
-            serverForm.osveziStatusLabel(false);
+            serverForm.osveziBazaKonekcijaLabel(false);
             LOGGER.log(Level.SEVERE, "Nije moguca konekcija sa bazom podataka.");
             if(serverForm != null)
                 serverForm.prikaziErrorPane("Neuspesna veza sa bazom", null);             
             return;
         }else{
             LOGGER.log(Level.INFO, "Uspesna konekcija sa bazom podataka.");
+            serverForm.osveziBazaKonekcijaLabel(true);
         }
-        
-        serverForm.osveziStatusLabel(true);
+        if(serverForm != null)
+            serverForm.osveziServerStatusLabel(true);
         LOGGER.log(Level.INFO, "Server pokrenut. Slusanje na portu: " + PORT);
         
         pokreniPeriodicnuProveru();
@@ -70,15 +70,27 @@ public class Server extends Thread{
             }
         } catch (IOException ex) {
             LOGGER.log(Level.INFO, "Server process prekinut");
+            if(serverForm != null){
+                serverForm.osveziBazaKonekcijaLabel(false);
+                serverForm.osveziServerStatusLabel(false);
+            }
             return;
         }
     }
     
     public boolean proveriKonekcijuSaBazom(){
         int attempts = 0;
+        if(serverForm != null){
+            serverForm.getPokreni().setEnabled(false);
+            serverForm.getZaustavi().setEnabled(false);
+        }
         while (attempts < 3) {
             ConnectionPool pool = ConnectionPool.getInstance();
             if (pool.proveriKonekciju()) {
+                if (serverForm != null) {
+                    serverForm.getPokreni().setEnabled(false);
+                    serverForm.getZaustavi().setEnabled(true);
+                }
                 return true;
             }
             attempts++;
@@ -88,6 +100,10 @@ public class Server extends Thread{
             } catch (InterruptedException ie) {
                 Thread.currentThread().interrupt();
             }
+        }
+        if(serverForm != null){
+            serverForm.getPokreni().setEnabled(true);
+            serverForm.getZaustavi().setEnabled(false);
         }
         return false;
     }
@@ -102,12 +118,14 @@ public class Server extends Thread{
                     Thread.currentThread().interrupt();
                     break;
                 }
+                LOGGER.log(Level.WARNING, "Pokusaj ponovog povezivanja sa bazom...");
                 boolean ziva = ConnectionPool.getInstance().proveriKonekciju();
-                if (serverForm != null) {
-                    serverForm.osveziStatusLabel(ziva);
-                }
+
                 if (!ziva) {
                     LOGGER.log(Level.WARNING, "Konekcija sa bazom je izgubljena.");
+                }
+                if (serverForm != null) {
+                    serverForm.osveziBazaKonekcijaLabel(ziva);
                 }
             }
         });
@@ -135,6 +153,10 @@ public class Server extends Thread{
             }
         }
         LOGGER.log(Level.INFO, "Server zaustavljen");
+        if(serverForm != null){
+            serverForm.osveziServerStatusLabel(false);
+            serverForm.osveziBazaKonekcijaLabel(false);
+        }
     }
 
     public void removeClient(ClientHandler client) {

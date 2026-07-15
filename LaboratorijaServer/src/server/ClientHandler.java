@@ -10,22 +10,14 @@ import communication.Request;
 import communication.Response;
 import communication.Sender;
 import domen.Kupac;
-import domen.Mesto;
 import domen.OpstiDomenskiObjekat;
 import domen.Proizvod;
 import domen.Radnik;
-import domen.TipUsluge;
 import domen.ZahtevZaAnalizu;
 import java.io.IOException;
-
 import java.net.Socket;
-import java.net.SocketException;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import operacije.PrijaviRadnika;
-import operacije.VratiListuSviKupac;
-import operacije.VratiListuSviRadnik;
 
 /**
  *

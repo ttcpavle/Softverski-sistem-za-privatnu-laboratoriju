@@ -6,7 +6,10 @@ package forms;
 
 import domen.OpstaEkranskaForma;
 import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JTextField;
 import server.Server;
+import util.ConfigReader;
 
 /**
  *
@@ -22,7 +25,16 @@ public class ServerForm extends OpstaEkranskaForma {
     public ServerForm() {
         super("Server");
         initComponents();
-        osveziStatusLabel(false);
+        osveziServerStatusLabel(false);
+        osveziBazaKonekcijaLabel(false);
+        ucitajKonfiguraciju();
+        getZaustavi().setEnabled(false);
+    }
+
+    private void ucitajKonfiguraciju() {
+        ConfigReader cr = new ConfigReader();
+        bazaUrlField.setText(String.valueOf(cr.getProperty("db_url")));
+        maxKonekcijaField.setText(String.valueOf(cr.getProperty("max_konekcija")));
     }
 
     /**
@@ -36,7 +48,15 @@ public class ServerForm extends OpstaEkranskaForma {
 
         pokreni = new javax.swing.JButton();
         zaustavi = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        konekcijaSaBazomLabel = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        bazaUrlField = new javax.swing.JTextField();
+        maxKonekcijaField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -54,7 +74,27 @@ public class ServerForm extends OpstaEkranskaForma {
             }
         });
 
-        statusLabel.setText("STATUS: ZAUSTAVLJEN");
+        jPanel1.setLayout(new java.awt.GridLayout(0, 2));
+
+        jLabel1.setText("Konekcija sa bazom:");
+        jPanel1.add(jLabel1);
+
+        konekcijaSaBazomLabel.setText("POVEZAN");
+        jPanel1.add(konekcijaSaBazomLabel);
+
+        jLabel2.setText("Status servera:");
+        jPanel1.add(jLabel2);
+
+        statusLabel.setText("ZAUSTAVLJEN");
+        jPanel1.add(statusLabel);
+
+        jLabel3.setText("Baza podataka:");
+
+        jLabel4.setText("Max konekcija:");
+
+        bazaUrlField.setEditable(false);
+
+        maxKonekcijaField.setEditable(false);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -62,23 +102,39 @@ public class ServerForm extends OpstaEkranskaForma {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(zaustavi, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(pokreni, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(80, 80, 80)
-                .addComponent(statusLabel)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(zaustavi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(pokreni, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(bazaUrlField)
+                            .addComponent(maxKonekcijaField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(16, 16, 16)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(bazaUrlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pokreni)
-                    .addComponent(statusLabel))
+                    .addComponent(jLabel4)
+                    .addComponent(maxKonekcijaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(pokreni)
                 .addGap(18, 18, 18)
                 .addComponent(zaustavi)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -86,34 +142,60 @@ public class ServerForm extends OpstaEkranskaForma {
 
     private void pokreniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pokreniActionPerformed
         // TODO add your handling code here:
-        server = new Server();
-        server.setServerForm(this);
-        server.start(); 
-
+        server = new Server(this);
+        if(server != null){
+            
+            getPokreni().setEnabled(false);
+            getZaustavi().setEnabled(true);
+            server.start();
+        }
     }//GEN-LAST:event_pokreniActionPerformed
 
     private void zaustaviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zaustaviActionPerformed
         // TODO add your handling code here:
         if(server != null){
+            
+            getPokreni().setEnabled(true);
+            getZaustavi().setEnabled(false);
+            osveziServerStatusLabel(false);
+            osveziBazaKonekcijaLabel(false);
             server.zaustavi();
         }
-        osveziStatusLabel(false);
+
     }//GEN-LAST:event_zaustaviActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField bazaUrlField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel konekcijaSaBazomLabel;
+    private javax.swing.JTextField maxKonekcijaField;
     private javax.swing.JButton pokreni;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JButton zaustavi;
     // End of variables declaration//GEN-END:variables
 
-    public void osveziStatusLabel(boolean pokrenut){
+    public void osveziServerStatusLabel(boolean pokrenut){
         if(pokrenut){
-            statusLabel.setText("STATUS: POKRENUT");
+            statusLabel.setText("POKRENUT");
             statusLabel.setForeground(Color.green);
         }else{
-            statusLabel.setText("STATUS: ZAUSTAVLJEN");
+            statusLabel.setText("ZAUSTAVLJEN");
             statusLabel.setForeground(Color.red);            
+        }
+    }
+    
+    public void osveziBazaKonekcijaLabel(boolean konektovan){
+        if(konektovan){
+            konekcijaSaBazomLabel.setText("KONEKTOVAN");
+            konekcijaSaBazomLabel.setForeground(Color.green);
+        }else{
+            konekcijaSaBazomLabel.setText("DISKONEKTOVAN");
+            konekcijaSaBazomLabel.setForeground(Color.red);
         }
     }
 
@@ -121,4 +203,38 @@ public class ServerForm extends OpstaEkranskaForma {
     protected void ocistiFormu() {
         return;
     }
+
+    public JTextField getBazaUrlField() {
+        return bazaUrlField;
+    }
+
+    public void setBazaUrlField(JTextField bazaUrlField) {
+        this.bazaUrlField = bazaUrlField;
+    }
+
+    public JTextField getMaxKonekcijaField() {
+        return maxKonekcijaField;
+    }
+
+    public void setMaxKonekcijaField(JTextField maxKonekcijaField) {
+        this.maxKonekcijaField = maxKonekcijaField;
+    }
+
+    public JButton getPokreni() {
+        return pokreni;
+    }
+
+    public void setPokreni(JButton pokreni) {
+        this.pokreni = pokreni;
+    }
+
+    public JButton getZaustavi() {
+        return zaustavi;
+    }
+
+    public void setZaustavi(JButton zaustavi) {
+        this.zaustavi = zaustavi;
+    }
+    
+    
 }
