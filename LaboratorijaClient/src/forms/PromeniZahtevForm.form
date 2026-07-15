@@ -43,15 +43,15 @@
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel1" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <Component id="jLabel1" alignment="0" min="-2" pref="152" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" min="-2" pref="78" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" min="-2" pref="90" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="ukupnaCenaZahteva" min="-2" pref="124" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -122,7 +122,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="ocistiFormaButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ocisti formu"/>
+        <Property name="text" type="java.lang.String" value="O&#x10d;isti formu"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel2">
@@ -204,7 +204,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="glavnaFormaButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Glavna forma"/>
+        <Property name="text" type="java.lang.String" value="Glavni meni"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="potvrdiIzmeneButton">
@@ -349,7 +349,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Kolicina"/>
+            <Property name="text" type="java.lang.String" value="Koli&#x10d;ina"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">

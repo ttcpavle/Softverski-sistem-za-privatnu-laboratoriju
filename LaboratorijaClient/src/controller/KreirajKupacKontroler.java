@@ -45,6 +45,8 @@ public class KreirajKupacKontroler extends OpstiKontrolerKI {
                 kupac.setDatumRodjenja(LocalDate.parse(datumTekst));
             } catch (DateTimeParseException ex) {
                 kupac.setDatumRodjenja(null);
+                f.prikaziErrorPane("Los format datuma: unesite GGGG-MM-DD", null);
+                return null;
             }
         }
 
@@ -69,6 +71,9 @@ public class KreirajKupacKontroler extends OpstiKontrolerKI {
             public void actionPerformed(ActionEvent e) {
                 Kupac kupac = (Kupac) formToOdo();
 
+                if(kupac == null){
+                    return;
+                }
                 if (kupac.getIme().isEmpty()) {
                     forma.prikaziErrorPane("Unesite ime", null);
                     return;

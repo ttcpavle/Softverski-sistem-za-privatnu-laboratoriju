@@ -22,7 +22,7 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
      * Creates new form PrijavaRadnikForm
      */
     public PrijavaRadnikForm() {
-        super();
+        super("Prijava");
         initComponents();
     }
 
@@ -48,7 +48,8 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
 
         jLabel2.setText("Lozinka");
 
-        jLabel3.setText("Prijava na sistem");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Prijava radnika");
 
         login.setText("uloguj se");
 
@@ -90,7 +91,7 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
                     .addComponent(jLabel2))
                 .addGap(26, 26, 26)
                 .addComponent(login)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();

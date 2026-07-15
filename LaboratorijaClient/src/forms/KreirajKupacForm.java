@@ -23,7 +23,9 @@ public class KreirajKupacForm extends OpstaEkranskaForma{
      * Creates new form KreirajKupacForm
      */
     public KreirajKupacForm() {
+        super("Kreiranje kupca");
         initComponents();
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -58,9 +60,9 @@ public class KreirajKupacForm extends OpstaEkranskaForma{
 
         jLabel2.setText("prezime");
 
-        jLabel3.setText("datum rodjenja");
+        jLabel3.setText("datum rođenja");
 
-        jLabel4.setText("email");
+        jLabel4.setText("e-mail");
 
         jLabel5.setText("telefon");
 
@@ -68,11 +70,11 @@ public class KreirajKupacForm extends OpstaEkranskaForma{
 
         mestoCombo.setModel(new DomenskiComboBoxModel<Mesto>(null));
 
-        sacuvajButton.setText("sacuvaj");
+        sacuvajButton.setText("Sačuvaj");
 
-        glavnaFormaButton.setText("glavna forma");
+        glavnaFormaButton.setText("Glavni meni");
 
-        ocistiFormuButton.setText("ocisti formu");
+        ocistiFormuButton.setText("Očisti formu");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Kreiraj novog kupca");
@@ -106,13 +108,12 @@ public class KreirajKupacForm extends OpstaEkranskaForma{
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(imeField)
-                                .addComponent(prezimeField)
-                                .addComponent(datumField)
-                                .addComponent(emailField)
-                                .addComponent(telefonField)
-                                .addComponent(mestoCombo, 0, 209, Short.MAX_VALUE)))))
+                            .addComponent(imeField)
+                            .addComponent(prezimeField)
+                            .addComponent(datumField)
+                            .addComponent(emailField)
+                            .addComponent(telefonField)
+                            .addComponent(mestoCombo, 0, 209, Short.MAX_VALUE))))
                 .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(

@@ -12,13 +12,6 @@ public class UbaciProizvod extends OpstaSO {
         if (!(odo instanceof Proizvod)) {
             return new Exception("Nije prosledjen objekat tipa Proizvod");
         }
-        Proizvod p = (Proizvod) odo;
-        if (p.getNaziv() == null || p.getNaziv().isEmpty()) {
-            return new Exception("Proizvod mora imati naziv");
-        }
-        if (p.getVremeIzdavanjaRez() == null) {
-            return new Exception("Proizvod mora imati vreme izdavanja rezultata");
-        }
         return null;
     }
 

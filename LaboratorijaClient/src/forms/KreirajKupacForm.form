@@ -54,14 +54,12 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel7" pref="209" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="imeField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="prezimeField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="datumField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="emailField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="telefonField" alignment="0" max="32767" attributes="0"/>
-                              <Component id="mestoCombo" pref="209" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="imeField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="prezimeField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="datumField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="emailField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="telefonField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="mestoCombo" pref="209" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -132,14 +130,14 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="datum rodjenja"/>
+        <Property name="text" type="java.lang.String" value="datum ro&#x111;enja"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="datumField">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="email"/>
+        <Property name="text" type="java.lang.String" value="e-mail"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="emailField">
@@ -168,17 +166,17 @@
     </Component>
     <Component class="javax.swing.JButton" name="sacuvajButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="sacuvaj"/>
+        <Property name="text" type="java.lang.String" value="Sa&#x10d;uvaj"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="glavnaFormaButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="glavna forma"/>
+        <Property name="text" type="java.lang.String" value="Glavni meni"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="ocistiFormuButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="ocisti formu"/>
+        <Property name="text" type="java.lang.String" value="O&#x10d;isti formu"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">

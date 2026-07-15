@@ -23,6 +23,7 @@ public class KupacDetaljiForm extends OpstaEkranskaForma {
      * Creates new form KupacDetaljiForm
      */
     public KupacDetaljiForm() {
+        super("Detalji kupca");
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -62,14 +63,14 @@ public class KupacDetaljiForm extends OpstaEkranskaForma {
 
         prezimeField.setEditable(false);
 
-        jLabel3.setText("datum rodjenja");
+        jLabel3.setText("datum rođenja");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel7.setText("Detalji kupca");
 
         datumField.setEditable(false);
 
-        jLabel4.setText("email");
+        jLabel4.setText("e-mail");
 
         emailField.setEditable(false);
 

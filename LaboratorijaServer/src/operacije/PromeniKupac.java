@@ -13,8 +13,9 @@ public class PromeniKupac extends OpstaSO {
             return new Exception("Nije prosledjen objekat tipa Kupac");
         }
         Kupac k = (Kupac) odo;
+        System.out.println(k.getIdKupac());
         if (k.getIdKupac() <= 0) {
-            return new Exception("Kupac nema validan ID za izmenu");
+            return new Exception("Kupac nema validan ID za izmenu. ID: " + k.getIdKupac());
         }
         return null;
     }

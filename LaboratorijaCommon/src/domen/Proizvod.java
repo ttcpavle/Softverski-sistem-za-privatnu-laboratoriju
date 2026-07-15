@@ -3,8 +3,6 @@ package domen;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -15,8 +13,9 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     
     private int idProizvod;
     private String naziv;
-    private LocalTime vremeIzdavanjaRez;
+    private int vremeCekanjaSati; // ocekivano vreme cekanja na rezultate, u satima (npr. 72 = 3 dana)
     private double cena;
+    private String opis;
     
     private List<StavkaZahteva> stavke;
     
@@ -31,7 +30,7 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     
     @Override
     public String vratiNaziveKolona() {
-        return "idProizvod, naziv, vremeIzdavanjaRez, cena";
+        return "idProizvod, naziv, vremeCekanjaSati, cena, opis";
     }
     
     @Override
@@ -40,16 +39,17 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
         
         sb.append(idProizvod > 0 ? idProizvod : "NULL").append(", ");
         sb.append("'").append(naziv).append("', ");
-        sb.append("'").append(vremeIzdavanjaRez.toString()).append("', ");
-        sb.append(cena);
+        sb.append(vremeCekanjaSati).append(", ");
+        sb.append(cena).append(", ");
+        sb.append(opis != null ? "'" + opis + "'" : "NULL");
         
         return sb.toString();
     }
     
     @Override
     public String vratiVrednostiZaUpdate() {
-        return "naziv='" + naziv + "', vremeIzdavanjaRez='" + vremeIzdavanjaRez + 
-               "', cena=" + cena;
+        return "naziv='" + naziv + "', vremeCekanjaSati=" + vremeCekanjaSati + 
+               ", cena=" + cena + ", opis=" + (opis != null ? "'" + opis + "'" : "NULL");
     }
     
     @Override
@@ -80,14 +80,9 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     public void popuniIzResultSet(ResultSet rs) throws SQLException {
         this.idProizvod = rs.getInt("idProizvod");
         this.naziv = rs.getString("naziv");
- 
-        // Kolona je INT u bazi (sekunde od ponoci), konvertujemo u LocalTime
-        int sekunde = rs.getInt("vremeIzdavanjaRez");
-        if (!rs.wasNull()) {
-            this.vremeIzdavanjaRez = LocalTime.ofSecondOfDay(sekunde);
-        }
- 
+        this.vremeCekanjaSati = rs.getInt("vremeCekanjaSati");
         this.cena = rs.getDouble("cena");
+        this.opis = rs.getString("opis");
     }
     
     // Getters and Setters
@@ -97,11 +92,14 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     public String getNaziv() { return naziv; }
     public void setNaziv(String naziv) { this.naziv = naziv; }
     
-    public LocalTime getVremeIzdavanjaRez() { return vremeIzdavanjaRez; }
-    public void setVremeIzdavanjaRez(LocalTime vremeIzdavanjaRez) { this.vremeIzdavanjaRez = vremeIzdavanjaRez; }
+    public int getVremeCekanjaSati() { return vremeCekanjaSati; }
+    public void setVremeCekanjaSati(int vremeCekanjaSati) { this.vremeCekanjaSati = vremeCekanjaSati; }
     
     public double getCena() { return cena; }
     public void setCena(double cena) { this.cena = cena; }
+    
+    public String getOpis() { return opis; }
+    public void setOpis(String opis) { this.opis = opis; }
     
     public List<StavkaZahteva> getStavke() { return stavke; }
     public void setStavke(List<StavkaZahteva> stavke) { this.stavke = stavke; }
@@ -134,7 +132,4 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
         }
         return Objects.equals(this.naziv, other.naziv);
     }
-
-    
-    
 }

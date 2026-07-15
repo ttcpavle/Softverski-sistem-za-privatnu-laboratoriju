@@ -20,6 +20,7 @@ public class ServerForm extends OpstaEkranskaForma {
      * Creates new form ServerForm
      */
     public ServerForm() {
+        super("Server");
         initComponents();
         osveziStatusLabel(false);
     }

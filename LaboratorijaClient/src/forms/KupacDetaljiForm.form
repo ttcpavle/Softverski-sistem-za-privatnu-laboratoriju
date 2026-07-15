@@ -129,7 +129,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="datum rodjenja"/>
+        <Property name="text" type="java.lang.String" value="datum ro&#x111;enja"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
@@ -147,7 +147,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="email"/>
+        <Property name="text" type="java.lang.String" value="e-mail"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="emailField">

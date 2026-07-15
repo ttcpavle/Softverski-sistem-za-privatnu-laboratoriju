@@ -8,7 +8,9 @@ import controller.KreirajKupacKontroler;
 import controller.KreirajZahtevKontroler;
 import controller.ModForme;
 import controller.PretraziKupacKontroler;
+import controller.PretraziProizvodKontroler;
 import controller.PretraziZahtevKontroler;
+import controller.UbaciProizvodKontroler;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 
@@ -24,7 +26,7 @@ public class MainForm extends OpstaEkranskaForma{
      * Creates new form MainForm
      */
     public MainForm() {
-        super();
+        super("Glavni meni");
         initComponents();
     }
 
@@ -37,6 +39,7 @@ public class MainForm extends OpstaEkranskaForma{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         kreirajZahtev = new javax.swing.JMenuItem();
@@ -52,6 +55,9 @@ public class MainForm extends OpstaEkranskaForma{
         pretraziProizvod = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        jLabel1.setText("Dobro dosli!");
 
         jMenu1.setText("Zahtev za analizu");
         jMenu1.addActionListener(new java.awt.event.ActionListener() {
@@ -125,9 +131,19 @@ public class MainForm extends OpstaEkranskaForma{
         jMenu3.setText("Proizvod");
 
         ubaciProizvod.setText("Ubaci");
+        ubaciProizvod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ubaciProizvodActionPerformed(evt);
+            }
+        });
         jMenu3.add(ubaciProizvod);
 
         pretraziProizvod.setText("Pretrazi");
+        pretraziProizvod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pretraziProizvodActionPerformed(evt);
+            }
+        });
         jMenu3.add(pretraziProizvod);
 
         jMenuBar1.add(jMenu3);
@@ -138,11 +154,17 @@ public class MainForm extends OpstaEkranskaForma{
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(134, 134, 134)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 277, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,6 +202,10 @@ public class MainForm extends OpstaEkranskaForma{
 
     private void promeniKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_promeniKupacActionPerformed
         // TODO add your handling code here:
+        PretraziKupacForm f = new PretraziKupacForm();
+        PretraziKupacKontroler k = new PretraziKupacKontroler(f, ModForme.PROMENA);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
     }//GEN-LAST:event_promeniKupacActionPerformed
 
     private void kreirajKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kreirajKupacActionPerformed
@@ -201,10 +227,31 @@ public class MainForm extends OpstaEkranskaForma{
 
     private void obrisiKupacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_obrisiKupacActionPerformed
         // TODO add your handling code here:
+        PretraziKupacForm f = new PretraziKupacForm();
+        PretraziKupacKontroler k = new PretraziKupacKontroler(f, ModForme.BRISANJE);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
     }//GEN-LAST:event_obrisiKupacActionPerformed
+
+    private void ubaciProizvodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ubaciProizvodActionPerformed
+        // TODO add your handling code here:
+        UbaciProizvodForm f = new UbaciProizvodForm();
+        UbaciProizvodKontroler k = new UbaciProizvodKontroler(f);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_ubaciProizvodActionPerformed
+
+    private void pretraziProizvodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretraziProizvodActionPerformed
+        // TODO add your handling code here:
+        PretraziProizvodForm f = new PretraziProizvodForm();
+        PretraziProizvodKontroler k = new PretraziProizvodKontroler(f);
+        f.setLocationRelativeTo(null);
+        f.setVisible(true);
+    }//GEN-LAST:event_pretraziProizvodActionPerformed
                                                                                                                      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

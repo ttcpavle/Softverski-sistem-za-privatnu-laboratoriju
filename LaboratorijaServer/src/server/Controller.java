@@ -9,6 +9,7 @@ import domen.TipUsluge;
 import domen.ZahtevZaAnalizu;
 import operacije.KreirajKupac;
 import operacije.KreirajZahtevZaAnalizu;
+import operacije.ObrisiKupac;
 import operacije.PromeniKupac;
 import operacije.PromeniProizvod;
 import operacije.PromeniZahtevZaAnalizu;
@@ -67,8 +68,8 @@ public class Controller {
     }
 
     public Response ObrisiKupac(Kupac kupac) {
-        // TODO: implementirati ObrisiKupac SO
-        return null;
+        ObrisiKupac so = new ObrisiKupac();
+        return so.opsteIzvrsenjeSO(kupac);
     }
 
     public Response PretraziKupac(Kupac kupac) {

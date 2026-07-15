@@ -5,6 +5,7 @@
 package domen;
 
 import domen.OpstiDomenskiObjekat;
+import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -14,7 +15,10 @@ import javax.swing.JOptionPane;
  */
 public abstract class OpstaEkranskaForma extends JFrame{
 
-    public OpstaEkranskaForma() {
+    public OpstaEkranskaForma(String title) {
+        getContentPane().setBackground(new Color(197, 224, 255));
+        setTitle(title);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
     

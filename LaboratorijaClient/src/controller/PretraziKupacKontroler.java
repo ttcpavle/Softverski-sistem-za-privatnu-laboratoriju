@@ -140,7 +140,8 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
 
                 int konvertovaniRed = tabela.convertRowIndexToModel(izabraniRed);
                 Kupac izabraniKupac = kupacTableModel.getKupacAt(konvertovaniRed);
-
+                System.out.println(izabraniKupac.getIdKupac());
+                
                 int potvrda = JOptionPane.showConfirmDialog(f,
                         "Da li ste sigurni da zelite da obrisete kupca "
                                 + izabraniKupac.getIme() + " " + izabraniKupac.getPrezime() + "?",

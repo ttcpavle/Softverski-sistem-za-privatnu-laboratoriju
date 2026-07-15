@@ -26,7 +26,7 @@ public class PromeniZahtevForm extends OpstaEkranskaForma {
      * Creates new form PromeniZahtevForm
      */
     public PromeniZahtevForm() {
-        super();
+        super("Promeni zahtev");
         initComponents();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -76,7 +76,7 @@ public class PromeniZahtevForm extends OpstaEkranskaForma {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        ocistiFormaButton.setText("Ocisti formu");
+        ocistiFormaButton.setText("Očisti formu");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -122,7 +122,7 @@ public class PromeniZahtevForm extends OpstaEkranskaForma {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("Zahtev za analizu");
 
-        glavnaFormaButton.setText("Glavna forma");
+        glavnaFormaButton.setText("Glavni meni");
 
         potvrdiIzmeneButton.setText("Potvrdi izmene");
         potvrdiIzmeneButton.addActionListener(new java.awt.event.ActionListener() {
@@ -157,7 +157,7 @@ public class PromeniZahtevForm extends OpstaEkranskaForma {
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Dodaj stavku");
 
-        jLabel9.setText("Kolicina");
+        jLabel9.setText("Količina");
 
         jLabel10.setText("Proizvod");
 
@@ -324,10 +324,10 @@ public class PromeniZahtevForm extends OpstaEkranskaForma {
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(8, 8, 8)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(ukupnaCenaZahteva, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(50, 50, 50))
+                                .addGap(38, 38, 38))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
