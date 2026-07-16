@@ -31,7 +31,7 @@ CREATE TABLE `kupac` (
   PRIMARY KEY (`idKupac`),
   KEY `idMesto` (`idMesto`),
   CONSTRAINT `kupac_ibfk_1` FOREIGN KEY (`idMesto`) REFERENCES `mesto` (`idMesto`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `mesto` */
 
@@ -66,10 +66,11 @@ DROP TABLE IF EXISTS `proizvod`;
 CREATE TABLE `proizvod` (
   `idProizvod` int(11) NOT NULL AUTO_INCREMENT,
   `naziv` varchar(255) NOT NULL,
-  `vremeIzdavanjaRez` int(11) NOT NULL,
+  `vremeCekanjaSati` int(11) NOT NULL,
   `cena` double NOT NULL CHECK (`cena` > 0),
+  `opis` text DEFAULT NULL,
   PRIMARY KEY (`idProizvod`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `radnik` */
 
@@ -82,9 +83,10 @@ CREATE TABLE `radnik` (
   `prezime` varchar(255) NOT NULL,
   `korisnickoIme` varchar(255) NOT NULL,
   `lozinka` varchar(255) NOT NULL,
+  `admin` tinyint(1) NOT NULL,
   PRIMARY KEY (`idRadnik`),
   UNIQUE KEY `korisnickoIme` (`korisnickoIme`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `stavkazahteva` */
 
@@ -101,7 +103,7 @@ CREATE TABLE `stavkazahteva` (
   KEY `idProizvod` (`idProizvod`),
   CONSTRAINT `stavkazahteva_ibfk_3` FOREIGN KEY (`idProizvod`) REFERENCES `proizvod` (`idProizvod`),
   CONSTRAINT `stavkazahteva_ibfk_4` FOREIGN KEY (`idZahtev`) REFERENCES `zahtevzaanalizu` (`idZahtev`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `tipusluge` */
 
@@ -112,7 +114,7 @@ CREATE TABLE `tipusluge` (
   `nazivUsluge` varchar(255) NOT NULL,
   `opisUsluge` varchar(600) NOT NULL,
   PRIMARY KEY (`idTipUsluge`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*Table structure for table `zahtevzaanalizu` */
 
@@ -131,7 +133,7 @@ CREATE TABLE `zahtevzaanalizu` (
   KEY `idKupac` (`idKupac`),
   CONSTRAINT `zahtevzaanalizu_ibfk_3` FOREIGN KEY (`idRadnik`) REFERENCES `radnik` (`idRadnik`),
   CONSTRAINT `zahtevzaanalizu_ibfk_4` FOREIGN KEY (`idKupac`) REFERENCES `kupac` (`idKupac`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
