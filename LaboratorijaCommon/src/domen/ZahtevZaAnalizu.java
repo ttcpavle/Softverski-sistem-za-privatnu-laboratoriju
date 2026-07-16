@@ -106,7 +106,6 @@ public void popuniIzResultSet(ResultSet rs) throws SQLException {
     this.prioritet = rs.getBoolean("prioritet");
     this.ukupnaCenaZahteva = rs.getDouble("ukupnaCenaZahteva");
 
-    // Radnik
     int idRadnik = rs.getInt("idRadnik");
     if (!rs.wasNull()) {
         this.radnik = new Radnik();
@@ -127,8 +126,6 @@ public void popuniIzResultSet(ResultSet rs) throws SQLException {
         // lozinka nam ne treba
     }
 
-
-    // Kupac
     int idKupac = rs.getInt("idKupac");
     if (!rs.wasNull()) {
         this.kupac = new Kupac();

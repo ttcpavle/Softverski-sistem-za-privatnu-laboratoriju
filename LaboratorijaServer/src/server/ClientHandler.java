@@ -123,11 +123,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case VRATI_LISTU_RADNIK:
-//                        if (argumentObj instanceof TipUsluge) {
-//                            serverResponse = c.vratiListuRadnikPoKriterijumuTipUsluge((TipUsluge) argumentObj);
-//                        } else {
-//                            serverResponse = c.vratiListuRadnikPoKriterijumuRadnik((Radnik) argumentObj);
-//                        }
+                        // serverResponse = c.VratiListuRadnik((Radnik) argumentObj);
                         break;
  
                     case VRATI_LISTU_SVI_RADNIK:
@@ -152,7 +148,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case VRATI_LISTU_PROIZVOD:
-                        serverResponse = c.vratiListuProizvodPoKriterijumuProizvod((Proizvod) argumentObj);
+                        serverResponse = c.vratiListuProizvod((Proizvod) argumentObj);
                         break;
  
                     case VRATI_LISTU_SVI_PROIZVOD:
@@ -202,7 +198,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case VRATI_LISTU_TIP_USLUGE:
-                        //serverResponse = c.vratiListuTipUslugePoKriterijumuTipUsluge((TipUsluge) argumentObj);
+                        //serverResponse = c.vratiListuTipUsluge((TipUsluge) argumentObj);
                         break;
  
                     case VRATI_LISTU_SVI_TIP_USLUGE:

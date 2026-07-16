@@ -15,6 +15,7 @@ import java.util.logging.Level;
  *
  * @author totic
  */
+// Implementirano tako da database broker ne vraca ResultSet i time logiku jdbc drzi izolovanom od ostatka koda
 public class DBBroker implements Repository{
 
     private static final Logger LOGGER =  Logger.getLogger(DBBroker.class.getName());
@@ -75,8 +76,6 @@ public class DBBroker implements Repository{
     public void setUspesnaKonekcija(boolean uspesnaKonekcija) {
         this.uspesnaKonekcija = uspesnaKonekcija;
     }
-    
-    // Implementirano tako da database broker ne vraca ResultSet i time logiku jdbc drzi izolovanom od ostatka koda
     
     
     @Override
@@ -145,8 +144,9 @@ public class DBBroker implements Repository{
 
 
     /*za odredjene klase zbog JOIN-a moraju se koristiti aliasi:
-    mesto - mesto_naziv
-    
+    mesto.nesto u mesto_nesto
+    kupac.nesto u kupac_nesto
+    radnik.nesto u radnik_nesto
     */
     public boolean vratiSvePremaUslovu(OpstiDomenskiObjekat odo,
             String tabela1,
@@ -186,7 +186,8 @@ public class DBBroker implements Repository{
             List<OpstiDomenskiObjekat> lista = new ArrayList<>();
             while (rs.next()) {
                 OpstiDomenskiObjekat obj = odo.getClass().getDeclaredConstructor().newInstance();
-                // moguci problem: kolone sa istim nazivom koje se ne odnose na iste podatke
+                // moguci problem: kolone sa istim nazivom koje se ne odnose na iste podatke. Da bi se to izbeglo preimenovati kolone
+                // tako da odgovaraju domenskim klasama
                 obj.popuniIzResultSet(rs);
                 lista.add(obj);
             }
@@ -199,6 +200,11 @@ public class DBBroker implements Repository{
         return false;
     }
 
+    /**
+     * 
+     * @param odo
+     * @return 
+     */
     @Override
     public boolean promeniSlog(OpstiDomenskiObjekat odo) {
         try {
@@ -261,11 +267,6 @@ public class DBBroker implements Repository{
         }
     }
     
-    /**
-     * Brise sve slogove koji zadovoljavaju uslov vratiUslovZaNadjiSlog().
-     * Primer generisanog upita za brisanje svih stavki zahteva sa idZahtev=5:
-     *   DELETE FROM stavkazahteva WHERE idZahtev=5
-     */
     @Override
     public boolean obrisiSvePremaUslovu(OpstiDomenskiObjekat odo) {
         try {
@@ -286,12 +287,6 @@ public class DBBroker implements Repository{
         }
     }
 
-    /*
-     * Generička funkcija za slozenije upite (npr. vise JOIN-ova, GROUP BY...)
-     * koji se ne uklapaju u vratiSve/vratiSvePremaUslovu.
-     * Poziva se sa vec gotovim SELECT upitom, a "odo" sluzi samo kao prototip
-     * (koristi se getClass() da bi se napravile instance rezultata).
-     */
     @Override
     public boolean vratiPremaUpitu(OpstiDomenskiObjekat odo, String upit) {
         try {

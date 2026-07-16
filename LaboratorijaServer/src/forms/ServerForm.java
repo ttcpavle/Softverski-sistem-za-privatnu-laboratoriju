@@ -6,6 +6,9 @@ package forms;
 
 import domen.OpstaEkranskaForma;
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import server.Server;
@@ -57,6 +60,7 @@ public class ServerForm extends OpstaEkranskaForma {
         jLabel4 = new javax.swing.JLabel();
         bazaUrlField = new javax.swing.JTextField();
         maxKonekcijaField = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,6 +100,13 @@ public class ServerForm extends OpstaEkranskaForma {
 
         maxKonekcijaField.setEditable(false);
 
+        jButton1.setText("konfigurisi");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,8 +125,10 @@ public class ServerForm extends OpstaEkranskaForma {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(bazaUrlField)
-                            .addComponent(maxKonekcijaField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))))
-                .addContainerGap(110, Short.MAX_VALUE))
+                            .addComponent(maxKonekcijaField, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,8 +136,10 @@ public class ServerForm extends OpstaEkranskaForma {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(bazaUrlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(bazaUrlField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(maxKonekcijaField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -164,9 +179,31 @@ public class ServerForm extends OpstaEkranskaForma {
 
     }//GEN-LAST:event_zaustaviActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        otvoriKonfiguracijuButtonActionPerformed(evt);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void otvoriKonfiguracijuButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        try {
+            File konfigFajl = new File("config.properties");
+            if (!konfigFajl.exists()) {
+                prikaziErrorPane("Konfiguracioni fajl nije pronadjen: " + konfigFajl.getAbsolutePath(), null);
+                return;
+            }
+            if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.OPEN)) {
+                Desktop.getDesktop().open(konfigFajl);
+            } else {
+                prikaziErrorPane("Otvaranje fajlova nije podrzano na ovom sistemu", null);
+            }
+        } catch (IOException ex) {
+            prikaziErrorPane("Greska pri otvaranju konfiguracionog fajla", ex);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField bazaUrlField;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

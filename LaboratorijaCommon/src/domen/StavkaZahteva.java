@@ -67,12 +67,12 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
     
     @Override
     public String vratiNazivKolonePK() {
-        return "idZahtev, rbStavka";  // Kompozitni ključ
+        return "idZahtev, rbStavka"; 
     }
     
     @Override
     public String vratiVrednostPK() {
-        return idZahtev + ", " + rbStavka;  // Vraća oba dela ključa
+        return idZahtev + ", " + rbStavka;
     }
     
     @Override
@@ -102,13 +102,11 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
         this.jedinicnaCena = rs.getDouble("jedinicnaCena");
         this.ukupnaCena = rs.getDouble("ukupnaCena");
         
-        // Zahtev
         if (idZahtev > 0) {
             this.zahtev = new ZahtevZaAnalizu();
             this.zahtev.setIdZahtev(idZahtev);
         }
         
-        // Proizvod
         int idProizvod = rs.getInt("idProizvod");
         if (!rs.wasNull()) {
             this.proizvod = new Proizvod();

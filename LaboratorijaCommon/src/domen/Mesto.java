@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-// Mesto.java
 package domen;
 
 import java.io.Serializable;
@@ -86,7 +81,6 @@ public class Mesto implements OpstiDomenskiObjekat, Serializable {
         this.naziv = rs.getString("naziv");
     }
     
-    // Getters and Setters
     public int getIdMesto() { return idMesto; }
     public void setIdMesto(int idMesto) { this.idMesto = idMesto; }
     

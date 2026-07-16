@@ -54,26 +54,12 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
     @Override
     public String vratiVrednostiAtributa() {
         StringBuilder sb = new StringBuilder();
-
-        // idRadnik
         sb.append(idRadnik > 0 ? idRadnik : "NULL").append(", ");
-
-        // JMBG
         sb.append("'").append(JMBG).append("', ");
-
-        // ime
         sb.append("'").append(ime).append("', ");
-
-        // prezime
         sb.append("'").append(prezime).append("', ");
-
-        // korisnickoIme
         sb.append("'").append(korisnickoIme).append("', ");
-
-        // lozinka
         sb.append("'").append(lozinka).append("', ");
-
-        // admin
         sb.append(admin != null && admin ? 1 : 0);
 
         return sb.toString();
@@ -115,11 +101,10 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
         if (korisnickoIme != null && !korisnickoIme.isEmpty()) {
             conditions.add("korisnickoIme='" + korisnickoIme + "'");
         }
-        // DODATO: Provera za lozinku
         if (lozinka != null && !lozinka.isEmpty()) {
             conditions.add("lozinka='" + lozinka + "'");
         }
-        // admin je Boolean wrapper - null znaci da kriterijum nije zadat
+        // null znaci kriterijum nije zadat
         if (admin != null) {
             conditions.add("admin=" + (admin ? 1 : 0));
         }

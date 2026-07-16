@@ -50,7 +50,7 @@ public class ZahtevDetaljiKontroler extends OpstiKontrolerKI{
         
         ZahtevDetaljiForm f = (ZahtevDetaljiForm) forma;
         f.getStatusCombo().setEnabled(false);
-        
+        f.getPrioritetCheck().setEnabled(false);
         Response zahtevResponse = sendReceive(Operacija.PRETRAZI_ZAHTEV_ZA_ANALIZU, zahtev);
         if(!zahtevResponse.isSuccess()){
             f.prikaziErrorPane("GRESKA", zahtevResponse.getException());

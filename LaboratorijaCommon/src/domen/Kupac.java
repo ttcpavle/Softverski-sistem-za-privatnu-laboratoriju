@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-// Kupac.java
 package domen;
 
 import java.io.Serializable;
@@ -24,7 +19,6 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
     private String telefon;
     private LocalDate datumRodjenja;
     
-    // Veze
     private Mesto mesto;
     private List<ZahtevZaAnalizu> zahtevi;
     
@@ -120,7 +114,6 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
             this.datumRodjenja = sqlDate.toLocalDate();
         }
         
-        // Mesto će biti naknadno učitano ili kroz JOIN
         int idMesto = rs.getInt("idMesto");
         if (!rs.wasNull()) {
             this.mesto = new Mesto();
@@ -145,7 +138,6 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
         }
     }
     
-    // Getters and Setters
     public int getIdKupac() { return idKupac; }
     public void setIdKupac(int idKupac) { this.idKupac = idKupac; }
     

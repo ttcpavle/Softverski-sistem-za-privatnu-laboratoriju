@@ -5,7 +5,7 @@ import database.DBBroker;
 import domen.OpstiDomenskiObjekat;
 import domen.Proizvod;
 
-public class VratiListuProizvodPoKriterijumuProizvod extends OpstaSO {
+public class VratiListuProizvod extends OpstaSO {
 
     @Override
     protected Exception preduslovi(OpstiDomenskiObjekat odo, DBBroker dbb) {

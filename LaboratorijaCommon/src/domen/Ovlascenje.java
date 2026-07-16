@@ -1,4 +1,3 @@
-// Ovlascenje.java
 package domen;
 
 import java.io.Serializable;

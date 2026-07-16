@@ -20,7 +20,7 @@ import operacije.PretraziZahtevZaAnalizu;
 import operacije.PrijaviRadnika;
 import operacije.UbaciProizvod;
 import operacije.VratiListuKupac;
-import operacije.VratiListuProizvodPoKriterijumuProizvod;
+import operacije.VratiListuProizvod;
 import operacije.VratiListuSviKupac;
 import operacije.VratiListuSviMesto;
 import operacije.VratiListuSviProizvod;
@@ -41,7 +41,6 @@ public class Controller {
     }
 
     public Response ObrisiZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {
-        // TODO: implementirati ObrisiZahtevZaAnalizu SO
         return null;
     }
 
@@ -49,12 +48,11 @@ public class Controller {
         PretraziZahtevZaAnalizu so = new PretraziZahtevZaAnalizu();
         return so.opsteIzvrsenjeSO(zahtev);
     }
-    
+
     public Response vratiListuZahtevZaAnalizu(ZahtevZaAnalizu kriterijum) {
         VratiListuZahtevZaAnalizu so = new VratiListuZahtevZaAnalizu();
         return so.opsteIzvrsenjeSO(kriterijum);
     }
-    
 
 // ========== KUPAC ==========
     public Response KreirajKupac(Kupac kupac) {
@@ -110,11 +108,7 @@ public class Controller {
         return pr.opsteIzvrsenjeSO(radnik);
     }
 
-    public Response vratiListuRadnikPoKriterijumuRadnik(Radnik kriterijum) {
-        return null;
-    }
-
-    public Response vratiListuRadnikPoKriterijumuTipUsluge(TipUsluge kriterijum) {
+    public Response vratiListuRadnik(Radnik kriterijum) {
         return null;
     }
 
@@ -135,7 +129,6 @@ public class Controller {
     }
 
     public Response ObrisiProizvod(Proizvod proizvod) {
-        // TODO: implementirati ObrisiProizvod SO
         return null;
     }
 
@@ -144,8 +137,8 @@ public class Controller {
         return so.opsteIzvrsenjeSO(proizvod);
     }
 
-    public Response vratiListuProizvodPoKriterijumuProizvod(Proizvod kriterijum) {
-        VratiListuProizvodPoKriterijumuProizvod so = new VratiListuProizvodPoKriterijumuProizvod();
+    public Response vratiListuProizvod(Proizvod kriterijum) {
+        VratiListuProizvod so = new VratiListuProizvod();
         return so.opsteIzvrsenjeSO(kriterijum);
     }
 
@@ -171,7 +164,7 @@ public class Controller {
         return null;
     }
 
-    public Response vratiListuMestoPoKriterijumuMesto(Mesto kriterijum) {
+    public Response vratiListuMesto(Mesto kriterijum) {
         return null;
     }
 
@@ -197,7 +190,7 @@ public class Controller {
         return null;
     }
 
-    public Response vratiListuTipUslugePoKriterijumuTipUsluge(TipUsluge kriterijum) {
+    public Response vratiListuTipUsluge(TipUsluge kriterijum) {
         return null;
     }
 
