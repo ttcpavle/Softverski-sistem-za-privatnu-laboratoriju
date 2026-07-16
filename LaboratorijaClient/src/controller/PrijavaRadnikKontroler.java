@@ -51,8 +51,9 @@ public class PrijavaRadnikKontroler extends OpstiKontrolerKI {
                 Response response = sendReceive(Operacija.PRIJAVI_RADNIKA, radnik);           
                 //odoToForm(response.getArgument()) nije potrebno ovde
                 if(response.getException() == null){
+                    Radnik r = (Radnik) response.getResult();
                     forma.prikaziInfoPane("Uspesna prijava!");
-                    MainForm mf = new MainForm(); // kontroler nije potreban za ovu formu jer ima jednostavnu logiku, treba samo da otvara druge forme
+                    MainForm mf = new MainForm(r); // kontroler nije potreban za ovu formu jer ima jednostavnu logiku, treba samo da otvara druge forme
                     forma.dispose();
                     mf.setLocationRelativeTo(null);
                     mf.setVisible(true);

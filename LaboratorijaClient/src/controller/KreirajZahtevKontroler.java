@@ -158,7 +158,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Zahtev za analizu je uspesno kreiran!");
+                    forma.prikaziInfoPane("Sistem je kreirao zahtev za analizu!");
                     ocistiFormu();
                 } else {
                     forma.prikaziErrorPane("Greska pri kreiranju zahteva", response.getException());

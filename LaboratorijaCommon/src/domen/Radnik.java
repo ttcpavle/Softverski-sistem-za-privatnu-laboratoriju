@@ -22,6 +22,7 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
     private String prezime;
     private String korisnickoIme;
     private String lozinka;
+    private Boolean admin;
 
     // Veze - nećemo ih direktno čuvati u bazi, već preko stranih ključeva
     private List<ZahtevZaAnalizu> zahtevi;
@@ -47,7 +48,7 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
 
     @Override
     public String vratiNaziveKolona() {
-        return "idRadnik, JMBG, ime, prezime, korisnickoIme, lozinka";
+        return "idRadnik, JMBG, ime, prezime, korisnickoIme, lozinka, admin";
     }
 
     @Override
@@ -70,7 +71,10 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
         sb.append("'").append(korisnickoIme).append("', ");
 
         // lozinka
-        sb.append("'").append(lozinka).append("'");
+        sb.append("'").append(lozinka).append("', ");
+
+        // admin
+        sb.append(admin != null && admin ? 1 : 0);
 
         return sb.toString();
     }
@@ -78,7 +82,8 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
     @Override
     public String vratiVrednostiZaUpdate() {
         return "JMBG='" + JMBG + "', ime='" + ime + "', prezime='" + prezime
-                + "', korisnickoIme='" + korisnickoIme + "', lozinka='" + lozinka + "'";
+                + "', korisnickoIme='" + korisnickoIme + "', lozinka='" + lozinka
+                + "', admin=" + (admin != null && admin ? 1 : 0);
     }
 
     @Override
@@ -114,6 +119,10 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
         if (lozinka != null && !lozinka.isEmpty()) {
             conditions.add("lozinka='" + lozinka + "'");
         }
+        // admin je Boolean wrapper - null znaci da kriterijum nije zadat
+        if (admin != null) {
+            conditions.add("admin=" + (admin ? 1 : 0));
+        }
 
         if (conditions.isEmpty()) {
             return "1=1";
@@ -129,6 +138,7 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
         this.prezime = rs.getString("prezime");
         this.korisnickoIme = rs.getString("korisnickoIme");
         this.lozinka = rs.getString("lozinka");
+        this.admin = rs.getBoolean("admin");
     }
 
     // Getters and Setters
@@ -178,6 +188,14 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
 
     public void setLozinka(String lozinka) {
         this.lozinka = lozinka;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public List<ZahtevZaAnalizu> getZahtevi() {

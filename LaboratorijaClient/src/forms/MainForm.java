@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package forms;
 
 import controller.KreirajKupacKontroler;
@@ -13,6 +9,10 @@ import controller.PretraziZahtevKontroler;
 import controller.UbaciProizvodKontroler;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
+import domen.Radnik;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -21,13 +21,21 @@ import domen.OpstiDomenskiObjekat;
 public class MainForm extends OpstaEkranskaForma{
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(MainForm.class.getName());
-
+    private final Radnik ulogovaniRadnik;
+    
     /**
      * Creates new form MainForm
      */
-    public MainForm() {
+    public MainForm(Radnik radnik) {
         super("Glavni meni");
+        this.ulogovaniRadnik = radnik;
         initComponents();
+        // Sta uciniti dostupno obicnom radniku a sta administratoru? Upralvjanje drugim radnicima, proizvodima, tipovima usluge
+        // i ovlascenjima upravlja samo administrator
+        if(radnik.getAdmin() == null || !radnik.getAdmin()){
+            getGlavniMenuBar().remove(getProizvodMenu());
+            // ukloniti ovlascenje menu, tip usluge menu, radnik menu
+        }
     }
 
     /**
@@ -40,17 +48,17 @@ public class MainForm extends OpstaEkranskaForma{
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
+        glavniMenuBar = new javax.swing.JMenuBar();
+        zahtevZaAnalizuMenu = new javax.swing.JMenu();
         kreirajZahtev = new javax.swing.JMenuItem();
         pretraziZahtev = new javax.swing.JMenuItem();
         promeniZahtev = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        kupacMenu = new javax.swing.JMenu();
         kreirajKupac = new javax.swing.JMenuItem();
         pretraziKupac = new javax.swing.JMenuItem();
         promeniKupac = new javax.swing.JMenuItem();
         obrisiKupac = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        proizvodMenu = new javax.swing.JMenu();
         ubaciProizvod = new javax.swing.JMenuItem();
         pretraziProizvod = new javax.swing.JMenuItem();
 
@@ -59,10 +67,10 @@ public class MainForm extends OpstaEkranskaForma{
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Dobro dosli!");
 
-        jMenu1.setText("Zahtev za analizu");
-        jMenu1.addActionListener(new java.awt.event.ActionListener() {
+        zahtevZaAnalizuMenu.setText("Zahtev za analizu");
+        zahtevZaAnalizuMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu1ActionPerformed(evt);
+                zahtevZaAnalizuMenuActionPerformed(evt);
             }
         });
 
@@ -72,7 +80,7 @@ public class MainForm extends OpstaEkranskaForma{
                 kreirajZahtevActionPerformed(evt);
             }
         });
-        jMenu1.add(kreirajZahtev);
+        zahtevZaAnalizuMenu.add(kreirajZahtev);
 
         pretraziZahtev.setText("Pretrazi zahtev");
         pretraziZahtev.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +88,7 @@ public class MainForm extends OpstaEkranskaForma{
                 pretraziZahtevActionPerformed(evt);
             }
         });
-        jMenu1.add(pretraziZahtev);
+        zahtevZaAnalizuMenu.add(pretraziZahtev);
 
         promeniZahtev.setText("Promeni zahtev");
         promeniZahtev.addActionListener(new java.awt.event.ActionListener() {
@@ -88,11 +96,11 @@ public class MainForm extends OpstaEkranskaForma{
                 promeniZahtevActionPerformed(evt);
             }
         });
-        jMenu1.add(promeniZahtev);
+        zahtevZaAnalizuMenu.add(promeniZahtev);
 
-        jMenuBar1.add(jMenu1);
+        glavniMenuBar.add(zahtevZaAnalizuMenu);
 
-        jMenu2.setText("Kupac");
+        kupacMenu.setText("Kupac");
 
         kreirajKupac.setText("Kreiraj");
         kreirajKupac.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +108,7 @@ public class MainForm extends OpstaEkranskaForma{
                 kreirajKupacActionPerformed(evt);
             }
         });
-        jMenu2.add(kreirajKupac);
+        kupacMenu.add(kreirajKupac);
 
         pretraziKupac.setText("Pretrazi");
         pretraziKupac.addActionListener(new java.awt.event.ActionListener() {
@@ -108,7 +116,7 @@ public class MainForm extends OpstaEkranskaForma{
                 pretraziKupacActionPerformed(evt);
             }
         });
-        jMenu2.add(pretraziKupac);
+        kupacMenu.add(pretraziKupac);
 
         promeniKupac.setText("Promeni");
         promeniKupac.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +124,7 @@ public class MainForm extends OpstaEkranskaForma{
                 promeniKupacActionPerformed(evt);
             }
         });
-        jMenu2.add(promeniKupac);
+        kupacMenu.add(promeniKupac);
 
         obrisiKupac.setText("Obrisi");
         obrisiKupac.addActionListener(new java.awt.event.ActionListener() {
@@ -124,11 +132,11 @@ public class MainForm extends OpstaEkranskaForma{
                 obrisiKupacActionPerformed(evt);
             }
         });
-        jMenu2.add(obrisiKupac);
+        kupacMenu.add(obrisiKupac);
 
-        jMenuBar1.add(jMenu2);
+        glavniMenuBar.add(kupacMenu);
 
-        jMenu3.setText("Proizvod");
+        proizvodMenu.setText("Proizvod");
 
         ubaciProizvod.setText("Ubaci");
         ubaciProizvod.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +144,7 @@ public class MainForm extends OpstaEkranskaForma{
                 ubaciProizvodActionPerformed(evt);
             }
         });
-        jMenu3.add(ubaciProizvod);
+        proizvodMenu.add(ubaciProizvod);
 
         pretraziProizvod.setText("Pretrazi");
         pretraziProizvod.addActionListener(new java.awt.event.ActionListener() {
@@ -144,11 +152,11 @@ public class MainForm extends OpstaEkranskaForma{
                 pretraziProizvodActionPerformed(evt);
             }
         });
-        jMenu3.add(pretraziProizvod);
+        proizvodMenu.add(pretraziProizvod);
 
-        jMenuBar1.add(jMenu3);
+        glavniMenuBar.add(proizvodMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(glavniMenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -170,10 +178,10 @@ public class MainForm extends OpstaEkranskaForma{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenu1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu1ActionPerformed
+    private void zahtevZaAnalizuMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_zahtevZaAnalizuMenuActionPerformed
 
         System.out.println("KLIKNUTO");
-    }//GEN-LAST:event_jMenu1ActionPerformed
+    }//GEN-LAST:event_zahtevZaAnalizuMenuActionPerformed
 
     private void kreirajZahtevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_kreirajZahtevActionPerformed
         // TODO add your handling code here:
@@ -251,20 +259,20 @@ public class MainForm extends OpstaEkranskaForma{
                                                                                                                      
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar glavniMenuBar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem kreirajKupac;
     private javax.swing.JMenuItem kreirajZahtev;
+    private javax.swing.JMenu kupacMenu;
     private javax.swing.JMenuItem obrisiKupac;
     private javax.swing.JMenuItem pretraziKupac;
     private javax.swing.JMenuItem pretraziProizvod;
     private javax.swing.JMenuItem pretraziZahtev;
+    private javax.swing.JMenu proizvodMenu;
     private javax.swing.JMenuItem promeniKupac;
     private javax.swing.JMenuItem promeniZahtev;
     private javax.swing.JMenuItem ubaciProizvod;
+    private javax.swing.JMenu zahtevZaAnalizuMenu;
     // End of variables declaration//GEN-END:variables
 
 
@@ -273,4 +281,110 @@ public class MainForm extends OpstaEkranskaForma{
     protected void ocistiFormu() {
         
     }
+
+    public JMenuBar getGlavniMenuBar() {
+        return glavniMenuBar;
+    }
+
+    public void setGlavniMenuBar(JMenuBar glavniMenuBar) {
+        this.glavniMenuBar = glavniMenuBar;
+    }
+
+    public JMenuItem getKreirajKupac() {
+        return kreirajKupac;
+    }
+
+    public void setKreirajKupac(JMenuItem kreirajKupac) {
+        this.kreirajKupac = kreirajKupac;
+    }
+
+    public JMenuItem getKreirajZahtev() {
+        return kreirajZahtev;
+    }
+
+    public void setKreirajZahtev(JMenuItem kreirajZahtev) {
+        this.kreirajZahtev = kreirajZahtev;
+    }
+
+    public JMenu getKupacMenu() {
+        return kupacMenu;
+    }
+
+    public void setKupacMenu(JMenu kupacMenu) {
+        this.kupacMenu = kupacMenu;
+    }
+
+    public JMenuItem getObrisiKupac() {
+        return obrisiKupac;
+    }
+
+    public void setObrisiKupac(JMenuItem obrisiKupac) {
+        this.obrisiKupac = obrisiKupac;
+    }
+
+    public JMenuItem getPretraziKupac() {
+        return pretraziKupac;
+    }
+
+    public void setPretraziKupac(JMenuItem pretraziKupac) {
+        this.pretraziKupac = pretraziKupac;
+    }
+
+    public JMenuItem getPretraziProizvod() {
+        return pretraziProizvod;
+    }
+
+    public void setPretraziProizvod(JMenuItem pretraziProizvod) {
+        this.pretraziProizvod = pretraziProizvod;
+    }
+
+    public JMenuItem getPretraziZahtev() {
+        return pretraziZahtev;
+    }
+
+    public void setPretraziZahtev(JMenuItem pretraziZahtev) {
+        this.pretraziZahtev = pretraziZahtev;
+    }
+
+    public JMenu getProizvodMenu() {
+        return proizvodMenu;
+    }
+
+    public void setProizvodMenu(JMenu proizvodMenu) {
+        this.proizvodMenu = proizvodMenu;
+    }
+
+    public JMenuItem getPromeniKupac() {
+        return promeniKupac;
+    }
+
+    public void setPromeniKupac(JMenuItem promeniKupac) {
+        this.promeniKupac = promeniKupac;
+    }
+
+    public JMenuItem getPromeniZahtev() {
+        return promeniZahtev;
+    }
+
+    public void setPromeniZahtev(JMenuItem promeniZahtev) {
+        this.promeniZahtev = promeniZahtev;
+    }
+
+    public JMenuItem getUbaciProizvod() {
+        return ubaciProizvod;
+    }
+
+    public void setUbaciProizvod(JMenuItem ubaciProizvod) {
+        this.ubaciProizvod = ubaciProizvod;
+    }
+
+    public JMenu getZahtevZaAnalizuMenu() {
+        return zahtevZaAnalizuMenu;
+    }
+
+    public void setZahtevZaAnalizuMenu(JMenu zahtevZaAnalizuMenu) {
+        this.zahtevZaAnalizuMenu = zahtevZaAnalizuMenu;
+    }
+    
+    
 }
