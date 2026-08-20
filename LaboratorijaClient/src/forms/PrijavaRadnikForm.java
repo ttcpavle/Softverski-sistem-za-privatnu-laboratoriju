@@ -52,6 +52,11 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
         jLabel3.setText("Prijava radnika");
 
         login.setText("uloguj se");
+        login.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loginActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,6 +101,10 @@ public class PrijavaRadnikForm extends OpstaEkranskaForma {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_loginActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
