@@ -25,8 +25,9 @@ public abstract class OpstaEkranskaForma extends JFrame{
     public void prikaziErrorPane(String poruka, Exception ex){
         if(ex != null){
             JOptionPane.showMessageDialog(null,  poruka + "\n" + ex.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null,  poruka, "Error",JOptionPane.ERROR_MESSAGE);
         }
-        JOptionPane.showMessageDialog(null,  poruka, "Error",JOptionPane.ERROR_MESSAGE);
     }
     
     public void prikaziInfoPane(String poruka){

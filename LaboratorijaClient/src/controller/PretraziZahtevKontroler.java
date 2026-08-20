@@ -133,6 +133,12 @@ public class PretraziZahtevKontroler extends OpstiKontrolerKI {
                 ZahtevZaAnalizu selektovaniZahtev = zahtevTableModel.getZahtevAt(konvertovaniRed);
                 // moramo popuniti ceo zahtev
                 Response r = sendReceive(Operacija.PRETRAZI_ZAHTEV_ZA_ANALIZU, selektovaniZahtev);
+                if (r == null || !r.isSuccess()) {
+                    String razlog = r != null ? r.getException().getMessage() : "greska u komunikaciji";
+                    f.prikaziErrorPane("Sistem ne moze da nadje zahtev za analizu: " + razlog, null);
+                    return;
+                }
+                f.prikaziInfoPane("Sistem je nasao zahtev za analizu");
                 ZahtevZaAnalizu kompletanZahtev = (ZahtevZaAnalizu) r.getResult();
                 PromeniZahtevKontroler kontroler = new PromeniZahtevKontroler(promeniZahtevForm, kompletanZahtev);
                 

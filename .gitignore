@@ -17,3 +17,6 @@ log/
 **/*.log
 **/*.lck
 /JavaApp0701/target/
+
+*.doc
+CLAUDE.md

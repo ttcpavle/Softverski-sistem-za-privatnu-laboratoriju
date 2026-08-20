@@ -40,7 +40,7 @@ public class PrijaviRadnika extends OpstaSO{
         }
         boolean res = dbb.nadjiSlog(odo);
         if(!res){
-            return new Response(null, new Exception("Ne postoji radnik"), false);
+            return new Response(null, new Exception("Korisnicko ime i sifra nisu ispravni"), false);
         }
         Radnik r = (Radnik) dbb.getRezultat();
         return new Response(r,null,true);

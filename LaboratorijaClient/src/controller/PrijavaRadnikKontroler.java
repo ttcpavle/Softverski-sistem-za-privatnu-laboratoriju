@@ -52,13 +52,17 @@ public class PrijavaRadnikKontroler extends OpstiKontrolerKI {
                 //odoToForm(response.getArgument()) nije potrebno ovde
                 if(response.getException() == null){
                     Radnik r = (Radnik) response.getResult();
-                    forma.prikaziInfoPane("Uspesna prijava!");
-                    MainForm mf = new MainForm(r); // kontroler nije potreban za ovu formu jer ima jednostavnu logiku, treba samo da otvara druge forme
-                    forma.dispose();
-                    mf.setLocationRelativeTo(null);
-                    mf.setVisible(true);
+                    forma.prikaziInfoPane("Korisnicko ime i sifra su ispravni.");
+                    try {
+                        MainForm mf = new MainForm(r); // kontroler nije potreban za ovu formu jer ima jednostavnu logiku, treba samo da otvara druge forme
+                        forma.dispose();
+                        mf.setLocationRelativeTo(null);
+                        mf.setVisible(true);
+                    } catch (Exception ex) {
+                        forma.prikaziErrorPane("Ne moze da se otvori glavna forma i meni", null);
+                    }
                 }else{
-                    forma.prikaziErrorPane("neuspesna prijava: ", response.getException());
+                    forma.prikaziErrorPane(response.getException().getMessage(), null);
                 }
             }
         });

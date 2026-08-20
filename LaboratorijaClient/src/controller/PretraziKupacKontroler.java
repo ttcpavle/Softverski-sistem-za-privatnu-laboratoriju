@@ -113,10 +113,12 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
 
                 // moramo popuniti ceo kupac (ako lista iz pretrage ne sadrzi sva polja)
                 Response r = sendReceive(Operacija.PRETRAZI_KUPCA, izabraniKupac);
-                if (r == null || !r.isSuccess()) {
-                    forma.prikaziErrorPane("Greska pri ucitavanju kupca", r != null ? r.getException() : null);
+                if (r == null || r.getException() != null) {
+                    String razlog = r != null ? r.getException().getMessage() : "greska u komunikaciji";
+                    forma.prikaziErrorPane("Sistem ne moze da nadje kupca: " + razlog, null);
                     return;
                 }
+                forma.prikaziInfoPane("Sistem je nasao kupca");
                 Kupac kompletanKupac = (Kupac) r.getResult();
 
                 PromeniKupacForm promeniKupacForm = new PromeniKupacForm();
@@ -152,10 +154,10 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Kupac je uspesno obrisan!");
+                    forma.prikaziInfoPane("Sistem je obrisao kupca.");
                     kupacTableModel.ukloniKupca(konvertovaniRed);
                 } else {
-                    forma.prikaziErrorPane("Greska pri brisanju kupca", response.getException());
+                    forma.prikaziErrorPane("Sistem ne moze da obrise kupca: " + response.getException().getMessage(), null);
                 }
             }
         });

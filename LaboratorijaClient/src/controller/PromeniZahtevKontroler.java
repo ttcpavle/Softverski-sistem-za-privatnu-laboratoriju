@@ -164,22 +164,22 @@ public class PromeniZahtevKontroler extends OpstiKontrolerKI{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (stavkaTableModel.getRowCount() == 0) {
-                    forma.prikaziErrorPane("Zahtev mora imati bar jednu stavku", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Zahtev mora imati bar jednu stavku", null);
                     return;
                 }
 
                 ZahtevZaAnalizu zahtev = (ZahtevZaAnalizu) formToOdo();
 
                 if(zahtev == null){
-                    forma.prikaziErrorPane("Zahtev nije azuriran", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Zahtev nije azuriran", null);
                     return;
                 }
                 if (zahtev.getRadnik() == null) {
-                    forma.prikaziErrorPane("Izaberite radnika", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Izaberite radnika", null);
                     return;
                 }
                 if (zahtev.getKupac() == null) {
-                    forma.prikaziErrorPane("Izaberite kupca", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Izaberite kupca", null);
                     return;
                 }
 
@@ -187,9 +187,9 @@ public class PromeniZahtevKontroler extends OpstiKontrolerKI{
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Zahtev za analizu je uspesno azuriran!");
+                    forma.prikaziInfoPane("Sistem je zapamtio zahtev za analizu.");
                 } else {
-                    forma.prikaziErrorPane("Greska pri azuriranju zahteva", response.getException());
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: " + response.getException().getMessage(), null);
                 }
             }
         });

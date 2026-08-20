@@ -54,15 +54,15 @@ public class UbaciProizvodKontroler extends OpstiKontrolerKI {
                 Proizvod proizvod = (Proizvod) formToOdo();
 
                 if (proizvod.getNaziv() == null || proizvod.getNaziv().isEmpty()) {
-                    forma.prikaziErrorPane("Unesite naziv proizvoda", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti proizvod: Unesite naziv proizvoda", null);
                     return;
                 }
                 if (proizvod.getCena() <= 0) {
-                    forma.prikaziErrorPane("Cena mora biti pozitivan broj", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti proizvod: Cena mora biti pozitivan broj", null);
                     return;
                 }
                 if (proizvod.getVremeCekanjaSati() <= 0) {
-                    forma.prikaziErrorPane("Vreme cekanja mora biti pozitivan ceo broj sati", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti proizvod: Vreme cekanja mora biti pozitivan ceo broj sati", null);
                     return;
                 }
 
@@ -70,10 +70,10 @@ public class UbaciProizvodKontroler extends OpstiKontrolerKI {
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Proizvod je uspesno ubacen!");
+                    forma.prikaziInfoPane("Sistem je zapamtio proizvod.");
                     ocistiFormu();
                 } else {
-                    forma.prikaziErrorPane("Greska pri ubacivanju proizvoda", response.getException());
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti proizvod: " + response.getException().getMessage(), null);
                 }
             }
         });

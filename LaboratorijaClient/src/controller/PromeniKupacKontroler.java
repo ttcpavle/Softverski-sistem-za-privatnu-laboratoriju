@@ -51,7 +51,7 @@ public class PromeniKupacKontroler extends OpstiKontrolerKI{
                 kupac.setDatumRodjenja(LocalDate.parse(datumTekst));
             } catch (DateTimeParseException ex) {
                 kupac.setDatumRodjenja(null);
-                f.prikaziErrorPane("Los format datuma: unesite GGGG-MM-DD", null);
+                f.prikaziErrorPane("Sistem ne moze da zapamti kupca: Los format datuma: unesite GGGG-MM-DD", null);
                 return null;
             }
         }
@@ -80,19 +80,19 @@ public class PromeniKupacKontroler extends OpstiKontrolerKI{
                     return;
                 }
                 if (kupac.getIme().isEmpty()) {
-                    forma.prikaziErrorPane("Unesite ime", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti kupca: Unesite ime", null);
                     return;
                 }
                 if (kupac.getPrezime().isEmpty()) {
-                    forma.prikaziErrorPane("Unesite prezime", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti kupca: Unesite prezime", null);
                     return;
                 }
                 if (kupac.getDatumRodjenja() == null) {
-                    forma.prikaziErrorPane("Unesite ispravan datum rodjenja (format: GGGG-MM-DD)", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti kupca: Unesite ispravan datum rodjenja (format: GGGG-MM-DD)", null);
                     return;
                 }
                 if (kupac.getMesto() == null) {
-                    forma.prikaziErrorPane("Izaberite mesto", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti kupca: Izaberite mesto", null);
                     return;
                 }
 
@@ -100,9 +100,9 @@ public class PromeniKupacKontroler extends OpstiKontrolerKI{
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Kupac je uspesno azuriran!");
+                    forma.prikaziInfoPane("Sistem je zapamtio kupca.");
                 } else {
-                    forma.prikaziErrorPane("Greska pri azuriiranju kupca", response.getException());
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti kupca: " + response.getException().getMessage(), null);
                 }
             }
             

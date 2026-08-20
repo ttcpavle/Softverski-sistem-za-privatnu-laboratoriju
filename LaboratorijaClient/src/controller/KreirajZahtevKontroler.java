@@ -90,7 +90,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
                     kolicina = Integer.parseInt(kolicinaTekst);
                     if (kolicina <= 0) throw new NumberFormatException();
                 } catch (NumberFormatException ex) {
-                    forma.prikaziErrorPane("Kolicina mora biti pozitivan ceo broj", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Kolicina mora biti pozitivan ceo broj", null);
                     return;
                 }
 
@@ -139,18 +139,18 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (stavkaTableModel.getRowCount() == 0) {
-                    forma.prikaziErrorPane("Zahtev mora imati bar jednu stavku", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Zahtev mora imati bar jednu stavku", null);
                     return;
                 }
 
                 ZahtevZaAnalizu zahtev = (ZahtevZaAnalizu) formToOdo();
 
                 if (zahtev.getRadnik() == null) {
-                    forma.prikaziErrorPane("Izaberite radnika", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Izaberite radnika", null);
                     return;
                 }
                 if (zahtev.getKupac() == null) {
-                    forma.prikaziErrorPane("Izaberite kupca", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Izaberite kupca", null);
                     return;
                 }
 
@@ -158,10 +158,10 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Sistem je kreirao zahtev za analizu!");
+                    forma.prikaziInfoPane("Sistem je zapamtio zahtev za analizu.");
                     ocistiFormu();
                 } else {
-                    forma.prikaziErrorPane("Greska pri kreiranju zahteva", response.getException());
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: " + response.getException().getMessage(), null);
                 }
             }
         });

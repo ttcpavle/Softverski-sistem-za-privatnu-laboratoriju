@@ -48,7 +48,7 @@ public class ProizvodDetaljiKontroler extends OpstiKontrolerKI{
         f.getCenaField().setText(String.valueOf(proizvod.getCena()));
         f.getVremeCekanjaSatiField().setText(String.valueOf(proizvod.getVremeCekanjaSati()));
         f.getOpisArea().setText(proizvod.getOpis());
-        
+        f.prikaziInfoPane("Sistem je nasao proizvod");
     }
     
 }

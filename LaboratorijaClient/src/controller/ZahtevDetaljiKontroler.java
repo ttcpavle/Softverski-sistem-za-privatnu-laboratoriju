@@ -53,10 +53,11 @@ public class ZahtevDetaljiKontroler extends OpstiKontrolerKI{
         f.getPrioritetCheck().setEnabled(false);
         Response zahtevResponse = sendReceive(Operacija.PRETRAZI_ZAHTEV_ZA_ANALIZU, zahtev);
         if(!zahtevResponse.isSuccess()){
-            f.prikaziErrorPane("GRESKA", zahtevResponse.getException());
+            f.prikaziErrorPane("Sistem ne moze da nadje zahtev za analizu: " + zahtevResponse.getException().getMessage(), null);
             f.dispose();
             return;
         }
+        f.prikaziInfoPane("Sistem je nasao zahtev za analizu");
         this.zahtev = (ZahtevZaAnalizu) zahtevResponse.getResult();
         
         // PODACI ZAHTEVA

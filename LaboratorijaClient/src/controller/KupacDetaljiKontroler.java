@@ -51,11 +51,12 @@ public class KupacDetaljiKontroler extends OpstiKontrolerKI{
         KupacDetaljiForm f = (KupacDetaljiForm) forma;
         Response kupacResponse = sendReceive(Operacija.PRETRAZI_KUPCA, kupac);
         if(kupacResponse.getException() != null){
-            f.prikaziErrorPane("Greska pri ucitavanju kupca: " + kupacResponse.getException().getMessage(), null);
+            f.prikaziErrorPane("Sistem ne moze da nadje kupca: " + kupacResponse.getException().getMessage(), null);
             f.dispose();
             return;
         }
-        
+        f.prikaziInfoPane("Sistem je nasao kupca");
+
         this.kupac = (Kupac) kupacResponse.getResult();
         f.getImeField().setText(kupac.getIme());
         f.getPrezimeField().setText(kupac.getPrezime());

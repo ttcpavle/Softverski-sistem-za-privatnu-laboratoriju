@@ -75,19 +75,19 @@ public class KreirajKupacKontroler extends OpstiKontrolerKI {
                     return;
                 }
                 if (kupac.getIme().isEmpty()) {
-                    forma.prikaziErrorPane("Unesite ime", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira kupca: Unesite ime", null);
                     return;
                 }
                 if (kupac.getPrezime().isEmpty()) {
-                    forma.prikaziErrorPane("Unesite prezime", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira kupca: Unesite prezime", null);
                     return;
                 }
                 if (kupac.getDatumRodjenja() == null) {
-                    forma.prikaziErrorPane("Unesite ispravan datum rodjenja (format: GGGG-MM-DD)", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira kupca: Unesite ispravan datum rodjenja (format: GGGG-MM-DD)", null);
                     return;
                 }
                 if (kupac.getMesto() == null) {
-                    forma.prikaziErrorPane("Izaberite mesto", null);
+                    forma.prikaziErrorPane("Sistem ne moze da kreira kupca: Izaberite mesto", null);
                     return;
                 }
 
@@ -95,10 +95,10 @@ public class KreirajKupacKontroler extends OpstiKontrolerKI {
                 if (response == null) return;
 
                 if (response.isSuccess()) {
-                    forma.prikaziInfoPane("Kupac je uspesno kreiran!");
+                    forma.prikaziInfoPane("Sistem je zapamtio kupca.");
                     ocistiFormu();
                 } else {
-                    forma.prikaziErrorPane("Greska pri kreiranju kupca", response.getException());
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti kupca: " + response.getException().getMessage(), null);
                 }
             }
         });
