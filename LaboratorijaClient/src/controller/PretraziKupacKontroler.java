@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-// PretraziKupacKontroler.java
 package controller;
 
 import communication.Operacija;
@@ -22,10 +17,6 @@ import javax.swing.JTable;
 import models.DomenskiComboBoxModel;
 import models.KupacTableModel;
 
-/**
- *
- * @author totic
- */
 public class PretraziKupacKontroler extends OpstiKontrolerKI {
 
     private KupacTableModel kupacTableModel;
@@ -201,7 +192,7 @@ public class PretraziKupacKontroler extends OpstiKontrolerKI {
         kupacTableModel = new KupacTableModel();
         f.getKupacTable().setModel(kupacTableModel);
 
-        // Prikazi dugmad u zavisnosti od moda
+        // Prikazi button u zavisnosti od moda
         f.getObrisiButton().setVisible(mod == ModForme.BRISANJE);
         f.getPromeniButton().setVisible(mod == ModForme.PROMENA);
         

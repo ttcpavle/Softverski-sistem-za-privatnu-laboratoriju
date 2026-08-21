@@ -38,23 +38,22 @@ public class KreirajZahtevZaAnalizu extends OpstaSO {
 
         ZahtevZaAnalizu z = (ZahtevZaAnalizu) odo;
 
-        // 1. Sacuvaj header zahteva
+        // 1. kreiranje
         boolean result = dbb.pamtiSlog(z);
         if (!result) {
             return new Response(null, new Exception("Greska pri kreiranju zahteva za analizu"), false);
         }
 
-        // 2. Uzmi generisani idZahtev iz baze i postavi ga na zahtev
-        //    bez ovoga stavke imaju idZahtev=0 i foreign key constraint puca
+        // 2.uzima generisan zahtev
         Integer generisaniId = (Integer) dbb.getRezultat();
         if (generisaniId == null || generisaniId <= 0) {
             return new Response(null, new Exception("Nije moguce preuzeti generisani ID zahteva"), false);
         }
         z.setIdZahtev(generisaniId);
 
-        // 3. Sacuvaj svaku stavku posebno
+        // 3. posebno cuvanje stavki zahteva
         for (StavkaZahteva stavka : z.getStavke()) {
-            stavka.setZahtev(z); // setuje idZahtev = generisaniId na stavci
+            stavka.setZahtev(z); // generisan id
             boolean stavkaResult = dbb.pamtiSlog(stavka);
             if (!stavkaResult) {
                 return new Response(null, new Exception("Greska pri cuvanju stavke zahteva (rbStavka=" + stavka.getRbStavka() + ")"), false);

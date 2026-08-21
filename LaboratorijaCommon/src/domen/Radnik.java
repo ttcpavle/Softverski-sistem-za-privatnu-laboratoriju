@@ -1,8 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-// Radnik.java
 package domen;
 
 import java.io.Serializable;
@@ -24,7 +19,6 @@ public class Radnik implements OpstiDomenskiObjekat, Serializable {
     private String lozinka;
     private Boolean admin;
 
-    // Veze - nećemo ih direktno čuvati u bazi, već preko stranih ključeva
     private List<ZahtevZaAnalizu> zahtevi;
     private List<Ovlascenje> ovlascenja;
 

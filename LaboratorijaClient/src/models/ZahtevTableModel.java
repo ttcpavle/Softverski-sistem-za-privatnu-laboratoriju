@@ -6,11 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-/**
- *
- * @author totic
- */
-
 public class ZahtevTableModel extends AbstractTableModel {
 
     private List<ZahtevZaAnalizu> zahtevi;
@@ -61,7 +56,7 @@ public class ZahtevTableModel extends AbstractTableModel {
             case 2: 
                 return z.getStatus();
             case 3: 
-                return z.isPrioritet(); // JTable će ovde automatski iscrtati Checkbox
+                return z.isPrioritet();
             case 4: 
                 return z.getUkupnaCenaZahteva();
             case 5:
@@ -74,6 +69,6 @@ public class ZahtevTableModel extends AbstractTableModel {
     }
 
     public ZahtevZaAnalizu getZahtevAt(int rowIndex) {
-        return zahtevi.get(rowIndex); // listaZahteva je List<ZahtevZaAnalizu> koju čuvaš u modelu
+        return zahtevi.get(rowIndex);
     }    
 }

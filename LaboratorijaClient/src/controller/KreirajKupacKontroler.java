@@ -14,10 +14,6 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import models.DomenskiComboBoxModel;
 
-/**
- *
- * @author totic
- */
 public class KreirajKupacKontroler extends OpstiKontrolerKI {
 
     public KreirajKupacKontroler(OpstaEkranskaForma forma) {

@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import communication.Operacija;
@@ -18,10 +14,6 @@ import java.time.format.DateTimeParseException;
 import java.util.List;
 import models.DomenskiComboBoxModel;
 
-/**
- *
- * @author totic
- */
 public class PromeniKupacKontroler extends OpstiKontrolerKI{
 
     private Kupac kupac;

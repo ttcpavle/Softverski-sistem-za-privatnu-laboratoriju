@@ -1,25 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacije;
 
 import communication.Response;
 import database.DBBroker;
 import domen.OpstiDomenskiObjekat;
-import java.util.logging.Logger;
 
-/**
- *
- * @author totic
- */
 public abstract class OpstaSO {
     protected String porukaUspesnostiSO; // status trenutno izvrsavane operacije
     
     
-    // Baza garantuje: ako dva threada menjaju ISTI red, jedan će čekati
-    // Programer mora garantovati: ako dva threada rade ISTU biznis operaciju, mora sinhronizovati na aplikacionom nivou
-    // TL;DR: Baza sinhronizuje pristup podacima. Programer mora sinhronizovati poslovnu logiku
+    // baza garantuje: ako dva threada menjaju isti red, jedan thread ce cekati
+    // programer mora da garantuje: ako dva threada rade istu biznis operaciju, mora je sinhronizovati na aplikacionom nivou
     public synchronized Response opsteIzvrsenjeSO(OpstiDomenskiObjekat odo) {
         
         DBBroker dbb = new DBBroker();

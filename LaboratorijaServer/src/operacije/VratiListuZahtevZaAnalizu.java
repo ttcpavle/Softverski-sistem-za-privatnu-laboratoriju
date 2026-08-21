@@ -1,26 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacije;
 
 import communication.Response;
 import database.DBBroker;
 import domen.Kupac;
 import domen.OpstiDomenskiObjekat;
-import domen.Proizvod;
 import domen.Radnik;
 import domen.StavkaZahteva;
 import domen.ZahtevZaAnalizu;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import server.ClientHandler;
 
-/**
- *
- * @author totic
- */
 public class VratiListuZahtevZaAnalizu extends OpstaSO{
 
     private static final Logger LOGGER = Logger.getLogger(ClientHandler.class.getName());

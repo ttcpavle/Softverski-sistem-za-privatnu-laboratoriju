@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import domen.OpstaEkranskaForma;
@@ -9,10 +5,6 @@ import domen.OpstiDomenskiObjekat;
 import domen.Proizvod;
 import forms.ProizvodDetaljiForm;
 
-/**
- *
- * @author totic
- */
 public class ProizvodDetaljiKontroler extends OpstiKontrolerKI{
 
     private Proizvod proizvod;
@@ -26,17 +18,17 @@ public class ProizvodDetaljiKontroler extends OpstiKontrolerKI{
 
     @Override
     public OpstiDomenskiObjekat formToOdo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return null;
     }
 
     @Override
     public void odoToForm(OpstiDomenskiObjekat odo) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return;
     }
 
     @Override
     protected void postaviListenere() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return;
     }
 
     @Override

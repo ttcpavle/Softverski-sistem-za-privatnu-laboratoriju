@@ -1,20 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package domen;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- *
- * @author totic
- * pored ovih metoda treba implementirati: 
- * 3 konstruktora (jedan sa id, jedan bez id, i prazan - zbog popuniIzResultSet() funkcije)
- * getteri/setteri
- * 
- */
 public interface OpstiDomenskiObjekat {
     
     // format vracenog stringa: 'neki string', 123, 10, 'abc' (koristi se npr kod INSERT INTO x VALUES (<povratna vrednost ove funkcije>)

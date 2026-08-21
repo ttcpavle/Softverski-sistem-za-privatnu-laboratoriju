@@ -1,4 +1,3 @@
-// StavkaZahteva.java
 package domen;
 
 import java.io.Serializable;
@@ -9,7 +8,6 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    // Kompozitni ključ
     private int idZahtev;
     private int rbStavka;
     
@@ -17,7 +15,6 @@ public class StavkaZahteva implements OpstiDomenskiObjekat, Serializable {
     private double jedinicnaCena;
     private double ukupnaCena;
     
-    // Veze
     private ZahtevZaAnalizu zahtev;
     private Proizvod proizvod;
 

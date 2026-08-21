@@ -1,14 +1,9 @@
 package domen;
 
-import domen.OpstiDomenskiObjekat;
 import java.awt.Color;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author totic
- */
 public abstract class OpstaEkranskaForma extends JFrame{
 
     public OpstaEkranskaForma(String title) {

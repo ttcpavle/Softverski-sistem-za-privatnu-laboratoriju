@@ -31,7 +31,7 @@ public class PretraziZahtevZaAnalizu extends OpstaSO {
             return new Response(null, new Exception("Zahtev za analizu nije pronadjen"), false);
         }
         ZahtevZaAnalizu zahtev = (ZahtevZaAnalizu) dbb.getRezultat();
-        // ovaj zahtev nema kupca, radnika ni stavke pa cemo da ih odmah pretrazimo
+
         result = dbb.nadjiSlog(zahtev.getKupac());
         if (!result) {
             return new Response(null, new Exception("Greska pri ocitavanju kupca"), false);
@@ -44,7 +44,7 @@ public class PretraziZahtevZaAnalizu extends OpstaSO {
         Radnik radnik = (Radnik) dbb.getRezultat();
 
         StavkaZahteva stavkaPretraga = new StavkaZahteva(zahtev);
-        //result = dbb.vratiSve(stavkaPretraga);
+
         result = dbb.vratiSvePremaUslovu(stavkaPretraga, "stavkazahteva", "", "proizvod", 
                 "stavkazahteva.idProizvod=proizvod.idProizvod", 
                 "idZahtev=" + stavkaPretraga.getIdZahtev(), null);
@@ -56,8 +56,6 @@ public class PretraziZahtevZaAnalizu extends OpstaSO {
         zahtev.setStavke(stavke);
         zahtev.setKupac(kupac);
         zahtev.setRadnik(radnik);
-        
-        
 
         return new Response(zahtev, null, true);
     }

@@ -1,4 +1,3 @@
-// TipUsluge.java
 package domen;
 
 import java.io.Serializable;

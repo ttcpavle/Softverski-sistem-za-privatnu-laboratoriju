@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package database;
 
 import domen.OpstiDomenskiObjekat;
@@ -11,10 +7,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-/**
- *
- * @author totic
- */
+
 // Implementirano tako da database broker ne vraca ResultSet i time logiku jdbc drzi izolovanom od ostatka koda
 public class DBBroker implements Repository{
 
@@ -200,11 +193,6 @@ public class DBBroker implements Repository{
         return false;
     }
 
-    /**
-     * 
-     * @param odo
-     * @return 
-     */
     @Override
     public boolean promeniSlog(OpstiDomenskiObjekat odo) {
         try {
@@ -237,9 +225,6 @@ public class DBBroker implements Repository{
      *   DELETE FROM stavkazahteva WHERE idZahtev=5 AND rbStavka=2
      * Primer za Kupac:
      *   DELETE FROM kupac WHERE idKupac=3
-     *
-     * Metoda razlaže vratiNazivKolonePK() i vratiVrednostPK() po zarezima
-     * i gradi WHERE klauzulu sa AND između parova kolona=vrednost.
      */    
     @Override
     public boolean obrisiSlog(OpstiDomenskiObjekat odo) {

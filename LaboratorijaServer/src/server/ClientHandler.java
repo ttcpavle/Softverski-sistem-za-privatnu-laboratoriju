@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package server;
 
 import communication.Operacija;
@@ -19,10 +15,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author totic
- */
 public class ClientHandler extends Thread {
 
     private static final Logger LOGGER = Logger.getLogger(ClientHandler.class.getName());

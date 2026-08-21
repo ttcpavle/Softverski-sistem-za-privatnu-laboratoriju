@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacije;
 
 import communication.Response;
@@ -9,10 +5,6 @@ import database.DBBroker;
 import domen.OpstiDomenskiObjekat;
 import domen.Radnik;
 
-/**
- *
- * @author totic
- */
 public class PrijaviRadnika extends OpstaSO{
 
     @Override
@@ -28,8 +20,6 @@ public class PrijaviRadnika extends OpstaSO{
             return new Exception("Nije prosledjen objekat radnik");
         }
         
-        
-        
     }
 
     @Override
@@ -44,8 +34,7 @@ public class PrijaviRadnika extends OpstaSO{
         }
         Radnik r = (Radnik) dbb.getRezultat();
         return new Response(r,null,true);
-        
-        
+
     }
     
 }

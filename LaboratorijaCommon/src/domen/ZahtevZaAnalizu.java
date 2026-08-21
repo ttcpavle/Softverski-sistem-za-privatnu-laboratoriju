@@ -1,4 +1,3 @@
-// ZahtevZaAnalizu.java
 package domen;
 
 import java.io.Serializable;

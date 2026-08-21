@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package operacije;
 
 import communication.Response;
@@ -9,10 +5,6 @@ import database.DBBroker;
 import domen.Kupac;
 import domen.OpstiDomenskiObjekat;
 
-/**
- *
- * @author totic
- */
 public class ObrisiKupac extends OpstaSO{
 
     @Override

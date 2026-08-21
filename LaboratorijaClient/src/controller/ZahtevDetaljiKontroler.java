@@ -1,23 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import communication.Operacija;
 import communication.Response;
-import domen.Kupac;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
-import domen.Radnik;
 import domen.ZahtevZaAnalizu;
 import forms.ZahtevDetaljiForm;
 import models.StavkaTableModel;
 
-/**
- *
- * @author totic
- */
 public class ZahtevDetaljiKontroler extends OpstiKontrolerKI{
     
     private ZahtevZaAnalizu zahtev;

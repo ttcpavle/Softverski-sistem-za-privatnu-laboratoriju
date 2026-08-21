@@ -1,35 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import communication.Operacija;
-import communication.Request;
 import communication.Response;
 import domen.Kupac;
 import domen.OpstaEkranskaForma;
 import domen.OpstiDomenskiObjekat;
 import domen.Radnik;
-import domen.StavkaZahteva;
 import domen.ZahtevZaAnalizu;
-import forms.KreirajZahtevForm;
 import forms.PretraziZahtevForm;
 import forms.PromeniZahtevForm;
 import forms.ZahtevDetaljiForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDate;
 import java.util.List;
 import javax.swing.JTable;
 import models.DomenskiComboBoxModel;
-import models.StavkaTableModel;
 import models.ZahtevTableModel;
 
-/**
- *
- * @author totic
- */
 public class PretraziZahtevKontroler extends OpstiKontrolerKI {
 
     private ZahtevTableModel zahtevTableModel;

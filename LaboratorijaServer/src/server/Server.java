@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package server;
 
 import util.ConfigReader;
@@ -15,14 +11,10 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
-/**
- *
- * @author totic
- */
 public class Server extends Thread{
     private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
     private ServerSocket serverSocket;
-    private List<ClientHandler> clients = new ArrayList<>(); // ne static lista jer vise threadova bi brisalo elemente liste, NIJE SAFE
+    private List<ClientHandler> clients = new ArrayList<>(); // ne static lista jer vise threadova bi brisalo elemente liste
     private final int PORT;
     private ServerForm serverForm;
     private Thread proveraKonekcijeThread;

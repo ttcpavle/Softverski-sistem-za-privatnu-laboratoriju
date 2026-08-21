@@ -10,12 +10,12 @@ public interface Repository {
     public boolean pamtiSlog(OpstiDomenskiObjekat odo);
 
     /**
-     * @param objekat sa postavljenim atributima po kojima se vrsi pretraga. U rezultat se upisuje pronadjeni slog
+     * @param odo sa postavljenim atributima po kojima se vrsi pretraga. U rezultat se upisuje pronadjeni slog
      */
     public boolean nadjiSlog(OpstiDomenskiObjekat odo);
 
     /**
-     * @param objekat sa postavljenim atributima po kojima se vrsi pretraga. U rezultat se upisuju pronadjeni slogovi.
+     * @param odo sa postavljenim atributima po kojima se vrsi pretraga. U rezultat se upisuju pronadjeni slogovi.
      */
     public boolean vratiSve(OpstiDomenskiObjekat odo);
 

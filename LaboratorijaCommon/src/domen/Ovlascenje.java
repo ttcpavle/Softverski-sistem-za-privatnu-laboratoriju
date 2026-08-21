@@ -9,14 +9,12 @@ public class Ovlascenje implements OpstiDomenskiObjekat, Serializable {
     
     private static final long serialVersionUID = 1L;
     
-    // Kompozitni ključ
     private int idRadnik;
     private int idTipUsluge;
     
     private LocalDate datumOd;
     private LocalDate datumDo;
     
-    // Veze
     private Radnik radnik;
     private TipUsluge tipUsluge;
     
@@ -49,7 +47,7 @@ public class Ovlascenje implements OpstiDomenskiObjekat, Serializable {
     
     @Override
     public String vratiNazivKolonePK() {
-        return "idRadnik, idTipUsluge";  // Kompozitni ključ
+        return "idRadnik, idTipUsluge";
     }
     
     @Override

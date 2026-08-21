@@ -1,15 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
 package communication;
 
-/**
- *
- * @author totic
- */
 
-/*
+/* Operacije za slucajeve koriscenja:
 SK1 kreiraj zahtev za analizu
 SK2 pretrazi zahtev za analizu
 SK3 promeni zahtev za analizu

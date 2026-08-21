@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package connection;
 
 import communication.Receiver;
@@ -12,10 +8,6 @@ import java.io.IOException;
 import java.net.Socket;
 import util.ConfigReader;
 
-/**
- *
- * @author totic
- */
 public class Connection {
     private static Connection instance;
     private Socket socket;
@@ -63,6 +55,5 @@ public class Connection {
         return receiver;
     }
        
-    
     
 }
