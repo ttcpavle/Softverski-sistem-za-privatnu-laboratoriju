@@ -176,7 +176,7 @@ public class KreirajZahtevForm extends OpstaEkranskaForma {
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
-        kreirajZahtevButton.setText("Kreiraj zahtev");
+        kreirajZahtevButton.setText("Sačuvaj");
         kreirajZahtevButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 kreirajZahtevButtonActionPerformed(evt);

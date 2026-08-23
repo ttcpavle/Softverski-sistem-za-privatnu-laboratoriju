@@ -57,7 +57,7 @@ public class ClientHandler extends Thread {
                         break;
  
                     case OBRISI_ZAHTEV_ZA_ANALIZU:
-                        //serverResponse = c.ObrisiZahtevZaAnalizu((ZahtevZaAnalizu) argumentObj);
+                        serverResponse = c.ObrisiZahtevZaAnalizu((ZahtevZaAnalizu) argumentObj);
                         break;
  
                     case PRETRAZI_ZAHTEV_ZA_ANALIZU:

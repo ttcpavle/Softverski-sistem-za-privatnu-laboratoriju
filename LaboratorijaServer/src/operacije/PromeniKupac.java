@@ -13,9 +13,20 @@ public class PromeniKupac extends OpstaSO {
             return new Exception("Nije prosledjen objekat tipa Kupac");
         }
         Kupac k = (Kupac) odo;
-        System.out.println(k.getIdKupac());
         if (k.getIdKupac() <= 0) {
             return new Exception("Kupac nema validan ID za izmenu. ID: " + k.getIdKupac());
+        }
+        if (k.getIme() == null || k.getIme().isEmpty()) {
+            return new Exception("Kupac mora imati ime");
+        }
+        if (k.getPrezime() == null || k.getPrezime().isEmpty()) {
+            return new Exception("Kupac mora imati prezime");
+        }
+        if (k.getDatumRodjenja() == null) {
+            return new Exception("Kupac mora imati datum rodjenja");
+        }
+        if (k.getMesto() == null || k.getMesto().getIdMesto() <= 0) {
+            return new Exception("Kupac mora imati validan grad/mesto");
         }
         return null;
     }

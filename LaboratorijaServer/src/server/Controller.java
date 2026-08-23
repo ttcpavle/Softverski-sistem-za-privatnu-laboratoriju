@@ -10,6 +10,7 @@ import domen.ZahtevZaAnalizu;
 import operacije.KreirajKupac;
 import operacije.KreirajZahtevZaAnalizu;
 import operacije.ObrisiKupac;
+import operacije.ObrisiZahtevZaAnalizu;
 import operacije.PromeniKupac;
 import operacije.PromeniProizvod;
 import operacije.PromeniZahtevZaAnalizu;
@@ -41,7 +42,8 @@ public class Controller {
     }
 
     public Response ObrisiZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {
-        return null;
+        ObrisiZahtevZaAnalizu so = new ObrisiZahtevZaAnalizu();
+        return so.opsteIzvrsenjeSO(zahtev);
     }
 
     public Response PretraziZahtevZaAnalizu(ZahtevZaAnalizu zahtev) {

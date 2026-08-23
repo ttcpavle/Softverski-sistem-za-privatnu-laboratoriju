@@ -12,6 +12,8 @@ import domen.ZahtevZaAnalizu;
 import forms.KreirajZahtevForm;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.LocalDate;
 import java.util.List;
 import javax.swing.event.DocumentEvent;
@@ -25,16 +27,17 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
     private StavkaTableModel stavkaTableModel;
 
+    // id novog zahteva
+    private int idNoviZahtev;
+    // da li je trenutno kreirani zahtev vec sacuvan
+    private boolean sacuvano;
+
     public KreirajZahtevKontroler(OpstaEkranskaForma forma) {
         super(forma);
         inicijalizujFormu();
         postaviListenere();
     }
 
-    /**
-     * Cita izabranog radnika i kupca iz combo boxova,
-     * konstruise ZahtevZaAnalizu sa listom stavki iz tabele.
-     */
     @Override
     public OpstiDomenskiObjekat formToOdo() {
         KreirajZahtevForm f = (KreirajZahtevForm) forma;
@@ -45,6 +48,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
         String status = (String) f.getStatusCombo().getSelectedItem();
 
         ZahtevZaAnalizu zahtev = new ZahtevZaAnalizu();
+        zahtev.setIdZahtev(idNoviZahtev);
         zahtev.setDatum(LocalDate.now());
         zahtev.setStatus(status);
         zahtev.setPrioritet(prioritet);
@@ -90,7 +94,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
                     kolicina = Integer.parseInt(kolicinaTekst);
                     if (kolicina <= 0) throw new NumberFormatException();
                 } catch (NumberFormatException ex) {
-                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Kolicina mora biti pozitivan ceo broj", null);
+                    forma.prikaziErrorPane("Kolicina mora biti pozitivan ceo broj", null);
                     return;
                 }
 
@@ -134,32 +138,33 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
             }
         });
 
-        // --- Kreiraj zahtev ---
+        // --- Sacuvaj (zapamti) zahtev ---
         f.getKreirajZahtevButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (stavkaTableModel.getRowCount() == 0) {
-                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Zahtev mora imati bar jednu stavku", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Zahtev mora imati bar jednu stavku", null);
                     return;
                 }
 
                 ZahtevZaAnalizu zahtev = (ZahtevZaAnalizu) formToOdo();
 
                 if (zahtev.getRadnik() == null) {
-                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Izaberite radnika", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Izaberite radnika", null);
                     return;
                 }
                 if (zahtev.getKupac() == null) {
-                    forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: Izaberite kupca", null);
+                    forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: Izaberite kupca", null);
                     return;
                 }
 
-                Response response = sendReceive(Operacija.KREIRAJ_ZAHTEV_ZA_ANALIZU, zahtev);
+                Response response = sendReceive(Operacija.PROMENI_ZAHTEV_ZA_ANALIZU, zahtev);
                 if (response == null) return;
 
                 if (response.isSuccess()) {
+                    sacuvano = true;
                     forma.prikaziInfoPane("Sistem je zapamtio zahtev za analizu.");
-                    ocistiFormu();
+                    zatvoriFormu();
                 } else {
                     forma.prikaziErrorPane("Sistem ne moze da zapamti zahtev za analizu: " + response.getException().getMessage(), null);
                 }
@@ -178,11 +183,17 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
         f.getGlavnaFormaButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                forma.dispose();
+                zatvoriFormu();
             }
         });
-        
-        
+
+        forma.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                zatvoriFormu();
+            }
+        });
+
         f.getProizvodComboBox().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -199,16 +210,16 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
             @Override
             public void changedUpdate(DocumentEvent e) { azurirajUkupnuCenuStavke(); }
 
-        });       
-        
+        });
+
         stavkaTableModel.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
                 azurirajUkupnuCenuZahteva();
             }
-        });        
+        });
     }
-    
+
     private void azurirajUkupnuCenuZahteva() {
         KreirajZahtevForm f = (KreirajZahtevForm) forma;
 
@@ -219,7 +230,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
         f.getUkupnaCenaZahteva().setText(String.valueOf(ukupno));
     }
-    
+
     private void azurirajUkupnuCenuStavke() {
         KreirajZahtevForm f = (KreirajZahtevForm) forma;
 
@@ -240,10 +251,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
         }
     }
 
-    /**
-     * Ucitava podatke za combo boxove sa servera pri otvaranju forme.
-     * Tabelu ne diramo jer pri inicijalizaciji nema podataka.
-     */
+    // ucitavaju se liste za combo boxove a onda se odmah poziva sistem da kreira nov zahtev
     @Override
     protected void inicijalizujFormu() {
         KreirajZahtevForm f = (KreirajZahtevForm) forma;
@@ -281,6 +289,33 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
         } else {
             forma.prikaziErrorPane("Greska pri ucitavanju proizvoda", null);
         }
+
+        javax.swing.SwingUtilities.invokeLater(this::kreirajPrazanZahtev);
+    }
+
+
+    private void kreirajPrazanZahtev() {
+        Response response = sendReceive(Operacija.KREIRAJ_ZAHTEV_ZA_ANALIZU, new ZahtevZaAnalizu());
+        if (response != null && response.isSuccess()) {
+            ZahtevZaAnalizu kreiraniZahtev = (ZahtevZaAnalizu) response.getResult();
+            idNoviZahtev = kreiraniZahtev.getIdZahtev();
+            sacuvano = false;
+            forma.prikaziInfoPane("Sistem je kreirao zahtev za analizu.");
+        } else {
+            String razlog = response != null ? response.getException().getMessage() : "greska u komunikaciji";
+            forma.prikaziErrorPane("Sistem ne moze da kreira zahtev za analizu: " + razlog, null);
+            forma.dispose();
+        }
+    }
+
+    // ako novi zahtev nikada nije sacuvan, brise se slog pre zatvaranja forme
+    private void zatvoriFormu() {
+        if (!sacuvano && idNoviZahtev > 0) {
+            ZahtevZaAnalizu z = new ZahtevZaAnalizu();
+            z.setIdZahtev(idNoviZahtev);
+            sendReceive(Operacija.OBRISI_ZAHTEV_ZA_ANALIZU, z);
+        }
+        forma.dispose();
     }
 
     private void ocistiFormu() {

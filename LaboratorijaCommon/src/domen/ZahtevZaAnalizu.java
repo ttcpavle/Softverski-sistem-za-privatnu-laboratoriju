@@ -39,24 +39,26 @@ public class ZahtevZaAnalizu implements OpstiDomenskiObjekat, Serializable {
     @Override
     public String vratiVrednostiAtributa() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append(idZahtev > 0 ? idZahtev : "NULL").append(", ");
-        sb.append("'").append(datum.toString()).append("', ");
-        sb.append("'").append(status).append("', ");
+        sb.append(datum != null ? "'" + datum.toString() + "'" : "NULL").append(", ");
+        sb.append(status != null ? "'" + status + "'" : "NULL").append(", ");
         sb.append(prioritet ? 1 : 0).append(", ");
         sb.append(ukupnaCenaZahteva).append(", ");
         sb.append(radnik != null ? radnik.getIdRadnik() : "NULL").append(", ");
         sb.append(kupac != null ? kupac.getIdKupac() : "NULL");
-        
+
         return sb.toString();
     }
-    
+
     @Override
     public String vratiVrednostiZaUpdate() {
-        return "datum='" + datum + "', status='" + status + "', prioritet=" + (prioritet ? 1 : 0) +
-               ", ukupnaCenaZahteva=" + ukupnaCenaZahteva + 
-               ", idRadnik=" + (radnik != null ? radnik.getIdRadnik() : "NULL") +
-               ", idKupac=" + (kupac != null ? kupac.getIdKupac() : "NULL");
+        return "datum=" + (datum != null ? "'" + datum + "'" : "NULL")
+               + ", status=" + (status != null ? "'" + status + "'" : "NULL")
+               + ", prioritet=" + (prioritet ? 1 : 0)
+               + ", ukupnaCenaZahteva=" + ukupnaCenaZahteva
+               + ", idRadnik=" + (radnik != null ? radnik.getIdRadnik() : "NULL")
+               + ", idKupac=" + (kupac != null ? kupac.getIdKupac() : "NULL");
     }
     
     @Override

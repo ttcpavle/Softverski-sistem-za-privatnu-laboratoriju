@@ -17,6 +17,15 @@ public class PromeniZahtevZaAnalizu extends OpstaSO {
         if (z.getIdZahtev() <= 0) {
             return new Exception("Zahtev nema validan ID za izmenu");
         }
+        if (z.getKupac() == null) {
+            return new Exception("Zahtev mora imati kupca");
+        }
+        if (z.getRadnik() == null) {
+            return new Exception("Zahtev mora imati radnika");
+        }
+        if (z.getDatum() == null) {
+            return new Exception("Zahtev mora imati datum");
+        }
         if (z.getStavke() == null || z.getStavke().isEmpty()) {
             return new Exception("Zahtev mora imati bar jednu stavku");
         }

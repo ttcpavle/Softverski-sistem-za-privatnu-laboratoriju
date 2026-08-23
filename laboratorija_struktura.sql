@@ -22,12 +22,12 @@ DROP TABLE IF EXISTS `kupac`;
 
 CREATE TABLE `kupac` (
   `idKupac` int(11) NOT NULL AUTO_INCREMENT,
-  `ime` varchar(255) NOT NULL,
-  `prezime` varchar(255) NOT NULL,
-  `mail` varchar(255) NOT NULL,
-  `telefon` varchar(15) NOT NULL,
-  `datumRodjenja` date NOT NULL,
-  `idMesto` int(11) NOT NULL,
+  `ime` varchar(255) DEFAULT NULL,
+  `prezime` varchar(255) DEFAULT NULL,
+  `mail` varchar(255) DEFAULT NULL,
+  `telefon` varchar(15) DEFAULT NULL,
+  `datumRodjenja` date DEFAULT NULL,
+  `idMesto` int(11) DEFAULT NULL,
   PRIMARY KEY (`idKupac`),
   KEY `idMesto` (`idMesto`),
   CONSTRAINT `kupac_ibfk_1` FOREIGN KEY (`idMesto`) REFERENCES `mesto` (`idMesto`)
@@ -122,12 +122,12 @@ DROP TABLE IF EXISTS `zahtevzaanalizu`;
 
 CREATE TABLE `zahtevzaanalizu` (
   `idZahtev` int(11) NOT NULL AUTO_INCREMENT,
-  `datum` date NOT NULL,
-  `status` varchar(255) NOT NULL,
+  `datum` date DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `prioritet` tinyint(1) NOT NULL DEFAULT 0,
-  `ukupnaCenaZahteva` double NOT NULL,
-  `idRadnik` int(11) NOT NULL,
-  `idKupac` int(11) NOT NULL,
+  `ukupnaCenaZahteva` double NOT NULL DEFAULT 0,
+  `idRadnik` int(11) DEFAULT NULL,
+  `idKupac` int(11) DEFAULT NULL,
   PRIMARY KEY (`idZahtev`),
   KEY `idRadnik` (`idRadnik`),
   KEY `idKupac` (`idKupac`),

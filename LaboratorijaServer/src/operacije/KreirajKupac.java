@@ -12,22 +12,10 @@ public class KreirajKupac extends OpstaSO {
         if (!(odo instanceof Kupac)) {
             return new Exception("Nije prosledjen objekat tipa Kupac");
         }
-        Kupac k = (Kupac) odo;
-        if (k.getIme() == null || k.getIme().isEmpty()) {
-            return new Exception("Kupac mora imati ime");
-        }
-        if (k.getPrezime() == null || k.getPrezime().isEmpty()) {
-            return new Exception("Kupac mora imati prezime");
-        }
-        if (k.getDatumRodjenja() == null) {
-            return new Exception("Kupac mora imati datum rodjenja");
-        }
-        if (k.getMesto() == null || k.getMesto().getIdMesto() <= 0) {
-            return new Exception("Kupac mora imati validan grad/mesto");
-        }
         return null;
     }
 
+    // pravi se prazan slog kupca
     @Override
     protected Response izvrsenjeSO(OpstiDomenskiObjekat odo, DBBroker dbb) {
         Exception preduslov = preduslovi(odo, dbb);
@@ -38,6 +26,12 @@ public class KreirajKupac extends OpstaSO {
         if (!result) {
             return new Response(null, new Exception("Greska pri kreiranju kupca"), false);
         }
-        return new Response(null, null, true);
+        Integer generisaniId = (Integer) dbb.getRezultat();
+        if (generisaniId == null || generisaniId <= 0) {
+            return new Response(null, new Exception("Nije moguce preuzeti generisani ID kupca"), false);
+        }
+        Kupac k = (Kupac) odo;
+        k.setIdKupac(generisaniId);
+        return new Response(k, null, true);
     }
 }

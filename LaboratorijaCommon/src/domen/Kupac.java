@@ -46,23 +46,26 @@ public class Kupac implements OpstiDomenskiObjekat, Serializable {
     @Override
     public String vratiVrednostiAtributa() {
         StringBuilder sb = new StringBuilder();
-        
+
         sb.append(idKupac > 0 ? idKupac : "NULL").append(", ");
-        sb.append("'").append(ime).append("', ");
-        sb.append("'").append(prezime).append("', ");
-        sb.append("'").append(mail).append("', ");
-        sb.append("'").append(telefon).append("', ");
-        sb.append("'").append(datumRodjenja.toString()).append("', ");
+        sb.append(ime != null ? "'" + ime + "'" : "NULL").append(", ");
+        sb.append(prezime != null ? "'" + prezime + "'" : "NULL").append(", ");
+        sb.append(mail != null ? "'" + mail + "'" : "NULL").append(", ");
+        sb.append(telefon != null ? "'" + telefon + "'" : "NULL").append(", ");
+        sb.append(datumRodjenja != null ? "'" + datumRodjenja.toString() + "'" : "NULL").append(", ");
         sb.append(mesto != null ? mesto.getIdMesto() : "NULL");
-        
+
         return sb.toString();
     }
-    
+
     @Override
     public String vratiVrednostiZaUpdate() {
-        return "ime='" + ime + "', prezime='" + prezime + "', mail='" + mail + 
-               "', telefon='" + telefon + "', datumRodjenja='" + datumRodjenja + 
-               "', idMesto=" + (mesto != null ? mesto.getIdMesto() : "NULL");
+        return "ime=" + (ime != null ? "'" + ime + "'" : "NULL")
+               + ", prezime=" + (prezime != null ? "'" + prezime + "'" : "NULL")
+               + ", mail=" + (mail != null ? "'" + mail + "'" : "NULL")
+               + ", telefon=" + (telefon != null ? "'" + telefon + "'" : "NULL")
+               + ", datumRodjenja=" + (datumRodjenja != null ? "'" + datumRodjenja + "'" : "NULL")
+               + ", idMesto=" + (mesto != null ? mesto.getIdMesto() : "NULL");
     }
     
     @Override
