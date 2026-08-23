@@ -258,6 +258,7 @@ public class KreirajZahtevKontroler extends OpstiKontrolerKI {
 
         // Postavi table model
         stavkaTableModel = new StavkaTableModel();
+        stavkaTableModel.setNaGresku(poruka -> forma.prikaziErrorPane(poruka, null));
         f.getTabelaStavke().setModel(stavkaTableModel);
 
         // Postavi danasnji datum

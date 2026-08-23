@@ -196,10 +196,21 @@ public class DBBroker implements Repository{
     @Override
     public boolean promeniSlog(OpstiDomenskiObjekat odo) {
         try {
+            // podrzava i kompozitne primarne kljuceve (npr. StavkaZahteva: idZahtev, rbStavka)
+            String[] kolone = odo.vratiNazivKolonePK().split(",");
+            String[] vrednosti = odo.vratiVrednostPK().split(",");
+
+            StringBuilder where = new StringBuilder();
+            for (int i = 0; i < kolone.length; i++) {
+                if (i > 0) {
+                    where.append(" AND ");
+                }
+                where.append(kolone[i].trim()).append("=").append(vrednosti[i].trim());
+            }
 
             String upit = "UPDATE " + odo.vratiImeTabele()
                     + " SET " + odo.vratiVrednostiZaUpdate()
-                    + " WHERE " + odo.vratiNazivKolonePK() + " = " + odo.vratiVrednostPK();
+                    + " WHERE " + where;
 
             LOGGER.log(Level.INFO, "izvrsavanje upita: " + upit);
             Statement st = con.createStatement();

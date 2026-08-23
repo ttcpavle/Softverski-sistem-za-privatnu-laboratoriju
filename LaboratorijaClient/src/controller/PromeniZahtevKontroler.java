@@ -75,6 +75,7 @@ public class PromeniZahtevKontroler extends OpstiKontrolerKI{
     public void odoToForm(OpstiDomenskiObjekat odo) {
         PromeniZahtevForm f = (PromeniZahtevForm) forma;
         stavkaTableModel = new StavkaTableModel(zahtev.getStavke());
+        stavkaTableModel.setNaGresku(poruka -> forma.prikaziErrorPane(poruka, null));
         f.getIdField().setText(Integer.toString(zahtev.getIdZahtev()));
         f.getDatumField().setText(zahtev.getDatum().toString());
         f.getPrioritetCheck().setSelected(zahtev.isPrioritet());

@@ -5,6 +5,9 @@ import database.DBBroker;
 import domen.OpstiDomenskiObjekat;
 import domen.StavkaZahteva;
 import domen.ZahtevZaAnalizu;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PromeniZahtevZaAnalizu extends OpstaSO {
 
@@ -41,26 +44,51 @@ public class PromeniZahtevZaAnalizu extends OpstaSO {
 
         ZahtevZaAnalizu z = (ZahtevZaAnalizu) odo;
 
-        // 1. postavljanje nekih podataka u zahtevu(datum, status, prioritet, ukupnaCena, radnik, kupac)
         boolean result = dbb.promeniSlog(z);
         if (!result) {
             return new Response(null, new Exception("Greska pri izmeni headera zahteva za analizu"), false);
         }
 
-        // 2. brisanje svih postojecih stavki za ovaj zahtev (delete-then-insert strategija)
-        StavkaZahteva probeStavka = new StavkaZahteva();
-        probeStavka.setZahtev(z); // postavi se idZahtev unutar stavke i on se koristi kao filter
-        boolean obrisan = dbb.obrisiSvePremaUslovu(probeStavka);
-        if (!obrisan) {
-            return new Response(null, new Exception("Greska pri brisanju stavki zahteva"), false);
+        StavkaZahteva probeStavka = new StavkaZahteva(z);
+        boolean nadjene = dbb.vratiSvePremaUslovu(probeStavka, "stavkazahteva", "", "proizvod",
+                "stavkazahteva.idProizvod=proizvod.idProizvod",
+                "idZahtev=" + z.getIdZahtev(), null);
+        if (!nadjene) {
+            return new Response(null, new Exception("Greska pri ucitavanju postojecih stavki zahteva"), false);
+        }
+        List<StavkaZahteva> stareStavke = (List<StavkaZahteva>) dbb.getRezultat();
+
+        Map<Integer, StavkaZahteva> stareMap = new HashMap<>();
+        for (StavkaZahteva stara : stareStavke) {
+            stareMap.put(stara.getRbStavka(), stara);
         }
 
-        // 3. ubacivanje novih stavki
-        for (StavkaZahteva stavka : z.getStavke()) {
-            stavka.setZahtev(z); // postavlja idZahtev na svakoj stavki
-            boolean stavkaResult = dbb.pamtiSlog(stavka);
-            if (!stavkaResult) {
-                return new Response(null, new Exception("Greska pri unosu stavke zahteva (rbStavka=" + stavka.getRbStavka() + ")"), false);
+        Map<Integer, StavkaZahteva> noveMap = new HashMap<>();
+        for (StavkaZahteva nova : z.getStavke()) {
+            noveMap.put(nova.getRbStavka(), nova);
+        }
+
+        for (StavkaZahteva nova : z.getStavke()) {
+            nova.setZahtev(z);
+            if (stareMap.containsKey(nova.getRbStavka())) {
+                Response r = new ZapamtiStavkuZahtevaZaAnalizu().izvrsenjeSO(nova, dbb);
+                if (!r.isSuccess()) {
+                    return r;
+                }
+            } else {
+                Response r = new DodajStavkuZahtevaZaAnalizu().izvrsenjeSO(nova, dbb);
+                if (!r.isSuccess()) {
+                    return r;
+                }
+            }
+        }
+
+        for (StavkaZahteva stara : stareStavke) {
+            if (!noveMap.containsKey(stara.getRbStavka())) {
+                Response r = new ObrisiStavkuZahtevaZaAnalizu().izvrsenjeSO(stara, dbb);
+                if (!r.isSuccess()) {
+                    return r;
+                }
             }
         }
 
