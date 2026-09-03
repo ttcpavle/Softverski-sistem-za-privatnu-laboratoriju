@@ -213,6 +213,7 @@ public class ClientHandler extends Thread {
         cleanup();
     }
 
+    // zatvara socket i kaze serveru da skloni ovog klijenta iz liste
     private void cleanup() {
         if (socket != null) {
             try {
@@ -224,7 +225,7 @@ public class ClientHandler extends Thread {
         server.removeClient(this);
     }
 
-    // druga nit moze da zaustavi klijenta
+    // druga nit moze da zaustavi klijenta, klijent detektuje flag i zavrsava s radom
     public void zaustavi() {
         interrupt();
     }

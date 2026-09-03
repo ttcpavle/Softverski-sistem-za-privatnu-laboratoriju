@@ -60,8 +60,9 @@ public class Server extends Thread{
                 clients.add(clientHandler);
                 clientHandler.start();
             }
-        } catch (IOException ex) {
             LOGGER.log(Level.INFO, "Server process prekinut");
+        } catch (IOException ex) {
+            LOGGER.log(Level.INFO, "Server socket zatvoren");
             if(serverForm != null){
                 serverForm.osveziBazaKonekcijaLabel(false);
                 serverForm.osveziServerStatusLabel(false);
@@ -151,6 +152,7 @@ public class Server extends Thread{
         }
     }
 
+    // ovu funkciju zove klijentska nit
     public void removeClient(ClientHandler client) {
         // zaustavi se zove u sinhronizovanom bloku, sinhronizacija ovde bila bi dupla, ali ostavio sam je
         synchronized(clients){
