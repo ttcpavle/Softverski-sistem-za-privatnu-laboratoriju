@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: PretraziKupac
+    C->>SO: new PretraziKupac()
+    C->>+SO: opsteIzvrsenjeSO(kupac)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    alt kupac nije tipa Kupac
+        SO-->>C: Response(false, "Nije prosledjen objekat tipa Kupac")
+    else tip je ispravan
+        SO->>+DB: nadjiSlog(kupac)
+        DB-->>-SO: pronadjen
+        alt pronadjen == false
+            SO-->>C: Response(false, exception="Kupac nije pronadjen")
+        else pronadjen == true
+            SO->>+DB: getRezultat()
+            DB-->>-SO: Kupac
+            SO->>+DB: nadjiSlog(kupac.mesto)
+            DB-->>-SO: mestoPronadjeno
+            opt mestoPronadjeno == false
+                SO-->>SO: exception = "Nije nadjeno mesto kupca"
+            end
+            SO->>+DB: getRezultat()
+            DB-->>-SO: Mesto (ili null)
+            SO-->>C: Response(true, Kupac [+ exception ako mesto nije nadjeno])
+        end
+    end
+    deactivate SO

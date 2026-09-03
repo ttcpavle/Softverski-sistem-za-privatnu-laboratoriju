@@ -1,0 +1,22 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: ObrisiZahtevZaAnalizu
+    C->>SO: new ObrisiZahtevZaAnalizu()
+    C->>+SO: opsteIzvrsenjeSO(zahtev)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    alt zahtev nije tipa ZahtevZaAnalizu
+        SO-->>C: Response(false, "Prosledjeni objekat nije zahtev za analizu")
+    else tip je ispravan
+        SO->>+DB: obrisiSlog(zahtev)
+        DB-->>-SO: obrisano
+        alt obrisano == false
+            SO-->>C: Response(false, "Greska pri brisanju zahteva za analizu")
+        else obrisano == true
+            SO-->>C: Response(true)
+        end
+    end
+    deactivate SO

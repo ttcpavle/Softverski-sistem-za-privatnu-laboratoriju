@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: VratiListuZahtevZaAnalizu
+    C->>SO: new VratiListuZahtevZaAnalizu()
+    C->>+SO: opsteIzvrsenjeSO(kriterijum)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    alt kriterijum nije tipa ZahtevZaAnalizu
+        SO-->>C: Response(false, "Nije prosledjen objekat tipa ZahtevZaAnalizu")
+    else tip je ispravan
+        SO->>+DB: vratiSve(kriterijum)
+        DB-->>-SO: procitano
+        alt procitano == false
+            SO-->>C: Response(false, "Greska pri ocitavanju zahteva")
+        else procitano == true
+            SO->>+DB: getRezultat()
+            DB-->>-SO: Lista<ZahtevZaAnalizu>
+            loop za svaki zahtev iz liste
+                SO->>+DB: nadjiSlog(zahtev.kupac)
+                DB-->>-SO: Kupac (ili greska)
+                SO->>+DB: nadjiSlog(zahtev.radnik)
+                DB-->>-SO: Radnik (ili greska)
+                SO->>+DB: vratiSvePremaUslovu(stavka, "idZahtev=...")
+                DB-->>-SO: Lista<StavkaZahteva> (ili greska)
+            end
+            SO-->>C: Response(true, Lista<ZahtevZaAnalizu> sa kupcem/radnikom/stavkama)
+        end
+    end
+    deactivate SO

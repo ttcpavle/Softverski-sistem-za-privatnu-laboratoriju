@@ -1,0 +1,41 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: PromeniZahtevZaAnalizu
+    C->>SO: new PromeniZahtevZaAnalizu()
+    C->>+SO: opsteIzvrsenjeSO(zahtev)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    alt preduslovi nisu zadovoljeni (id, kupac, radnik, datum ili stavke nedostaju)
+        SO-->>C: Response(false, poruka o nedostajucem podatku)
+    else preduslovi zadovoljeni
+        SO->>+DB: promeniSlog(zahtev)
+        DB-->>-SO: headerSacuvan
+        alt headerSacuvan == false
+            SO-->>C: Response(false, "Greska pri izmeni headera zahteva za analizu")
+        else headerSacuvan == true
+            SO->>+DB: vratiSvePremaUslovu(stavka, "idZahtev=...")
+            DB-->>-SO: stareStavke
+            loop za svaku novu stavku iz zahtev.stavke
+                alt rbStavka postoji medju starim stavkama
+                    SO->>+DB: promeniSlog(stavka)
+                    DB-->>-SO: stavkaSacuvana
+                else rbStavka je nov
+                    SO->>+DB: pamtiSlog(stavka)
+                    DB-->>-SO: stavkaSacuvana
+                end
+            end
+            loop za svaku staru stavku ciji rbStavka vise ne postoji u novoj listi
+                SO->>+DB: obrisiSlog(stavka)
+                DB-->>-SO: stavkaObrisana
+            end
+            alt bilo koja stavkaSacuvana/stavkaObrisana == false
+                SO-->>C: Response(false, "Greska pri dodavanju/azuriranju/brisanju stavke zahteva")
+            else sve stavke uskladjene
+                SO-->>C: Response(true)
+            end
+        end
+    end
+    deactivate SO

@@ -13,7 +13,7 @@ public class Proizvod implements OpstiDomenskiObjekat, Serializable {
     
     private int idProizvod;
     private String naziv;
-    private int vremeCekanjaSati; // ocekivano vreme cekanja na rezultate, u satima (npr. 72 = 3 dana)
+    private int vremeCekanjaSati; // u satima
     private double cena;
     private String opis;
     

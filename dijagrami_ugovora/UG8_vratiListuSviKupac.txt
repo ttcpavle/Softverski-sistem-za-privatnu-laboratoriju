@@ -1,0 +1,15 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: VratiListuSviKupac
+    C->>SO: new VratiListuSviKupac()
+    C->>+SO: opsteIzvrsenjeSO(null)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    SO->>+DB: vratiSve(new Kupac())
+    DB-->>-SO: procitano
+    SO->>+DB: getRezultat()
+    DB-->>-SO: Lista<Kupac>
+    SO-->>-C: Response(true, Lista<Kupac>)

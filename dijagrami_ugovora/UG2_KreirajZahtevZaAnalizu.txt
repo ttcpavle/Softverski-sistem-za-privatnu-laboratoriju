@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: KreirajZahtevZaAnalizu
+    C->>SO: new KreirajZahtevZaAnalizu()
+    C->>+SO: opsteIzvrsenjeSO(zahtev)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    alt zahtev nije tipa ZahtevZaAnalizu
+        SO-->>C: Response(false, "Nije prosledjen objekat tipa ZahtevZaAnalizu")
+    else tip je ispravan
+        SO->>+DB: pamtiSlog(zahtev)
+        DB-->>-SO: sacuvano
+        alt sacuvano == false
+            SO-->>C: Response(false, "Greska pri kreiranju zahteva za analizu")
+        else sacuvano == true
+            SO->>+DB: getRezultat()
+            DB-->>-SO: generisaniId
+            SO-->>C: Response(true, zahtev sa idZahtev)
+        end
+    end
+    deactivate SO

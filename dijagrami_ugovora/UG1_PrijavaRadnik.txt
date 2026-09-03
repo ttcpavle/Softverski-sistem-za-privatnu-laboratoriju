@@ -1,0 +1,24 @@
+sequenceDiagram
+    participant C as c: Controller
+
+    create participant SO as so: PrijaviRadnika
+    C->>SO: new PrijaviRadnika()
+    C->>+SO: opsteIzvrsenjeSO(radnik)
+
+    create participant DB as db: DBBroker
+    SO->>DB: new DBBroker()
+
+    alt korisnickoIme ili lozinka nisu uneti
+        SO-->>C: Response(false, "Nisu uneti svi podaci")
+    else podaci su uneti
+        SO->>+DB: nadjiSlog(radnik)
+        DB-->>-SO: pronadjen
+        alt pronadjen == false
+            SO-->>C: Response(false, "Korisnicko ime i sifra nisu ispravni")
+        else pronadjen == true
+            SO->>+DB: getRezultat()
+            DB-->>-SO: Radnik
+            SO-->>C: Response(true, Radnik)
+        end
+    end
+    deactivate SO

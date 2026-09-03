@@ -24,7 +24,7 @@ public class PretraziKupac extends OpstaSO {
         }
         boolean result = dbb.nadjiSlog(odo);
         if (!result) {
-            return new Response(null, new Exception("Kupac nije pronadjen"), true); // bilo je false
+            return new Response(null, new Exception("Kupac nije pronadjen"), false); // bilo je false
         }
         Kupac k = (Kupac) dbb.getRezultat();
         
