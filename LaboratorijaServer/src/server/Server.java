@@ -8,13 +8,14 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
 public class Server extends Thread{
     private static final Logger LOGGER = Logger.getLogger(Server.class.getName());
     private ServerSocket serverSocket;
-    private List<ClientHandler> clients = new ArrayList<>(); // ne static lista jer vise threadova bi brisalo elemente liste
+    private final List<ClientHandler> clients = new CopyOnWriteArrayList<>(); // ne static lista jer vise threadova bi brisalo elemente liste
     private final int PORT;
     private ServerForm serverForm;
     private Thread proveraKonekcijeThread;
@@ -31,6 +32,7 @@ public class Server extends Thread{
             PORT = Integer.parseInt(port);
         }    
         LOGGER.log(Level.INFO, "Server konfigurisan.");
+        
     }
     
     @Override
@@ -63,11 +65,8 @@ public class Server extends Thread{
             LOGGER.log(Level.INFO, "Server process prekinut");
         } catch (IOException ex) {
             LOGGER.log(Level.INFO, "Server socket zatvoren");
-            if(serverForm != null){
-                serverForm.osveziBazaKonekcijaLabel(false);
-                serverForm.osveziServerStatusLabel(false);
-            }
-            return;
+        } finally{
+            zaustaviSveKlijenteIResurse();
         }
     }
     
@@ -94,10 +93,8 @@ public class Server extends Thread{
                 Thread.currentThread().interrupt();
             }
         }
-        if(serverForm != null){
-            serverForm.getPokreni().setEnabled(true);
-            serverForm.getZaustavi().setEnabled(false);
-        }
+
+        azurirajDugmadForme(true, false);
         return false;
     }
 
@@ -105,56 +102,71 @@ public class Server extends Thread{
         radiProveru = true;
         proveraKonekcijeThread = new Thread(() -> {
             while (radiProveru) {
+                boolean ziva = ConnectionPool.getInstance().proveriKonekciju();
+                if (serverForm != null) {
+                    serverForm.osveziBazaKonekcijaLabel(ziva);
+                }
                 try {
-                    Thread.sleep(10000);
+                    if (ziva) {
+                        Thread.sleep(10000);
+                    } else {
+                        // brza provera statusa baze ako je izgubljena konekcija
+                        LOGGER.log(Level.WARNING, "Konekcija sa bazom je izgubljena");
+                        Thread.sleep(2000);
+                    }
                 } catch (InterruptedException ie) {
                     Thread.currentThread().interrupt();
                     break;
                 }
-                LOGGER.log(Level.WARNING, "Pokusaj ponovog povezivanja sa bazom...");
-                boolean ziva = ConnectionPool.getInstance().proveriKonekciju();
-
-                if (!ziva) {
-                    LOGGER.log(Level.WARNING, "Konekcija sa bazom je izgubljena.");
-                }
-                if (serverForm != null) {
-                    serverForm.osveziBazaKonekcijaLabel(ziva);
-                }
             }
         });
+        proveraKonekcijeThread.setName("ProveraKonekcije-Thread");
         proveraKonekcijeThread.start();
     }    
+    
+
     
     public void zaustavi() {
         radiProveru = false;
         if (proveraKonekcijeThread != null) {
             proveraKonekcijeThread.interrupt();
-        }        
-        interrupt(); // interruptuje se accept funkcija
-        if (serverSocket != null) {
+        }
+
+        interrupt();
+
+        if (serverSocket != null && !serverSocket.isClosed()) {
             try {
                 serverSocket.close();
             } catch (IOException ex) {
-                //
+                LOGGER.log(Level.SEVERE, "Greska pri zatvaranju ServerSocket-a", ex);
             }
-        }
-        // OVDE MORA SINHRONIZACIJA da ne bi bio ConcurrentModificaitonException. 
-        // objasnnjenje: lista ima iterator. ide se po listi i istovremeno se izbacuju elementi iz nje, pravi se problem.
-        synchronized (clients) {
-            for (ClientHandler client : clients) {
-                client.zaustavi();
-            }
-        }
-        LOGGER.log(Level.INFO, "Server zaustavljen");
-        if(serverForm != null){
-            serverForm.osveziServerStatusLabel(false);
-            serverForm.osveziBazaKonekcijaLabel(false);
         }
     }
 
-    // ovu funkciju zove klijentska nit
+    private void zaustaviSveKlijenteIResurse() {
+        // CopyOnWriteArrayList sprecava ConcurrentModificationException bez potrebe za sinhronizacijom
+        for (ClientHandler client : clients) {
+            client.zaustavi();
+        }
+        clients.clear();
+
+        LOGGER.log(Level.INFO, "Server zaustavljen");
+        if (serverForm != null) {
+            serverForm.osveziServerStatusLabel(false);
+            serverForm.osveziBazaKonekcijaLabel(false);
+            azurirajDugmadForme(true, false);
+        }
+    }
+
+    private void azurirajDugmadForme(boolean pokreniEnabled, boolean zaustaviEnabled) {
+        if (serverForm != null) {
+            serverForm.getPokreni().setEnabled(pokreniEnabled);
+            serverForm.getZaustavi().setEnabled(zaustaviEnabled);
+        }
+    }
+    // ovu funkciju zove klijentska nit. Klijentska nit ce se vec ugasiti pravilno, ovo je samo uklanjanje iz liste
     public void removeClient(ClientHandler client) {
-        // zaustavi se zove u sinhronizovanom bloku, sinhronizacija ovde bila bi dupla, ali ostavio sam je
+
         synchronized(clients){
             clients.remove(client);
         }        
