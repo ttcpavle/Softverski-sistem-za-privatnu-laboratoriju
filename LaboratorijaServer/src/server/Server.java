@@ -20,6 +20,7 @@ public class Server extends Thread{
     private ServerForm serverForm;
     private Thread proveraKonekcijeThread;
     private volatile boolean radiProveru = false;
+    private boolean zadnjiStatusBaze = false;
     
     public Server(ServerForm forma){
         this.serverForm = forma;
@@ -41,12 +42,14 @@ public class Server extends Thread{
         if (!success){
             serverForm.osveziBazaKonekcijaLabel(false);
             LOGGER.log(Level.SEVERE, "Nije moguca konekcija sa bazom podataka.");
+            zadnjiStatusBaze = false;
             if(serverForm != null)
                 serverForm.prikaziErrorPane("Neuspesna veza sa bazom", null);             
             return;
         }else{
             LOGGER.log(Level.INFO, "Uspesna konekcija sa bazom podataka.");
             serverForm.osveziBazaKonekcijaLabel(true);
+            zadnjiStatusBaze = true;
         }
         if(serverForm != null)
             serverForm.osveziServerStatusLabel(true);
@@ -109,7 +112,12 @@ public class Server extends Thread{
                 try {
                     if (ziva) {
                         Thread.sleep(10000);
+                        if(zadnjiStatusBaze == false){
+                            LOGGER.log(Level.INFO, "Konekcija sa bazom je ponovo uspostavljena");
+                            zadnjiStatusBaze = true;
+                        }
                     } else {
+                        zadnjiStatusBaze = false;
                         // brza provera statusa baze ako je izgubljena konekcija
                         LOGGER.log(Level.WARNING, "Konekcija sa bazom je izgubljena");
                         Thread.sleep(2000);
